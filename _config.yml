@@ -34,6 +34,7 @@ github:
 # Algolia
 gems:
   - algoliasearch-jekyll
+  - org-ruby
 
 algolia:
   application_id: 'NJQT0OSANV'
