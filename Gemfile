@@ -6,4 +6,5 @@ group :jekyll_plugins do
   gem 'algoliasearch-jekyll', '~> 0.7'
   gem 'jekyll-org', '~> 1.0.1'
   gem 'jekyll-paginate', '~> 1.0.0'
+  gem 'redcarpet', '~> 3.3.4'
 end

@@ -36,6 +36,7 @@ gems:
   - algoliasearch-jekyll
   - jekyll-org
   - jekyll-paginate
+  - redcarpet
 
 algolia:
   application_id: 'NJQT0OSANV'
