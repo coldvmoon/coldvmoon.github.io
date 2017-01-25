@@ -34,7 +34,6 @@ github:
 # Algolia
 gems:
   - algoliasearch-jekyll
-  - jekyll-org
   - jekyll-paginate
   - redcarpet
   - org-ruby
