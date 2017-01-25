@@ -39,7 +39,7 @@ gems:
 algolia:
   application_id: 'NJQT0OSANV'
   index_name: 'jekyll'
-  algolia_api_key: '6477c5e01e6450c825c154610c3c0ba6'
+  read_only_api_key: '6477c5e01e6450c825c154610c3c0ba6'
   excluded_files:
     - 404.html
     - index.html
