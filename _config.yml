@@ -35,6 +35,7 @@ github:
 gems:
   - algoliasearch-jekyll
   - jekyll-org
+  - jekyll-paginate
 
 algolia:
   application_id: 'NJQT0OSANV'
