@@ -1,13 +1,3 @@
----
-layout: post
-title: Welcome Texas!
-author:
-  login: gaetan
-  email: gaetan@algolia.com
-  display_name: gaetan
-  first_name: Gaetan
-  last_name: Gachet
----
 * 士大夫十分
 ** sfsdfsdf
  
