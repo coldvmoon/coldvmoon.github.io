@@ -8,4 +8,4 @@ script:
 rvm:
  - 2.2
 env:
- - ALGOLIA_API_KEY='6477c5e01e6450c825c154610c3c0ba6'
+ - ALGOLIA_API_KEY='99deb3202f0a2e2b547e44b08bf764bf'
