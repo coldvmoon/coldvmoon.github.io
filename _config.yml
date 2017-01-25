@@ -34,8 +34,7 @@ github:
 # Algolia
 gems:
   - algoliasearch-jekyll
-  - org-ruby
-  - jekyll-org-mode-converter
+  - jekyll-org
 
 algolia:
   application_id: 'NJQT0OSANV'

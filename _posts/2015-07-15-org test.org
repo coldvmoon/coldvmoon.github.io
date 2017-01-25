@@ -1,3 +1,9 @@
+#+TITLE: Jekyll and Org together
+#+LAYOUT: posts
+#+TAGS: jekyll org-mode
+
+This is a blog post about Jekyll and Org mode.
+
 * 士大夫十分
 ** sfsdfsdf
  
