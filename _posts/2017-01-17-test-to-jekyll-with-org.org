@@ -1,6 +1,8 @@
 #+title: Blogging with Jekyll-Org
 #+layout: post
 #+tags: Emacs
+
 #+slug
+
 This is an example of blogging with =jekyll-org=. Note that both =YAML=
 frontmatter and Org properties are supported.
