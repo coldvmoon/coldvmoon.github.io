@@ -1,9 +1,8 @@
-source 'https://rubygems.org'
+source 'http://gems.ruby-china.org'
 
-gem 'jekyll', '~> 3.3.0'
 
 group :jekyll_plugins do
   gem 'algoliasearch-jekyll', '~> 0.7'
-  gem 'jekyll-paginate', '~> 1.0.0'
-  gem 'redcarpet', '~> 3.3.4'
+  gem 'github-pages'
+  gem 'kramdown'
 end
