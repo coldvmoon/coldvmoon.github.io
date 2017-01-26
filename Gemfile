@@ -7,4 +7,5 @@ group :jekyll_plugins do
   gem 'kramdown'
   gem 'nokogiri'
   gem 'redcarpet'
+  gem 'jekyll-org'
 end

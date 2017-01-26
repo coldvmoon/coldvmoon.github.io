@@ -38,6 +38,7 @@ gems:
   - kramdown
   - nokogiri
   - redcarpet
+  - jekyll-org
 
 algolia:
   application_id: 'NJQT0OSANV'
