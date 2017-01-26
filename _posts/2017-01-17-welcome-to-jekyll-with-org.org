@@ -1,7 +1,6 @@
 #+TITLE: Jekyll and Org together
 #+LAYOUT: posts
 #+TAGS: jekyll org-mode
-#+slug
 
 This is a blog post about Jekyll and Org mode.
 
