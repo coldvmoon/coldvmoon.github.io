@@ -8,7 +8,7 @@ module Jekyll
   class OrgConverter < Converter
     safe true
 
-    priority :high
+    priority :highest
 
     def matches(ext)
       ext =~ /org/i
