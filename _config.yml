@@ -2,7 +2,7 @@
 markdown:         redcarpet
 
 # Permalinks
-permalink:        pretty
+permalink:        /:month-:day-:year/:title.html
 
 # Setup
 title:            Hyde
