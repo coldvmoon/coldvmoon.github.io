@@ -36,6 +36,7 @@ gems:
   - algoliasearch-jekyll
   - github-pages
   - kramdown
+  - nokogiri
 
 algolia:
   application_id: 'NJQT0OSANV'
