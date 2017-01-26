@@ -37,6 +37,7 @@ gems:
   - github-pages
   - kramdown
   - nokogiri
+  - redcarpet
 
 algolia:
   application_id: 'NJQT0OSANV'

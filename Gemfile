@@ -6,4 +6,5 @@ group :jekyll_plugins do
   gem 'github-pages'
   gem 'kramdown'
   gem 'nokogiri'
+  gem 'redcarpet'
 end
