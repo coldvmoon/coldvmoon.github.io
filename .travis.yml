@@ -8,6 +8,7 @@ before_script:
 script: "./deploy.sh"
 env:
   global:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
   - COMMIT_AUTHOR_EMAIL: xkwu1990@gmail.com
   - ENCRYPTION_LABEL: fa2f6748cce2
 sudo: false
