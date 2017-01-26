@@ -6,7 +6,6 @@ end
 
 module Jekyll
   class OrgConverter < Converter
-    safe true
 
     priority :highest
 
