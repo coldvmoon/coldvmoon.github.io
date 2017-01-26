@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>Hyde</title>
- <link href="https://github.com/coldvmoon/coldvmoon.github.io/atom.xml" rel="self"/>
- <link href="https://github.com/coldvmoon/coldvmoon.github.io/"/>
- <updated>2017-01-26T19:59:18+08:00</updated>
- <id>https://github.com/coldvmoon/coldvmoon.github.io</id>
+ <link href="http://localhost:4000/atom.xml" rel="self"/>
+ <link href="http://localhost:4000/"/>
+ <updated>2017-01-26T20:02:01+08:00</updated>
+ <id>http://localhost:4000</id>
  <author>
    <name>Algolia</name>
    <email></email>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Jekyll and Org together</title>
-   <link href="https://github.com/coldvmoon/coldvmoon.github.io/2017/01/17/welcome-to-jekyll-with-org/"/>
+   <link href="http://localhost:4000/2017/01/17/welcome-to-jekyll-with-org/"/>
    <updated>2017-01-17T00:00:00+08:00</updated>
-   <id>https://github.com/coldvmoon/coldvmoon.github.io/2017/01/17/welcome-to-jekyll-with-org</id>
+   <id>http://localhost:4000/2017/01/17/welcome-to-jekyll-with-org</id>
    <content type="html">
 &lt;p&gt;This is a blog post about Jekyll and Org mode.&lt;/p&gt;
 &lt;h1&gt;士大夫十分&lt;/h1&gt;
@@ -38,9 +38,9 @@
  
  <entry>
    <title>Welcome Texas!</title>
-   <link href="https://github.com/coldvmoon/coldvmoon.github.io/2015/07/15/new-distributed-search-network-texas/"/>
+   <link href="http://localhost:4000/2015/07/15/new-distributed-search-network-texas/"/>
    <updated>2015-07-15T00:00:00+08:00</updated>
-   <id>https://github.com/coldvmoon/coldvmoon.github.io/2015/07/15/new-distributed-search-network-texas</id>
+   <id>http://localhost:4000/2015/07/15/new-distributed-search-network-texas</id>
    <content type="html">&lt;p&gt;You probably already know it: any millisecond that end-users have to wait to
 get their results drives us nuts. But what on Earth does this have to do with
 Texas? Actually a lot!&lt;/p&gt;
