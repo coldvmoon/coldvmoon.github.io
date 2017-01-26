@@ -39,6 +39,7 @@ gems:
   - redcarpet
   - jekyll-paginate
   - org-ruby
+  - wdm
 algolia:
   application_id: 'NJQT0OSANV'
   index_name: 'jekyll'

@@ -1,4 +1,4 @@
-source 'https://rubygems.org/'
+source 'http://rubygems.org/'
 
 gem 'jekyll'
 
@@ -9,4 +9,5 @@ group :jekyll_plugins do
   gem 'redcarpet'
   gem 'jekyll-paginate'
   gem 'org-ruby'
+  gem 'wdm'
 end
