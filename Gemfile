@@ -10,3 +10,4 @@ gem 'org-ruby'
 gem "jekyll-sitemap"
 gem "jekyll-feed"
 gem "html-proofer"
+gem 'activesupport'
