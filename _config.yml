@@ -46,3 +46,5 @@ algolia:
   excluded_files:
     - 404.html
     - index.html
+
+theme: jekyll-theme-merlot
