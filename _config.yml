@@ -37,9 +37,8 @@ gems:
   - kramdown
   - nokogiri
   - redcarpet
-  - org-ruby
   - jekyll-paginate
-
+  - org-ruby
 algolia:
   application_id: 'NJQT0OSANV'
   index_name: 'jekyll'
