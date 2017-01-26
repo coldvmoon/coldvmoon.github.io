@@ -3,4 +3,4 @@ set -e # halt script on error
 
 bundle exec jekyll build
 bundle exec htmlproofer ./_site
-bundle rake publish
+bundle exec rake publish
