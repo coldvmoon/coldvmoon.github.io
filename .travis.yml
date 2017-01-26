@@ -1,7 +1,7 @@
 # tell Travis to spin up a ruby 2.2.0 environment
 language: ruby
 rvm:
-- 2.2
+- 2.2.3
 
 script:
 - bundle exec jekyll build
