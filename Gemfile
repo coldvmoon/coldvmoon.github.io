@@ -9,5 +9,4 @@ group :jekyll_plugins do
   gem 'redcarpet'
   gem 'jekyll-paginate'
   gem 'org-ruby'
-  gem 'jekyll-org'
 end
