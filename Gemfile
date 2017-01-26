@@ -1,11 +1,12 @@
 source 'http://gems.ruby-china.org'
 
+gem 'jekyll'
 
 group :jekyll_plugins do
   gem 'algoliasearch-jekyll', '~> 0.7'
-  gem 'github-pages'
   gem 'kramdown'
   gem 'nokogiri'
   gem 'redcarpet'
-  gem 'jekyll-org'
+  gem 'jekyll-paginate'
+  gem 'org-ruby'
 end

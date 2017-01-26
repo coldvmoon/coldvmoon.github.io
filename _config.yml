@@ -34,11 +34,11 @@ github:
 # Algolia
 gems:
   - algoliasearch-jekyll
-  - github-pages
   - kramdown
   - nokogiri
   - redcarpet
-  - jekyll-org
+  - org-ruby
+  - jekyll-paginate
 
 algolia:
   application_id: 'NJQT0OSANV'
@@ -47,5 +47,4 @@ algolia:
   excluded_files:
     - 404.html
     - index.html
-
-theme: jekyll-theme-merlot
+repository: coldvmoon/coldvmoon.github.io
