@@ -1,6 +1,6 @@
 source 'http://rubygems.org/'
 
-gem 'jekyll'
+gem 'jekyll', '~> 3.0'
 
 group :jekyll_plugins do
   gem 'algoliasearch-jekyll', '~> 0.7'
@@ -9,4 +9,5 @@ group :jekyll_plugins do
   gem 'redcarpet'
   gem 'jekyll-paginate'
   gem 'org-ruby'
+  gem 'pygments.rb'
 end

@@ -1,6 +1,5 @@
 # Dependencies
 markdown:         redcarpet
-highlighter:      pygments
 
 # Permalinks
 permalink:        pretty
@@ -39,6 +38,7 @@ gems:
   - redcarpet
   - jekyll-paginate
   - org-ruby
+
 algolia:
   application_id: 'NJQT0OSANV'
   index_name: 'jekyll'
