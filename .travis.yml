@@ -12,5 +12,3 @@ env:
   - COMMIT_AUTHOR_EMAIL: xkwu1990@gmail.com
   - ENCRYPTION_LABEL: fa2f6748cce2
 sudo: false
-before_install:
-- openssl aes-256-cbc -K $encrypted_fa2f6748cce2_key -iv $encrypted_fa2f6748cce2_iv -in deploy_key.enc -out deploy_key -d
