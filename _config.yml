@@ -45,4 +45,3 @@ algolia:
   excluded_files:
     - 404.html
     - index.html
-repository: 'https://github.com/coldvmoon/coldvmoon.github.io'
