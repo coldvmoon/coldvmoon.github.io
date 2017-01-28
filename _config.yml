@@ -1,0 +1,49 @@
+# Dependencies
+markdown:         redcarpet
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            Hyde
+tagline:          'A Jekyll theme, with instant search'
+description:      'The popular <a href="http://hyde.getpoole.com/" target="_blank">Hyde theme</a> for <a href="http://jekyllrb.com" target="_blank">Jekyll</a>, now with instant-search capabilities. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a> and <a href="https://www.algolia.com/" target="_blank">Algolia</a>'
+url:              https://github.com/coldvmoon/coldvmoon.github.io
+#baseurl:          /
+# Travis will install Bundler dependencies in ./vendor, so we need to exclude it
+# otherwise Jekyll will try to build it (and fail)
+exclude:          [vendor]
+
+author:
+  name:           'Algolia'
+  url:            https://www.algolia.com/
+# Thanks to @mdo for the original theme
+# author:
+#   name:           'Mark Otto'
+#   url:            https://twitter.com/mdo
+
+paginate:         5
+
+# Custom vars
+version:          2.1.0
+
+github:
+    repo:         https://github.com/coldvmoon/coldvmoon.github.io
+
+# Algolia
+gems:
+  - algoliasearch-jekyll
+  - kramdown
+  - nokogiri
+  - redcarpet
+  - jekyll-paginate
+  - org-ruby
+
+algolia:
+  application_id: 'NJQT0OSANV'
+  index_name: 'jekyll'
+  read_only_api_key: '6477c5e01e6450c825c154610c3c0ba6'
+  excluded_files:
+    - 404.html
+    - index.html
+repository: coldvmoon/coldvmoon.github.io
