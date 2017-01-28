@@ -18,7 +18,7 @@ This is a blog post about Jekyll and Org mode.
     swerw werwerwerwer234234234234234
     是否 dfgdsfs
 
-[[file:pic.jpg]]
+[[file:~/blog/coldvmoon.github.io/image/pic.jpg]]
 
 | sarsf |   |   |   |   |
 |-------+---+---+---+---|
