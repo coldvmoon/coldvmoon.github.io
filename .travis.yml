@@ -18,7 +18,7 @@ after_success:
 - git config user.email ${EMAIL}
 - git config --global push.default simple
 - ls -a
-- rsync -az --delete --exclude '.git*' ../_site/ ./docs
+- rsync -az --delete --exclude '.git*' ../_site/ .
 - touch .nojekyll
 - git add -A .
 - git commit -m "Generated Jekyll site by Travis CI - ${TRAVIS_BUILD_NUMBER}"
