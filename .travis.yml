@@ -21,7 +21,7 @@ after_success:
 - mkdir docs
 - cd docs
 - ls -l
-- rsync -az --delete --exclude '.git*' ../_site/ .
+- rsync -az --delete --exclude '.git*' ../../_site/ .
 - ls -l
 - cd ..
 - touch .nojekyll
