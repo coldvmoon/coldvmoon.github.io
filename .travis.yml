@@ -23,6 +23,6 @@ env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
   - GITHUB_REPO: github.com/coldvmoon/coldvmoon.github.io.git
-  - REPO_TARGET_BRANCH: gh-pages
+  - REPO_TARGET_BRANCH: master
   - EMAIL: xkwu1990@gmail.com
   - DEPLOY_KEY: 9b6567862150490bd61bdfd8a94664e703e510c1
