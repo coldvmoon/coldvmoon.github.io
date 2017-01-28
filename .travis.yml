@@ -19,6 +19,7 @@ after_success:
 - git config --global push.default simple
 - ls -l
 - mkdir docs
+- ls -l
 - rsync -az --delete --exclude '.git*' ../_site/ ./docs
 - touch .nojekyll
 - git add -A .
