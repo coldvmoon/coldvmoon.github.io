@@ -22,7 +22,7 @@ after_success:
 - touch .nojekyll
 - git add -A .
 - git commit -m "Generated Jekyll site by Travis CI - ${TRAVIS_BUILD_NUMBER}"
-- git push  --force "https://${DEPLOY_KEY}@${GITHUB_REPO}"
+- git push   "https://${DEPLOY_KEY}@${GITHUB_REPO}"
 - ls -a
 
 env:
