@@ -19,6 +19,7 @@ after_success:
 - git config --global push.default simple
 - ls -l
 - rsync -az --delete --exclude '.git*' ../_site/ .
+- rm -rf "Gemfile*"
 - ls -l
 - touch .nojekyll
 - git add -A .
