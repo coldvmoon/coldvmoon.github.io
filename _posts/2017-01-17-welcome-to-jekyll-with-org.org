@@ -17,3 +17,11 @@ This is a blog post about Jekyll and Org mode.
     erwrwerwr sfsfsf
     swerw werwerwerwer234234234234234
     是否 dfgdsfs
+
+[[file:pic.jpg]]
+
+| sarsf |   |   |   |   |
+|-------+---+---+---+---|
+|       |   |   |   |   |
+|       |   |   |   |   |
+|       |   |   |   |   |
