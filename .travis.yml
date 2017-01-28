@@ -1,0 +1,42 @@
+# tell Travis to spin up a ruby 2.2.0 environment
+language: ruby
+rvm:
+- 2.2.3
+branches:
+  only:
+    - dev
+script:
+- bundle exec jekyll build
+
+# after building, copy the site into the gh-pages branch
+# and push back to Github
+after_success:
+- git clone https://$GITHUB_REPO
+- cd $(basename ${GITHUB_REPO%.git})
+- git checkout -B ${REPO_TARGET_BRANCH}
+- git config user.name "Travis CI"
+- git config user.email ${EMAIL}
+- git config --global push.default simple
+- rsync -az --delete --exclude '.git*' ../../_site/ .
+- ls -l
+- rm -rf ./*
+- ls -l
+- mkdir docs
+- cd docs
+- ls -l
+- rsync -az --delete --exclude '.git*' ../../_site/ .
+- ls -l
+- cd ..
+- touch .nojekyll
+- git add -A .
+- git commit -m "Generated Jekyll site by Travis CI - ${TRAVIS_BUILD_NUMBER}"
+- git push  --force "https://${DEPLOY_KEY}@${GITHUB_REPO}"
+- ls -l
+- ls -a
+
+env:
+  global:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+  - GITHUB_REPO: github.com/coldvmoon/coldvmoon.github.io.git
+  - REPO_TARGET_BRANCH: master
+  - EMAIL: xkwu1990@gmail.com
