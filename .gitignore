@@ -45,3 +45,5 @@ node_modules
 
 # Algolia API key
 _algolia_api_key
+
+Gemfile.lock
