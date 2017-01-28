@@ -1,5 +1,6 @@
 # tell Travis to spin up a ruby 2.2.0 environment
 language: ruby
+cache: bundler
 rvm:
 - 2.2.3
 branches:
