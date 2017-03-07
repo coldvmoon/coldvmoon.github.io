@@ -15,3 +15,6 @@ It was early January when six of us travelled up to ....
 ** 技术类                                                          :technic:
 *** [[http://doc.norang.ca/org-mode.html][Organize Your Life In Plain Text!]]                                 :emacs:
 ** 见识类
+** 英语类                                                          :english:
+*** [[http://www.etymonline.com/][Online Etymology Dictionary]]                                   :etymology:
+*** [[http://www.youdict.com][优词词典]]                                                      :etymology:
