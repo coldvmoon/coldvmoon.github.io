@@ -1,3 +1,7 @@
+#+HTML: ---
+#+HTML: layout: default
+#+HTML: title: 常访问网站
+#+HTML: ---
 * Sentry Authentication  
 ** LDAP Installation
 ** Hive Configuration
@@ -9,3 +13,6 @@
 ** AbstractSemanticAnalyzerHook
 1) 禁止drop databases,create databases等操作
 2) 将创建未压缩table的语句以邮件的形式发送给管理员
+[[../images/2017-03-08_14-26-32.png]]
+
+[[../images/pic.jpg]]
