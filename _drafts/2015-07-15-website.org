@@ -13,8 +13,11 @@ It was early January when six of us travelled up to ....
 ** 经济类                                                          :economy:
 *** [[http://www.ftchinese.com/][FT中文网]]
 ** 技术类                                                          :technic:
-*** [[http://doc.norang.ca/org-mode.html][Organize Your Life In Plain Text!]]                                 :emacs:
+*** emacs                                                           :emacs:
+**** [[http://doc.norang.ca/org-mode.html][Organize Your Life In Plain Text!]]                
+**** [[https://vigou3.github.io/emacs-modified-windows/][Emacs Modified for Windows]]
 ** 见识类
 ** 英语类                                                          :english:
-*** [[http://www.etymonline.com/][Online Etymology Dictionary]]                                   :etymology:
-*** [[http://www.youdict.com][优词词典]]                                                      :etymology:
+*** etymology                                                   :etymology:
+**** [[http://www.etymonline.com/][Online Etymology Dictionary]]                              
+**** [[http://www.youdict.com][优词词典]]                                          

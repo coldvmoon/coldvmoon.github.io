@@ -5,7 +5,7 @@
 * Hive Hook
 ** ExecuteWithHookContext 
 1) 设置HiveConf的mapreduce.job.queuename值，方便CDH中的资源池管理。
-2) HiveHistory文件追踪
-[[file:~/blog/coldvmoon.github.io/images]]
-** [[file:~/blog/coldvmoon.github.io/images/pic.jpg]]
-** AbstractSemanticAnalyzerHook 
+2) HiveHistory文件追踪，监控Hive SQL的进度
+** AbstractSemanticAnalyzerHook
+1) 禁止drop databases,create databases等操作
+2) 将创建未压缩table的语句以邮件的形式发送给管理员
