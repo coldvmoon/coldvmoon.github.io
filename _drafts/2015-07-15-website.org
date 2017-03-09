@@ -11,7 +11,10 @@ It was early January when six of us travelled up to ....
 **** [[http://doc.norang.ca/org-mode.html][Organize Your Life In Plain Text!]]                
 **** [[https://vigou3.github.io/emacs-modified-windows/][Emacs Modified for Windows]]
 ** 见识类
+*** 书画
+**** [[https://www.google.com/culturalinstitute/beta/u/0/][Google Arts&Culture(欧美画作)]]
+**** [[https://shuge.org/][书格(中国古字画)]]
 ** 英语类                                                          :english:
 *** etymology                                                   :etymology:
 **** [[http://www.etymonline.com/][Online Etymology Dictionary]]                              
-**** [[http://www.youdict.com][优词词典]]                                          
+**** [[http://www.youdict.com][优词词典]]                                             
