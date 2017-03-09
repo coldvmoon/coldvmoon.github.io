@@ -9,7 +9,7 @@ It was early January when six of us travelled up to ....
 ** 技术类                                                          :technic:
 *** emacs                                                           :emacs:
 **** [[http://doc.norang.ca/org-mode.html][Organize Your Life In Plain Text!]]                
-**** [[https://vigou3.github.io/emacs-modified-windows/][Emacs Modified for Windows]]
+**** [[https://sourceforge.net/projects/emacsbinw64/?source=directory][64-Bit GNU Emacs for MS Windows with optimization]] gs
 ** 见识类
 *** 书画
 **** [[https://www.google.com/culturalinstitute/beta/u/0/][Google Arts&Culture(欧美画作)]]
