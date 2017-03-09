@@ -1,0 +1,240 @@
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orga99e995">1. 安装OpenLDAP</a></li>
+<li><a href="#orga47ac51">2. Sentry整合OpenLDAP</a></li>
+<li><a href="#org18a8635">3. 参考链接</a></li>
+</ul>
+</div>
+</div>
+---
+layout: default
+title: Hive整合Sentry和OpenLDAP
+---
+<div id="outline-container-orga99e995" class="outline-2">
+<h2 id="orga99e995"><span class="section-number-2">1</span> 安装OpenLDAP</h2>
+<div class="outline-text-2" id="text-1">
+<ol class="org-ol">
+<li>使用yum安装OpenLdap</li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-sh">sudo yum install -y openldap openldap-servers openldap-clients
+</pre>
+</div>
+<ol class="org-ol">
+<li>复制文件</li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-sh">sudo cp /usr/share/openldap-servers/slapd.conf.obsolete /etc/openldap/slapd.conf
+sudo cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
+sudo mv /etc/openldap/slapd.d<span style="color: #4f97d7;">{</span>,.bak<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+<ol class="org-ol">
+<li>修改配置文件</li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-sh">sudo vim /etc/openldap/slapd.conf
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>修改前</li>
+</ul>
+
+
+<div class="figure">
+<p><img src="../images/2017-03-09_11-16-32.jpg" alt="2017-03-09_11-16-32.jpg" />
+</p>
+</div>
+
+<ul class="org-ul">
+<li>修改后</li>
+</ul>
+
+
+
+
+<div class="figure">
+<p><img src="../images/2017-03-09_11-17-32.jpg" alt="2017-03-09_11-17-32.jpg" />
+</p>
+</div>
+
+<p>
+<b>suffix:</b> 是根域
+</p>
+
+<p>
+<b>rootdn:</b> 是管理员所在位置
+</p>
+
+<p>
+<b>rootpw:</b> 是管理员密码，可以是明文（本示例为：secret），也可以是加密的（如 rootpw {SSHA}NXV9Fl28qCHMmA6P sjhVX0uejTKE6OYr）
+</p>
+
+<ol class="org-ol">
+<li>分配目录权限</li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-sh">sudo chown ldap.ldap /etc/openldap/*
+sudo chown ldap.ldap /var/lib/ldap/*
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>启动sladp,启动后的389端口就是默认端口。</li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-sh">sudo service slapd start
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="../images/2017-03-09_11-26-32.jpg" alt="2017-03-09_11-26-32.jpg" />
+</p>
+</div>
+
+<ol class="org-ol">
+<li>新建文件example.ldif</li>
+</ol>
+<pre class="example">
+dn:dc=example,dc=com
+objectclass:dcObject
+objectclass:organization
+o:Example, Inc.
+dc:example
+dn:cn=Manager,dc=example,dc=com
+objectclass:organizationalRole
+cn:Manager
+</pre>
+<ol class="org-ol">
+<li>导入example.ldif</li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-sh">ldapadd -x -W -D <span style="color: #2d9574;">"cn=Manager,dc=example,dc=com"</span> -f example.ldif
+</pre>
+</div>
+<ol class="org-ol">
+<li>输入刚设置的 <b>rootpw</b> 的密码</li>
+</ol>
+
+<div class="figure">
+<p><img src="../images/2017-03-09_11-36-32.jpg" alt="2017-03-09_11-36-32.jpg" />
+</p>
+</div>
+
+<ol class="org-ol">
+<li>查询已经导入的数据</li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-sh">ldapsearch -x -b <span style="color: #2d9574;">"dc=example,dc=com"</span>
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="../images/2017-03-09_11-56-32.jpg" alt="2017-03-09_11-56-32.jpg" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga47ac51" class="outline-2">
+<h2 id="orga47ac51"><span class="section-number-2">2</span> Sentry整合OpenLDAP</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+照着cloudera官方文档来<a href="http://www.cloudera.com/documentation/enterprise/5-2-x/topics/cdh_sg_hiveserver2_security.html"><a href="http://www.cloudera.com/documentation/enterprise/5-2-x/topics/cdh_sg_hiveserver2_security.html">http://www.cloudera.com/documentation/enterprise/5-2-x/topics/cdh_sg_hiveserver2_security.html</a></a>
+</p>
+
+
+<div class="figure">
+<p><img src="../images/2017-03-09_11-66-32.jpg" alt="2017-03-09_11-66-32.jpg" />
+</p>
+</div>
+
+<ol class="org-ol">
+<li>配置HiveServer2的参数</li>
+</ol>
+
+<div class="figure">
+<p><img src="../images/2017-03-09_13-66-32.jpg" alt="2017-03-09_13-66-32.jpg" />
+</p>
+</div>
+
+<ol class="org-ol">
+<li>重新启动hive，使用beeline登录，使用一个错误的账号和密码（因为还木有正确的账号）</li>
+</ol>
+
+<div class="figure">
+<p><img src="../images/2017-03-09_14-66-32.jpg" alt="2017-03-09_14-66-32.jpg" />
+</p>
+</div>
+
+<ol class="org-ol">
+<li>可以看见登录被拒绝了，查看日志</li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-sh">tail -f /var/log/hive/hadoop-cmf-hive-HIVESERVER2-quickstart.cloudera.log.out
+</pre>
+</div>
+<ol class="org-ol">
+<li>问题来了，什么才是正确的用户名和密码呢？</li>
+</ol>
+<p>
+官方cloudera的文档是这样写的
+<img src="../images/2017-03-09_15-66-32.jpg" alt="2017-03-09_15-66-32.jpg" />
+</p>
+
+<p>
+<b>LDAP<sub>Userid</sub></b> 和 <b>LDAP<sub>Password</sub></b> 这个是个什么鬼？对应OpenLdap里面的什么？
+其实这个可以在Hive的源码中看到一个hook，是关于和ldap集成的。
+</p>
+
+<ol class="org-ol">
+<li>直接来结果吧！按照前面的方法再导入一条数据</li>
+</ol>
+<pre class="example">
+dn: uid=testuid,cn=Manager,dc=example,dc=com
+objectClass: organizationalRole
+objectClass: posixAccount
+uid: testuid
+cn: testcn
+gidNumber: 11
+uidNumber: 123
+homeDirectory: wer
+</pre>
+
+<p>
+其中的 <b>uid</b> 就是用户名
+</p>
+
+<ol class="org-ol">
+<li>为刚创建的数据添加密码</li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-sh">ldappasswd -x -D <span style="color: #2d9574;">"cn=Manager,dc=example,dc=com"</span> -w secret <span style="color: #2d9574;">"uid=testuid,cn=Manager,dc=example,dc=com"</span> -S
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>已经可以登录了</li>
+</ol>
+
+<div class="figure">
+<p><img src="../images/2017-03-09_15-66-33.jpg" alt="2017-03-09_15-66-33.jpg" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org18a8635" class="outline-2">
+<h2 id="org18a8635"><span class="section-number-2">3</span> 参考链接</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+<a href="https://my.oschina.net/5lei/blog/193484">centos6.4安装配置LDAP服务</a>
+<a href="https://www.cloudera.com/documentation/enterprise/5-2-x/topics/cdh_sg_hiveserver2_security.html">Cloudera Documention</a>
+</p>
+</div>
+</div>

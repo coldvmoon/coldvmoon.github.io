@@ -1,25 +1,45 @@
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgd777141">1. Sentry Authentication</a>
+<ul>
+<li><a href="#orgae5794f">1.1. LDAP Installation LDAP Installation</a></li>
+<li><a href="#orgaa433b0">1.2. Hive Configuration</a></li>
+</ul>
+</li>
+<li><a href="#org0c894b5">2. Hive Debug</a></li>
+<li><a href="#org34a5844">3. Hive Hook</a>
+<ul>
+<li><a href="#org7b2f6bc">3.1. ExecuteWithHookContext</a></li>
+<li><a href="#orgd43cf03">3.2. AbstractSemanticAnalyzerHook</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 ---
 layout: default
-title: 常访问网站
+title: 最近工作总结
 ---
-<div id="outline-container-org6f66954" class="outline-2">
-<h2 id="org6f66954"><span class="section-number-2">1</span> Sentry Authentication</h2>
+<div id="outline-container-orgd777141" class="outline-2">
+<h2 id="orgd777141"><span class="section-number-2">1</span> Sentry Authentication</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-orga828733" class="outline-3">
-<h3 id="orga828733"><span class="section-number-3">1.1</span> LDAP Installation</h3>
+</div><div id="outline-container-orgae5794f" class="outline-3">
+<h3 id="orgae5794f"><span class="section-number-3">1.1</span> LDAP Installation <a href="2017-03-08-integrate-hive-with-sentry-and-openldap.html">LDAP Installation</a></h3>
 </div>
-<div id="outline-container-org5723d50" class="outline-3">
-<h3 id="org5723d50"><span class="section-number-3">1.2</span> Hive Configuration</h3>
+<div id="outline-container-orgaa433b0" class="outline-3">
+<h3 id="orgaa433b0"><span class="section-number-3">1.2</span> Hive Configuration</h3>
 </div>
 </div>
-<div id="outline-container-org56faf63" class="outline-2">
-<h2 id="org56faf63"><span class="section-number-2">2</span> Hive Debug</h2>
+<div id="outline-container-org0c894b5" class="outline-2">
+<h2 id="org0c894b5"><span class="section-number-2">2</span> Hive Debug</h2>
 </div>
-<div id="outline-container-org9f353c4" class="outline-2">
-<h2 id="org9f353c4"><span class="section-number-2">3</span> Hive Hook</h2>
+<div id="outline-container-org34a5844" class="outline-2">
+<h2 id="org34a5844"><span class="section-number-2">3</span> Hive Hook</h2>
 <div class="outline-text-2" id="text-3">
-</div><div id="outline-container-org80fda27" class="outline-3">
-<h3 id="org80fda27"><span class="section-number-3">3.1</span> ExecuteWithHookContext</h3>
+</div><div id="outline-container-org7b2f6bc" class="outline-3">
+<h3 id="org7b2f6bc"><span class="section-number-3">3.1</span> ExecuteWithHookContext</h3>
 <div class="outline-text-3" id="text-3-1">
 <ol class="org-ol">
 <li>设置HiveConf的mapreduce.job.queuename值，方便CDH中的资源池管理。</li>
@@ -27,24 +47,13 @@ title: 常访问网站
 </ol>
 </div>
 </div>
-<div id="outline-container-orge7e8e5c" class="outline-3">
-<h3 id="orge7e8e5c"><span class="section-number-3">3.2</span> AbstractSemanticAnalyzerHook</h3>
+<div id="outline-container-orgd43cf03" class="outline-3">
+<h3 id="orgd43cf03"><span class="section-number-3">3.2</span> AbstractSemanticAnalyzerHook</h3>
 <div class="outline-text-3" id="text-3-2">
 <ol class="org-ol">
 <li>禁止drop databases,create databases等操作</li>
 <li>将创建未压缩table的语句以邮件的形式发送给管理员</li>
 </ol>
-
-<div class="figure">
-<p><img src="../images/2017-03-08_14-26-32.png" alt="2017-03-08_14-26-32.png" />
-</p>
-</div>
-
-
-<div class="figure">
-<p><img src="../images/pic.jpg" alt="pic.jpg" />
-</p>
-</div>
 </div>
 </div>
 </div>
