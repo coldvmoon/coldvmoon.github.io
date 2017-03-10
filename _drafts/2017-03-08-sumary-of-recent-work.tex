@@ -1,42 +1,79 @@
-#+HTML: ---
-#+HTML: layout: default
-#+HTML: title: 最近工作总结
-#+HTML: ---
-* Sentry Authentication  
-** LDAP Installation
-** Hive Configuration
-* Hive Debug
-* Hive Hook
-** Hooks lifecycle
-There are several types of hooks depending on at which stage you want to inject your custom code:
-- Driver run hooks (Pre/Post)
-- Semantic analyizer hooks (Pre/Post)
-- Execution hooks (Pre/Failure/Post)
-- Client statistics publisher
-If you run a script the processing flow looks like as follows:
-1. *Driver.run()* takes the command
-2. *HiveDriverRunHook.preDriverRun()* ~HiveConf.ConfVars.HIVE_DRIVER_RUN_HOOKS~
-3. *Driver.compile()* starts processing the command: creates the abstract syntax tree
-4. *AbstractSemanticAnalyzerHook.preAnalyze()* ~AbstractSemanticAnalyzerHook.preAnalyze()~
-5. Semantic analysis
-6. *AbstractSemanticAnalyzerHook.postAnalyze()* ~HiveConf.ConfVars.SEMANTIC_ANALYZER_HOOK~
-7. Create and validate the query plan (physical plan)
-8. *Driver.execute()* : ready to run the jobs
-9. *ExecuteWithHookContext.run()*  ~HiveConf.ConfVars.PREEXECHOOKS~
-10. *ExecDriver.execute()* runs all the jobs
-11. For each job at every ~HiveConf.ConfVars.HIVECOUNTERSPULLINTERVAL~ interval: 
-    *ClientStatsPublisher.run()* is called to publish statistics ~HiveConf.ConfVars.CLIENTSTATSPUBLISHERS~ 
-    If a task fails: *ExecuteWithHookContext.run()* ~HiveConf.ConfVars.ONFAILUREHOOKS~
-12. Finish all the tasks
-13. *ExecuteWithHookContext.run()* ~HiveConf.ConfVars.POSTEXECHOOKS~
-14. Before returning the result *HiveDriverRunHook.postDriverRun()* ~HiveConf.ConfVars.HIVE_DRIVER_RUN_HOOKS~
-15. Return the result.
+% Created 2017-03-10 周五 13:47
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 25.1.1 (Org mode 9.0.3)}, 
+ pdflang={English}}
+\begin{document}
 
-** Usage in DDW
-*** ExecuteWithHookContext
-1) 设置HiveConf的mapreduce.job.queuename值，方便CDH中的资源池管理。
-2) HiveHistory文件追踪，监控Hive SQL的进度
-#+BEGIN_SRC java 
+\tableofcontents
+
+\section{Sentry Authentication}
+\label{sec:orge633d17}
+\subsection{LDAP Installation}
+\label{sec:org361e2f3}
+\subsection{Hive Configuration}
+\label{sec:org97b1ffb}
+\section{Hive Debug}
+\label{sec:org6eacff1}
+\section{Hive Hook}
+\label{sec:org686d572}
+\subsection{Hooks lifecycle}
+\label{sec:orgdb0e80e}
+There are several types of hooks depending on at which stage you want to inject your custom code:
+\begin{itemize}
+\item Driver run hooks (Pre/Post)
+\item Semantic analyizer hooks (Pre/Post)
+\item Execution hooks (Pre/Failure/Post)
+\item Client statistics publisher
+\end{itemize}
+If you run a script the processing flow looks like as follows:
+\begin{enumerate}
+\item \textbf{Driver.run()} takes the command
+\item \textbf{HiveDriverRunHook.preDriverRun()} \texttt{HiveConf.ConfVars.HIVE\_DRIVER\_RUN\_HOOKS}
+\item \textbf{Driver.compile()} starts processing the command: creates the abstract syntax tree
+\item \textbf{AbstractSemanticAnalyzerHook.preAnalyze()} \texttt{AbstractSemanticAnalyzerHook.preAnalyze()}
+\item Semantic analysis
+\item \textbf{AbstractSemanticAnalyzerHook.postAnalyze()} \texttt{HiveConf.ConfVars.SEMANTIC\_ANALYZER\_HOOK}
+\item Create and validate the query plan (physical plan)
+\item \textbf{Driver.execute()} : ready to run the jobs
+\item \textbf{ExecuteWithHookContext.run()}  \texttt{HiveConf.ConfVars.PREEXECHOOKS}
+\item \textbf{ExecDriver.execute()} runs all the jobs
+\item For each job at every \texttt{HiveConf.ConfVars.HIVECOUNTERSPULLINTERVAL} interval:*ClientStatsPublisher.run()* is called to publish statistics \texttt{HiveConf.ConfVars.CLIENTSTATSPUBLISHERS} If a task fails: \textbf{ExecuteWithHookContext.run()} \texttt{HiveConf.ConfVars.ONFAILUREHOOKS}
+\item Finish all the tasks
+\item \textbf{ExecuteWithHookContext.run()} \texttt{HiveConf.ConfVars.POSTEXECHOOKS}
+\item Before returning the result \textbf{HiveDriverRunHook.postDriverRun()} \texttt{HiveConf.ConfVars.HIVE\_DRIVER\_RUN\_HOOKS}
+\item Return the result.
+\end{enumerate}
+
+\subsection{Usage in DDW}
+\label{sec:orga758aca}
+\subsubsection{ExecuteWithHookContext}
+\label{sec:org9a5dfb2}
+\begin{enumerate}
+\item 设置HiveConf的mapreduce.job.queuename值，方便CDH中的资源池管理。
+\item HiveHistory文件追踪，监控Hive SQL的进度
+\end{enumerate}
+\begin{verbatim}
  /**
  * 1 ) 用于将用户提交到对应的pool中,这样便于统一对某个用户执行资源(mem/cpu)使用控制,防止其占用过多资源卡住其他job
  * 2 ) 创建任务
@@ -66,11 +103,14 @@ public class CustomExecuteWithHookContext implements ExecuteWithHookContext {
         }
     }
 }
-   #+END_SRC
-*** AbstractSemanticAnalyzerHook                                    
-1) 禁止drop databases,create databases等操作
-2) 将创建未压缩table的语句以邮件的形式发送给管理员
-#+BEGIN_SRC java 
+\end{verbatim}
+\subsubsection{AbstractSemanticAnalyzerHook}
+\label{sec:org601522a}
+\begin{enumerate}
+\item 禁止drop databases,create databases等操作
+\item 将创建未压缩table的语句以邮件的形式发送给管理员
+\end{enumerate}
+\begin{verbatim}
 /**
  *
  * 主要用于过滤出创建表,却不指定采用压缩格式.
@@ -99,12 +139,12 @@ public class CustomSemanticAnalyzerHook extends AbstractSemanticAnalyzerHook {
                 if (StringUtils.isEmpty(context.getUserName()) || !context.getUserName().equals(adminAccount)) {
                     throw new SemanticException("Only the admin accounts of ddw bigdata platform can create/drop database.");
                 }
-                break; 
+                break;
             default:
                 break;
         }
         return ast;
     }
 }
-#+END_SRC
-
+\end{verbatim}
+\end{document}

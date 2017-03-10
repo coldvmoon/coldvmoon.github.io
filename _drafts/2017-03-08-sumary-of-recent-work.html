@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-03-10 周五 11:54 -->
+<!-- 2017-03-10 周五 14:03 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title></title>
@@ -231,20 +231,20 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org249dcac">1. Sentry Authentication</a>
+<li><a href="#orge1e406c">1. Sentry Authentication</a>
 <ul>
-<li><a href="#org1aaef28">1.1. LDAP Installation</a></li>
-<li><a href="#org244cbf7">1.2. Hive Configuration</a></li>
+<li><a href="#orgda4091a">1.1. LDAP Installation</a></li>
+<li><a href="#orga2050f7">1.2. Hive Configuration</a></li>
 </ul>
 </li>
-<li><a href="#orgdad4529">2. Hive Debug</a></li>
-<li><a href="#org600f4ef">3. Hive Hook</a>
+<li><a href="#org4a29beb">2. Hive Debug</a></li>
+<li><a href="#orgb0e254f">3. Hive Hook</a>
 <ul>
-<li><a href="#org5611702">3.1. Hooks workflow</a></li>
-<li><a href="#org977ae0f">3.2. Usage in DDW</a>
+<li><a href="#orgb6fe516">3.1. Hooks lifecycle</a></li>
+<li><a href="#orgb2aec2c">3.2. Usage in DDW</a>
 <ul>
-<li><a href="#orgb0db478">3.2.1. ExecuteWithHookContext</a></li>
-<li><a href="#org332a466">3.2.2. AbstractSemanticAnalyzerHook</a></li>
+<li><a href="#org31154f1">3.2.1. ExecuteWithHookContext</a></li>
+<li><a href="#orgacb5c1f">3.2.2. AbstractSemanticAnalyzerHook</a></li>
 </ul>
 </li>
 </ul>
@@ -256,24 +256,24 @@ for the JavaScript code in this tag.
 layout: default
 title: 最近工作总结
 ---
-<div id="outline-container-org249dcac" class="outline-2">
-<h2 id="org249dcac"><span class="section-number-2">1</span> Sentry Authentication</h2>
+<div id="outline-container-orge1e406c" class="outline-2">
+<h2 id="orge1e406c"><span class="section-number-2">1</span> Sentry Authentication</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-org1aaef28" class="outline-3">
-<h3 id="org1aaef28"><span class="section-number-3">1.1</span> LDAP Installation</h3>
+</div><div id="outline-container-orgda4091a" class="outline-3">
+<h3 id="orgda4091a"><span class="section-number-3">1.1</span> LDAP Installation</h3>
 </div>
-<div id="outline-container-org244cbf7" class="outline-3">
-<h3 id="org244cbf7"><span class="section-number-3">1.2</span> Hive Configuration</h3>
+<div id="outline-container-orga2050f7" class="outline-3">
+<h3 id="orga2050f7"><span class="section-number-3">1.2</span> Hive Configuration</h3>
 </div>
 </div>
-<div id="outline-container-orgdad4529" class="outline-2">
-<h2 id="orgdad4529"><span class="section-number-2">2</span> Hive Debug</h2>
+<div id="outline-container-org4a29beb" class="outline-2">
+<h2 id="org4a29beb"><span class="section-number-2">2</span> Hive Debug</h2>
 </div>
-<div id="outline-container-org600f4ef" class="outline-2">
-<h2 id="org600f4ef"><span class="section-number-2">3</span> Hive Hook</h2>
+<div id="outline-container-orgb0e254f" class="outline-2">
+<h2 id="orgb0e254f"><span class="section-number-2">3</span> Hive Hook</h2>
 <div class="outline-text-2" id="text-3">
-</div><div id="outline-container-org5611702" class="outline-3">
-<h3 id="org5611702"><span class="section-number-3">3.1</span> Hooks workflow</h3>
+</div><div id="outline-container-orgb6fe516" class="outline-3">
+<h3 id="orgb6fe516"><span class="section-number-3">3.1</span> Hooks lifecycle</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 There are several types of hooks depending on at which stage you want to inject your custom code:
@@ -298,7 +298,9 @@ If you run a script the processing flow looks like as follows:
 <li><b>Driver.execute()</b> : ready to run the jobs</li>
 <li><b>ExecuteWithHookContext.run()</b>  <code>HiveConf.ConfVars.PREEXECHOOKS</code></li>
 <li><b>ExecDriver.execute()</b> runs all the jobs</li>
-<li>For each job at every <code>HiveConf.ConfVars.HIVECOUNTERSPULLINTERVAL</code> interval:*ClientStatsPublisher.run()* is called to publish statistics <code>HiveConf.ConfVars.CLIENTSTATSPUBLISHERS</code> If a task fails: <b>ExecuteWithHookContext.run()</b> <code>HiveConf.ConfVars.ONFAILUREHOOKS</code></li>
+<li>For each job at every <code>HiveConf.ConfVars.HIVECOUNTERSPULLINTERVAL</code> interval: 
+<b>ClientStatsPublisher.run()</b> is called to publish statistics <code>HiveConf.ConfVars.CLIENTSTATSPUBLISHERS</code> 
+If a task fails: <b>ExecuteWithHookContext.run()</b> <code>HiveConf.ConfVars.ONFAILUREHOOKS</code></li>
 <li>Finish all the tasks</li>
 <li><b>ExecuteWithHookContext.run()</b> <code>HiveConf.ConfVars.POSTEXECHOOKS</code></li>
 <li>Before returning the result <b>HiveDriverRunHook.postDriverRun()</b> <code>HiveConf.ConfVars.HIVE_DRIVER_RUN_HOOKS</code></li>
@@ -307,11 +309,11 @@ If you run a script the processing flow looks like as follows:
 </div>
 </div>
 
-<div id="outline-container-org977ae0f" class="outline-3">
-<h3 id="org977ae0f"><span class="section-number-3">3.2</span> Usage in DDW</h3>
+<div id="outline-container-orgb2aec2c" class="outline-3">
+<h3 id="orgb2aec2c"><span class="section-number-3">3.2</span> Usage in DDW</h3>
 <div class="outline-text-3" id="text-3-2">
-</div><div id="outline-container-orgb0db478" class="outline-4">
-<h4 id="orgb0db478"><span class="section-number-4">3.2.1</span> ExecuteWithHookContext</h4>
+</div><div id="outline-container-org31154f1" class="outline-4">
+<h4 id="org31154f1"><span class="section-number-4">3.2.1</span> ExecuteWithHookContext</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <ol class="org-ol">
 <li>设置HiveConf的mapreduce.job.queuename值，方便CDH中的资源池管理。</li>
@@ -351,8 +353,8 @@ If you run a script the processing flow looks like as follows:
 </div>
 </div>
 </div>
-<div id="outline-container-org332a466" class="outline-4">
-<h4 id="org332a466"><span class="section-number-4">3.2.2</span> AbstractSemanticAnalyzerHook</h4>
+<div id="outline-container-orgacb5c1f" class="outline-4">
+<h4 id="orgacb5c1f"><span class="section-number-4">3.2.2</span> AbstractSemanticAnalyzerHook</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <ol class="org-ol">
 <li>禁止drop databases,create databases等操作</li>
@@ -402,7 +404,7 @@ If you run a script the processing flow looks like as follows:
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2017-03-10 周五 11:54</p>
+<p class="date">Created: 2017-03-10 周五 14:03</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
