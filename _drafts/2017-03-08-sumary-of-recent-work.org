@@ -3,15 +3,69 @@
 #+HTML: title: 最近工作总结
 #+HTML: ---
 * Sentry Authentication  
-** LDAP Installation [[file:2017-03-08-integrate-hive-with-sentry-and-openldap.org][detail]]
+** LDAP Installation
 ** Hive Configuration
 * Hive Debug
 * Hive Hook
-** ExecuteWithHookContext 
+** Hooks workflow
+There are several types of hooks depending on at which stage you want to inject your custom code:
+- Driver run hooks (Pre/Post)
+- Semantic analyizer hooks (Pre/Post)
+- Execution hooks (Pre/Failure/Post)
+- Client statistics publisher
+If you run a script the processing flow looks like as follows:
+1. *Driver.run()* takes the command
+2. *HiveDriverRunHook.preDriverRun()* ~HiveConf.ConfVars.HIVE_DRIVER_RUN_HOOKS~
+3. *Driver.compile()* starts processing the command: creates the abstract syntax tree
+4. *AbstractSemanticAnalyzerHook.preAnalyze()* ~AbstractSemanticAnalyzerHook.preAnalyze()~
+5. Semantic analysis
+6. *AbstractSemanticAnalyzerHook.postAnalyze()* ~HiveConf.ConfVars.SEMANTIC_ANALYZER_HOOK~
+7. Create and validate the query plan (physical plan)
+8. *Driver.execute()* : ready to run the jobs
+9. *ExecuteWithHookContext.run()*  ~HiveConf.ConfVars.PREEXECHOOKS~
+10. *ExecDriver.execute()* runs all the jobs
+11. For each job at every HiveConf.ConfVars.HIVECOUNTERSPULLINTERVAL interval:*ClientStatsPublisher.run()* is called to publish statistics ~HiveConf.ConfVars.CLIENTSTATSPUBLISHERS~ If a task fails: *ExecuteWithHookContext.run()* ~HiveConf.ConfVars.ONFAILUREHOOKS~
+12. Finish all the tasks
+13. *ExecuteWithHookContext.run()* ~HiveConf.ConfVars.POSTEXECHOOKS~
+14. Before returning the result *HiveDriverRunHook.postDriverRun()* ~HiveConf.ConfVars.HIVE_DRIVER_RUN_HOOKS~
+15. Return the result.
+
+** Usage in DDW
+*** ExecuteWithHookContext
 1) 设置HiveConf的mapreduce.job.queuename值，方便CDH中的资源池管理。
 2) HiveHistory文件追踪，监控Hive SQL的进度
-** AbstractSemanticAnalyzerHook                                    
+   #+BEGIN_SRC java 
+   /**
+ * 1 ) 用于将用户提交到对应的pool中,这样便于统一对某个用户执行资源(mem/cpu)使用控制,防止其占用过多资源卡住其他job
+ * 2 ) 创建任务
+ * Created by xkwu on 2017/1/17.
+ */
+public class CustomExecuteWithHookContext implements ExecuteWithHookContext {
+    private static final Log LOG = LogFactory.getLog(CustomExecuteWithHookContext.class);
+    private static TailerTracker tailerTracker = new TailerTracker();
+
+    static {
+        tailerTracker.start();
+    }
+    @Override
+    public void run(HookContext hookContext) throws Exception {
+        try {
+        UserGroupInformation ugi = hookContext.getUgi();
+        hookContext.getConf().set("mapreduce.job.queuename", ugi.getUserName());//1)修改queuename
+
+            QueryPlan queryPlan = hookContext.getQueryPlan();
+            int jobs = Utilities.getMRTasks(queryPlan.getRootTasks()).size();
+            if (jobs > 0) {
+                String histFileName = SessionState.get().getHiveHistory().getHistFileName();
+                tailerTracker.track(hookContext.getUserName(), histFileName);//2)创建监控HiveHistory的listener
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+    }
+}
+   #+END_SRC
+*** AbstractSemanticAnalyzerHook                                    
 1) 禁止drop databases,create databases等操作
 2) 将创建未压缩table的语句以邮件的形式发送给管理员
-
 
