@@ -4,15 +4,20 @@
 <ul>
 <li><a href="#orgd777141">1. Sentry Authentication</a>
 <ul>
-<li><a href="#orgae5794f">1.1. LDAP Installation LDAP Installation</a></li>
+<li><a href="#org1438731">1.1. LDAP Installation</a></li>
 <li><a href="#orgaa433b0">1.2. Hive Configuration</a></li>
 </ul>
 </li>
 <li><a href="#org0c894b5">2. Hive Debug</a></li>
 <li><a href="#org34a5844">3. Hive Hook</a>
 <ul>
-<li><a href="#org7b2f6bc">3.1. ExecuteWithHookContext</a></li>
-<li><a href="#orgd43cf03">3.2. AbstractSemanticAnalyzerHook</a></li>
+<li><a href="#org7f99626">3.1. Hooks lifecycle</a></li>
+<li><a href="#orgd6a85fe">3.2. Usage in DDW</a>
+<ul>
+<li><a href="#org7b2f6bc">3.2.1. ExecuteWithHookContext</a></li>
+<li><a href="#orgd43cf03">3.2.2. AbstractSemanticAnalyzerHook</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -25,8 +30,8 @@ title: 最近工作总结
 <div id="outline-container-orgd777141" class="outline-2">
 <h2 id="orgd777141"><span class="section-number-2">1</span> Sentry Authentication</h2>
 <div class="outline-text-2" id="text-1">
-</div><div id="outline-container-orgae5794f" class="outline-3">
-<h3 id="orgae5794f"><span class="section-number-3">1.1</span> LDAP Installation <a href="2017-03-08-integrate-hive-with-sentry-and-openldap.html">LDAP Installation</a></h3>
+</div><div id="outline-container-org1438731" class="outline-3">
+<h3 id="org1438731"><span class="section-number-3">1.1</span> LDAP Installation</h3>
 </div>
 <div id="outline-container-orgaa433b0" class="outline-3">
 <h3 id="orgaa433b0"><span class="section-number-3">1.2</span> Hive Configuration</h3>
@@ -38,22 +43,133 @@ title: 最近工作总结
 <div id="outline-container-org34a5844" class="outline-2">
 <h2 id="org34a5844"><span class="section-number-2">3</span> Hive Hook</h2>
 <div class="outline-text-2" id="text-3">
-</div><div id="outline-container-org7b2f6bc" class="outline-3">
-<h3 id="org7b2f6bc"><span class="section-number-3">3.1</span> ExecuteWithHookContext</h3>
+</div><div id="outline-container-org7f99626" class="outline-3">
+<h3 id="org7f99626"><span class="section-number-3">3.1</span> Hooks lifecycle</h3>
 <div class="outline-text-3" id="text-3-1">
+<p>
+There are several types of hooks depending on at which stage you want to inject your custom code:
+</p>
+<ul class="org-ul">
+<li>Driver run hooks (Pre/Post)</li>
+<li>Semantic analyizer hooks (Pre/Post)</li>
+<li>Execution hooks (Pre/Failure/Post)</li>
+<li>Client statistics publisher</li>
+</ul>
+<p>
+If you run a script the processing flow looks like as follows:
+</p>
+<ol class="org-ol">
+<li><b>Driver.run()</b> takes the command</li>
+<li><b>HiveDriverRunHook.preDriverRun()</b> <code>HiveConf.ConfVars.HIVE_DRIVER_RUN_HOOKS</code></li>
+<li><b>Driver.compile()</b> starts processing the command: creates the abstract syntax tree</li>
+<li><b>AbstractSemanticAnalyzerHook.preAnalyze()</b> <code>AbstractSemanticAnalyzerHook.preAnalyze()</code></li>
+<li>Semantic analysis</li>
+<li><b>AbstractSemanticAnalyzerHook.postAnalyze()</b> <code>HiveConf.ConfVars.SEMANTIC_ANALYZER_HOOK</code></li>
+<li>Create and validate the query plan (physical plan)</li>
+<li><b>Driver.execute()</b> : ready to run the jobs</li>
+<li><b>ExecuteWithHookContext.run()</b>  <code>HiveConf.ConfVars.PREEXECHOOKS</code></li>
+<li><b>ExecDriver.execute()</b> runs all the jobs</li>
+<li>For each job at every <code>HiveConf.ConfVars.HIVECOUNTERSPULLINTERVAL</code> interval: 
+<b>ClientStatsPublisher.run()</b> is called to publish statistics <code>HiveConf.ConfVars.CLIENTSTATSPUBLISHERS</code> 
+If a task fails: <b>ExecuteWithHookContext.run()</b> <code>HiveConf.ConfVars.ONFAILUREHOOKS</code></li>
+<li>Finish all the tasks</li>
+<li><b>ExecuteWithHookContext.run()</b> <code>HiveConf.ConfVars.POSTEXECHOOKS</code></li>
+<li>Before returning the result <b>HiveDriverRunHook.postDriverRun()</b> <code>HiveConf.ConfVars.HIVE_DRIVER_RUN_HOOKS</code></li>
+<li>Return the result.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd6a85fe" class="outline-3">
+<h3 id="orgd6a85fe"><span class="section-number-3">3.2</span> Usage in DDW</h3>
+<div class="outline-text-3" id="text-3-2">
+</div><div id="outline-container-org7b2f6bc" class="outline-4">
+<h4 id="org7b2f6bc"><span class="section-number-4">3.2.1</span> ExecuteWithHookContext</h4>
+<div class="outline-text-4" id="text-3-2-1">
 <ol class="org-ol">
 <li>设置HiveConf的mapreduce.job.queuename值，方便CDH中的资源池管理。</li>
 <li>HiveHistory文件追踪，监控Hive SQL的进度</li>
 </ol>
+<div class="org-src-container">
+<pre class="src src-java"> <span style="color: #2aa1ae;">/**</span>
+<span style="color: #2aa1ae;"> * 1 ) &#29992;&#20110;&#23558;&#29992;&#25143;&#25552;&#20132;&#21040;&#23545;&#24212;&#30340;pool&#20013;,&#36825;&#26679;&#20415;&#20110;&#32479;&#19968;&#23545;&#26576;&#20010;&#29992;&#25143;&#25191;&#34892;&#36164;&#28304;(mem/cpu)&#20351;&#29992;&#25511;&#21046;,&#38450;&#27490;&#20854;&#21344;&#29992;&#36807;&#22810;&#36164;&#28304;&#21345;&#20303;&#20854;&#20182;job</span>
+<span style="color: #2aa1ae;"> * 2 ) &#21019;&#24314;&#20219;&#21153;</span>
+<span style="color: #2aa1ae;"> * Created by xkwu on 2017/1/17.</span>
+<span style="color: #2aa1ae;"> */</span>
+<span style="color: #4f97d7; font-weight: bold;">public</span> <span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">CustomExecuteWithHookContext</span> <span style="color: #4f97d7; font-weight: bold;">implements</span> <span style="color: #ce537a; font-weight: bold;">ExecuteWithHookContext</span> <span style="color: #4f97d7;">{</span>
+    <span style="color: #4f97d7; font-weight: bold;">private</span> <span style="color: #4f97d7; font-weight: bold;">static</span> <span style="color: #4f97d7; font-weight: bold;">final</span> <span style="color: #ce537a; font-weight: bold;">Log</span> <span style="color: #7590db;">LOG</span> = LogFactory.getLog<span style="color: #bc6ec5;">(</span>CustomExecuteWithHookContext.<span style="color: #4f97d7; font-weight: bold;">class</span><span style="color: #bc6ec5;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">private</span> <span style="color: #4f97d7; font-weight: bold;">static</span> <span style="color: #ce537a; font-weight: bold;">TailerTracker</span> <span style="color: #7590db;">tailerTracker</span> = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">TailerTracker</span><span style="color: #bc6ec5;">()</span>;
+
+    <span style="color: #4f97d7; font-weight: bold;">static</span> <span style="color: #bc6ec5;">{</span>
+        tailerTracker.start<span style="color: #2d9574;">()</span>;
+    <span style="color: #bc6ec5;">}</span>
+    <span style="color: #a45bad;">@Override</span>
+    <span style="color: #4f97d7; font-weight: bold;">public</span> <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">run</span><span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">HookContext</span> <span style="color: #7590db;">hookContext</span><span style="color: #bc6ec5;">)</span> <span style="color: #4f97d7; font-weight: bold;">throws</span> <span style="color: #ce537a; font-weight: bold;">Exception</span> <span style="color: #bc6ec5;">{</span>
+        <span style="color: #4f97d7; font-weight: bold;">try</span> <span style="color: #2d9574;">{</span>
+        <span style="color: #ce537a; font-weight: bold;">UserGroupInformation</span> <span style="color: #7590db;">ugi</span> = hookContext.getUgi<span style="color: #67b11d;">()</span>;
+        hookContext.getConf<span style="color: #67b11d;">()</span>.set<span style="color: #67b11d;">(</span><span style="color: #2d9574;">"mapreduce.job.queuename"</span>, ugi.getUserName<span style="color: #b1951d;">()</span><span style="color: #67b11d;">)</span>;<span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">1)&#20462;&#25913;queuename</span>
+
+            <span style="color: #ce537a; font-weight: bold;">QueryPlan</span> <span style="color: #7590db;">queryPlan</span> = hookContext.getQueryPlan<span style="color: #67b11d;">()</span>;
+            <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #7590db;">jobs</span> = Utilities.getMRTasks<span style="color: #67b11d;">(</span>queryPlan.getRootTasks<span style="color: #b1951d;">()</span><span style="color: #67b11d;">)</span>.size<span style="color: #67b11d;">()</span>;
+            <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #67b11d;">(</span>jobs &gt; <span style="color: #a45bad;">0</span><span style="color: #67b11d;">)</span> <span style="color: #67b11d;">{</span>
+                <span style="color: #ce537a; font-weight: bold;">String</span> <span style="color: #7590db;">histFileName</span> = SessionState.get<span style="color: #b1951d;">()</span>.getHiveHistory<span style="color: #b1951d;">()</span>.getHistFileName<span style="color: #b1951d;">()</span>;
+                tailerTracker.track<span style="color: #b1951d;">(</span>hookContext.getUserName<span style="color: #4f97d7;">()</span>, histFileName<span style="color: #b1951d;">)</span>;<span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">2)&#21019;&#24314;&#30417;&#25511;HiveHistory&#30340;listener</span>
+            <span style="color: #67b11d;">}</span>
+        <span style="color: #2d9574;">}</span> <span style="color: #4f97d7; font-weight: bold;">catch</span> <span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">Exception</span> <span style="color: #7590db;">e</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+            LOG.error<span style="color: #67b11d;">(</span>e.getMessage<span style="color: #b1951d;">()</span>, e<span style="color: #67b11d;">)</span>;
+        <span style="color: #2d9574;">}</span>
+    <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
+</pre>
 </div>
 </div>
-<div id="outline-container-orgd43cf03" class="outline-3">
-<h3 id="orgd43cf03"><span class="section-number-3">3.2</span> AbstractSemanticAnalyzerHook</h3>
-<div class="outline-text-3" id="text-3-2">
+</div>
+<div id="outline-container-orgd43cf03" class="outline-4">
+<h4 id="orgd43cf03"><span class="section-number-4">3.2.2</span> AbstractSemanticAnalyzerHook</h4>
+<div class="outline-text-4" id="text-3-2-2">
 <ol class="org-ol">
 <li>禁止drop databases,create databases等操作</li>
 <li>将创建未压缩table的语句以邮件的形式发送给管理员</li>
 </ol>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #2aa1ae;">/**</span>
+<span style="color: #2aa1ae;"> *</span>
+<span style="color: #2aa1ae;"> * &#20027;&#35201;&#29992;&#20110;&#36807;&#28388;&#20986;&#21019;&#24314;&#34920;,&#21364;&#19981;&#25351;&#23450;&#37319;&#29992;&#21387;&#32553;&#26684;&#24335;.</span>
+<span style="color: #2aa1ae;"> * &#20415;&#20110;&#25105;&#20204;&#21450;&#26102;&#36319;&#36827;&#25351;&#23548;&#19994;&#21153;&#26041;&#20462;&#27491;</span>
+<span style="color: #2aa1ae;"> *</span>
+<span style="color: #2aa1ae;"> * Created by xkwu on 2017/1/18.</span>
+<span style="color: #2aa1ae;"> */</span>
+<span style="color: #4f97d7; font-weight: bold;">public</span> <span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">CustomSemanticAnalyzerHook</span> <span style="color: #4f97d7; font-weight: bold;">extends</span> <span style="color: #ce537a; font-weight: bold;">AbstractSemanticAnalyzerHook</span> <span style="color: #4f97d7;">{</span>
+    <span style="color: #4f97d7; font-weight: bold;">private</span> <span style="color: #4f97d7; font-weight: bold;">static</span> <span style="color: #4f97d7; font-weight: bold;">final</span> <span style="color: #ce537a; font-weight: bold;">Log</span> <span style="color: #7590db;">LOG</span> = LogFactory.getLog<span style="color: #bc6ec5;">(</span>CustomSemanticAnalyzerHook.<span style="color: #4f97d7; font-weight: bold;">class</span><span style="color: #bc6ec5;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">private</span> <span style="color: #ce537a; font-weight: bold;">Pattern</span> <span style="color: #7590db;">pattern</span> = Pattern.compile<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"(STORED\\s+?AS\\s+?)(parquet|rcfile|orcfile|orc)"</span>, <span style="color: #a45bad;">Pattern</span>.CASE_INSENSITIVE<span style="color: #bc6ec5;">)</span>;   <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">&#27491;&#21017;&#21305;&#37197;&#37319;&#29992;&#20102;&#21387;&#32553;&#23384;&#20648;&#26684;&#24335;&#30340;&#34920;scheme</span>
+
+    <span style="color: #a45bad;">@Override</span>
+    <span style="color: #4f97d7; font-weight: bold;">public</span> <span style="color: #ce537a; font-weight: bold;">ASTNode</span> <span style="color: #bc6ec5; font-weight: bold;">preAnalyze</span><span style="color: #bc6ec5;">(</span><span style="color: #ce537a; font-weight: bold;">HiveSemanticAnalyzerHookContext</span> <span style="color: #7590db;">context</span>,
+                              <span style="color: #ce537a; font-weight: bold;">ASTNode</span> <span style="color: #7590db;">ast</span><span style="color: #bc6ec5;">)</span> <span style="color: #4f97d7; font-weight: bold;">throws</span> <span style="color: #ce537a; font-weight: bold;">SemanticException</span> <span style="color: #bc6ec5;">{</span>
+        <span style="color: #4f97d7; font-weight: bold;">switch</span> <span style="color: #2d9574;">(</span>ast.getToken<span style="color: #67b11d;">()</span>.getType<span style="color: #67b11d;">()</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+            <span style="color: #4f97d7; font-weight: bold;">case</span> <span style="color: #a45bad;">HiveParser</span>.TOK_CREATETABLE:
+                <span style="color: #ce537a; font-weight: bold;">Matcher</span> <span style="color: #7590db;">m</span> = pattern.matcher<span style="color: #67b11d;">(</span>context.getCommand<span style="color: #b1951d;">()</span><span style="color: #67b11d;">)</span>;
+                <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #67b11d;">(</span><span style="color: #a45bad;">!</span>m.find<span style="color: #b1951d;">()</span><span style="color: #67b11d;">)</span> <span style="color: #67b11d;">{</span>
+                    LOG.info<span style="color: #b1951d;">(</span>context.getUserName<span style="color: #4f97d7;">()</span> + <span style="color: #2d9574;">"&#25191;&#34892;&#20102;&#25805;&#20316;: "</span> + context.getCommand<span style="color: #4f97d7;">()</span><span style="color: #b1951d;">)</span>;
+                    <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">EmailThread</span><span style="color: #b1951d;">(</span><span style="color: #2d9574;">"/hive/notifyAboutCreateTable"</span>, <span style="color: #2d9574;">"cmd="</span> + context.getCommand<span style="color: #4f97d7;">()</span> + <span style="color: #2d9574;">"&amp;groupCode="</span> + context.getUserName<span style="color: #4f97d7;">()</span><span style="color: #b1951d;">)</span>.start<span style="color: #b1951d;">()</span>;
+                <span style="color: #67b11d;">}</span>
+                <span style="color: #4f97d7; font-weight: bold;">break</span>;
+            <span style="color: #4f97d7; font-weight: bold;">case</span> <span style="color: #a45bad;">HiveParser</span>.TOK_CREATEDATABASE:
+            <span style="color: #4f97d7; font-weight: bold;">case</span> <span style="color: #a45bad;">HiveParser</span>.TOK_DROPDATABASE:
+                <span style="color: #ce537a; font-weight: bold;">String</span> <span style="color: #7590db;">adminAccount</span> = ConfigUtils.prop.getProperty<span style="color: #67b11d;">(</span><span style="color: #2d9574;">"ADMIN_ACCOUNT"</span><span style="color: #67b11d;">)</span>;
+                <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #67b11d;">(</span>StringUtils.isEmpty<span style="color: #b1951d;">(</span>context.getUserName<span style="color: #4f97d7;">()</span><span style="color: #b1951d;">)</span> || <span style="color: #a45bad;">!</span>context.getUserName<span style="color: #b1951d;">()</span>.equals<span style="color: #b1951d;">(</span>adminAccount<span style="color: #b1951d;">)</span><span style="color: #67b11d;">)</span> <span style="color: #67b11d;">{</span>
+                    <span style="color: #4f97d7; font-weight: bold;">throw</span> <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">SemanticException</span><span style="color: #b1951d;">(</span><span style="color: #2d9574;">"Only the admin accounts of ddw bigdata platform can create/drop database."</span><span style="color: #b1951d;">)</span>;
+                <span style="color: #67b11d;">}</span>
+                <span style="color: #4f97d7; font-weight: bold;">break</span>; 
+            <span style="color: #4f97d7; font-weight: bold;">default</span>:
+                <span style="color: #4f97d7; font-weight: bold;">break</span>;
+        <span style="color: #2d9574;">}</span>
+        <span style="color: #4f97d7; font-weight: bold;">return</span> ast;
+    <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</div>
 </div>
 </div>
 </div>
