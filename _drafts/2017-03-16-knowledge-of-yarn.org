@@ -1,0 +1,12 @@
+#+HTML: ---
+#+HTML: layout: default
+#+HTML: title: 关于CDH的一些tips
+#+HTML: ---
+
+- For Hadoop installations, Cloudera recommends that the HDFS DataNodes and the YARN NodeManagers run on the same set of Worker nodes in the cluster.
+- 
+* dgdT 
+** 
+*** erte 
+**** werwr
+***** tet

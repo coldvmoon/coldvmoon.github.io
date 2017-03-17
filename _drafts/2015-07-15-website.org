@@ -1,15 +1,19 @@
 #+HTML: ---
 #+HTML: layout: default
-#+HTML: title: 常访问网站
+#+HTML: title: 常用网站和工具
 #+HTML: ---
 It was early January when six of us travelled up to ....
 * 常访问网站
-** 经济类                                                          :economy:
-*** [[http://www.ftchinese.com/][FT中文网]]
+** 资讯                                                              :news:
+*** 经济                                                         :economic:
+**** [[http://www.ftchinese.com/][FT中文网]]
+*** knowledge
+**** [[https://news.ycombinator.com/][Hacker News]]
+**** [[https://www.reddit.com][Reddit]]
 ** 技术类                                                          :technic:
 *** emacs                                                           :emacs:
 **** [[http://doc.norang.ca/org-mode.html][Organize Your Life In Plain Text!]]                
-**** [[https://sourceforge.net/projects/emacsbinw64/?source=directory][64-Bit GNU Emacs for MS Windows with optimization]] gs
+**** [[https://sourceforge.net/projects/emacsbinw64/?source=directory][64-Bit GNU Emacs for MS Windows with optimization]]
 ** 见识类
 *** 书画
 **** [[https://www.google.com/culturalinstitute/beta/u/0/][Google Arts&Culture(欧美画作)]]
@@ -18,5 +22,5 @@ It was early January when six of us travelled up to ....
 *** etymology                                                   :etymology:
 **** [[http://www.etymonline.com/][Online Etymology Dictionary]]                              
 **** [[http://www.youdict.com][优词词典]]                                             
-[[file:../images/2017-03-09_13-66-32.jpg]]
-sdfsf
+* 有用工具
+** [[http://www.wolframalpha.com/][Wolfram Alpha]]
