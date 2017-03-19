@@ -1,0 +1,28 @@
+#+HTML: ---
+#+HTML: layout: default
+#+HTML: title: 关于CDH的一些tips
+#+HTML: ---
+
+
+
+
+* 显示左侧目录列表 SPC f t  
+
+| Key Binding	 | Description           |
+|---------------+-----------------------|
+| SPC t l       | toggle truncate lines |
+|               |                       |
+|               |                       |
+|               |                       |
+|               |                       |
+|               |                       |
+|               |                       |
+|               |                       |
+|               |                       |
+
+
+
+
+
+
+

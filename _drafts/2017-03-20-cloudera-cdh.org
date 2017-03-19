@@ -1,0 +1,25 @@
+#+HTML: ---
+#+HTML: layout: default
+#+HTML: title: Cloudera中CDH
+#+HTML: ---
+* Problem with Big Data
+ + Coordinating the processes in a large-scale distributed computation is a challenge. ~The ardest aspect is gracefully handling partial failure—when you don’t know whether or not a remote process has failed—and still making progress with the overall computation.~
+ + ~the optimal split size is the same as the block size~: it is the largest size of input that can be guaranteed to be stored on a single node. If the split spanned two blocks, it would be unlikely that any HDFS node stored both blocks, so some of the split would have to be transferred across the network to the node running the map task, which is clearly less efficient than running the whole map task using local data.
+ + ~Map tasks write their output to the local disk, not to HDFS.~ Why is this? Map output is intermediate output: it’s processed by reduce tasks to produce the final output, and once the job is complete, the map output can be thrown away. So, storing it in HDFS with replication would be overkill. If the node running the map task fails before the map output has been consumed by the reduce task, then Hadoop will automatically rerun the map task on another node to re-create the map output.
+ + ~Reduce tasks don’t have the advantage of data locality;!~ the input to a single reduce task is normally the output from all mappers. In the present example, we have a single reduce task that is fed by all of the map tasks. ~Therefore, the sorted map outputs have to be transferred across the network to the node where the reduce task is running, where they are merged and then passed to the user-defined reduce function.~ ~The output of the reduce is normally stored in HDFS for reliability.~ For each HDFS block of the reduce output, the first replica is stored on the local node, with other replicas being stored on off-rack nodes for reliability. Thus, writing the reduce output does consume network bandwidth, but only as much as a normal HDFS write pipeline consumes.
+ + ~The number of reduce tasks is not governed by the size of the input, but instead is specified independently.~
+ + ~When there are multiple reducers, the map tasks partition their output, each creating one partition for each reduce task. There can be many keys (and their associated values) in each partition, but the records for any given key are all in a single partition.~ The partitioning can be controlled by a user-defined partitioning function, but normally the default partitioner—which buckets keys using a hash function—works very well.
+ + ~MapReduce data flow with a single reduce task.~ The dotted boxes indicate nodes, the dotted arrows show data transfers on a node, and the solid arrows show data transfers between nodes.
+    
+   [[file:../images/2017-03-19_21-17-32_2017-03-19_21-18-06.png]]
+ + 
+ 
+* Cloudera Manager
+
+* 
+
+
+
+
+
+#+DOWNLOADED: file:C%3A/Users/xkwu/Desktop/2017-03-19_21-17-32.png @ 2017-03-19 21:18:06

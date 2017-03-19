@@ -10,10 +10,17 @@ It was early January when six of us travelled up to ....
 *** knowledge
 **** [[https://news.ycombinator.com/][Hacker News]]
 **** [[https://www.reddit.com][Reddit]]
+*** thechnic
+**** [[https://www.webcodegeeks.com/][Web Code Geeks]]
+**** [[https://www.javacodegeeks.com/][Java Code geeks]]
+*** app                                                               :app:
+**** [[https://sspai.com/][少数派]]
 ** 技术类                                                          :technic:
 *** emacs                                                           :emacs:
 **** [[http://doc.norang.ca/org-mode.html][Organize Your Life In Plain Text!]]                
 **** [[https://sourceforge.net/projects/emacsbinw64/?source=directory][64-Bit GNU Emacs for MS Windows with optimization]]
+*** crack                                                           :crack:
+**** [[http://www.52pojie.cn/][吾爱破解]] 
 ** 见识类
 *** 书画
 **** [[https://www.google.com/culturalinstitute/beta/u/0/][Google Arts&Culture(欧美画作)]]
@@ -22,5 +29,22 @@ It was early January when six of us travelled up to ....
 *** etymology                                                   :etymology:
 **** [[http://www.etymonline.com/][Online Etymology Dictionary]]                              
 **** [[http://www.youdict.com][优词词典]]                                             
+** 影片                                                             :movie:
+*** all type
+**** [[http://www.fixsub.com/][FIX主站]]
+**** [[http://www.xunyingwang.com/][迅影网]]
+*** 纪录片                                                    :documentary:
+**** [[http://www.onehourlife.com/][每天一小时记录片]]
+#+BEGIN_EXAMPLE
+获取vip的下载地址http://www.onehourlife.com/wp-content/plugins/erphpdown/download.php?postid=12466
+#+END_EXAMPLE*** 
 * 有用工具
-** [[http://www.wolframalpha.com/][Wolfram Alpha]]
+** chrome                                                          :chrome:
+*** Tampermonkey
+** download                                                      :download:
+*** IDM 
+** math                                                              :math:
+*** [[http://www.wolframalpha.com/][Wolfram Alpha]]
+** crack
+*** Cheat Engine
+
