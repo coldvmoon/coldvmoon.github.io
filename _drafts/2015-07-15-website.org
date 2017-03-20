@@ -4,47 +4,48 @@
 #+HTML: ---
 It was early January when six of us travelled up to ....
 * 常访问网站
-** 资讯                                                              :news:
+** 资讯 :news:
 *** 经济                                                         :economic:
-**** [[http://www.ftchinese.com/][FT中文网]]
++ [[http://www.ftchinese.com/][FT 中文网]]
 *** knowledge
 **** [[https://news.ycombinator.com/][Hacker News]]
 **** [[https://www.reddit.com][Reddit]]
 *** thechnic
 **** [[https://www.webcodegeeks.com/][Web Code Geeks]]
 **** [[https://www.javacodegeeks.com/][Java Code geeks]]
-*** app                                                               :app:
+*** app :app:
 **** [[https://sspai.com/][少数派]]
-** 技术类                                                          :technic:
-*** emacs                                                           :emacs:
+** 技术类 :technic:
+*** emacs :emacs:
 **** [[http://doc.norang.ca/org-mode.html][Organize Your Life In Plain Text!]]                
 **** [[https://sourceforge.net/projects/emacsbinw64/?source=directory][64-Bit GNU Emacs for MS Windows with optimization]]
-*** crack                                                           :crack:
+*** crack :crack:
 **** [[http://www.52pojie.cn/][吾爱破解]] 
 ** 见识类
 *** 书画
 **** [[https://www.google.com/culturalinstitute/beta/u/0/][Google Arts&Culture(欧美画作)]]
 **** [[https://shuge.org/][书格(中国古字画)]]
-** 英语类                                                          :english:
+** 英语类 :english:
 *** etymology                                                   :etymology:
 **** [[http://www.etymonline.com/][Online Etymology Dictionary]]                              
 **** [[http://www.youdict.com][优词词典]]                                             
-** 影片                                                             :movie:
+** 影片 :movie:
 *** all type
-**** [[http://www.fixsub.com/][FIX主站]]
+**** [[http://www.fixsub.com/][FIX 主站]]
 **** [[http://www.xunyingwang.com/][迅影网]]
-*** 纪录片                                                    :documentary:
+*** 纪录片 :documentary:
 **** [[http://www.onehourlife.com/][每天一小时记录片]]
 #+BEGIN_EXAMPLE
-获取vip的下载地址http://www.onehourlife.com/wp-content/plugins/erphpdown/download.php?postid=12466
-#+END_EXAMPLE*** 
+获取 vip 的下载地址 http://www.onehourlife.com/wp-content/plugins/erphpdown/download.php?postid=12466
+#+END_EXAMPLE 
 * 有用工具
-** chrome                                                          :chrome:
+** chrome :chrome:
 *** Tampermonkey
-** download                                                      :download:
+** download :download:
 *** IDM 
-** math                                                              :math:
+** math :math:
 *** [[http://www.wolframalpha.com/][Wolfram Alpha]]
-** crack
+** crack :crack:
 *** Cheat Engine
-
+* Github
++ Flarum :: Flarum 是一款现代的，优雅的，简洁的，强大的论坛软件。Flarum 让在线交流变得更加轻松愉快。
