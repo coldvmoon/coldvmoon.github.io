@@ -1,12 +1,44 @@
 #+HTML: ---
 #+HTML: layout: default
-#+HTML: title: 关于CDH的一些tips
+#+HTML: title: knowledge of yarn
 #+HTML: ---
+ 
+* Overview
++ ResourceManager :: ~A ResourceManager is a per cluster service that manages the scheduling of compute resources to applications. It optimizes cluster utilization in terms of memory, CPU cores, fairness, and SLAs.~ To allow different policy constraints, it has algorithms in terms of pluggable schedulers such as capacity and fair that allows resource allocation in a particular way.
+  + Scheduler :: ~This is a pure pluggable component that is only responsible for allocating resources to applications submitted to the cluster, applying constraint of capacities and queues.~ Scheduler does not provide any guarantee for job completion or monitoring, it only allocates the cluster resources governed by the nature of job and resource requirement.
+  + ApplicationsManager(AsM) :: ~This is a service used to manage application masters across the cluster that is responsible for accepting the application submission, providing the resources for application master to start, monitoring the application progress, and restart, in case of application failure.~
++ NodeManager :: ~The NodeManager is a per node worker service that is responsible for the execution of containers based on the node capacity.~ Node capacity is calculated
+based on the installed memory and the number of CPU cores. The NodeManager service sends a heartbeat signal to the ResourceManager to update its health status. NodeManager also sends the status to ResourceManager, which could be the status of the node on which it is running or the status of tasks executing on it.
++ ApplicationMaster :: An ApplicationMaster is a per application framework-specific library that manages each instance of an application that runs within YARN. YARN treats
+ ~ApplicationMaster as a third-party library responsible for negotiating the resources from the ResourceManager scheduler and works with NodeManager to execute thetasks.~ ~The ResourceManager allocates containers to the ApplicationMaster and these containers are then used to run the application-specific processes.~ ApplicationMaster also tracks the status of the application and monitors the progress of the containers. When the execution of a container gets complete, the ApplicationMaster unregisters the containers with the ResourceManager and unregisters itself after the execution of the application is complete.
++ Container :: ~A container is a logical bundle of resources in terms of memory, CPU, disk, and so on that is bound to a particular node.~ The ResourceManager scheduler service
+dynamically allocates resources as containers. A container grants rights to an ApplicationMaster to use a specific amount of resources of a specific host. An ApplicationMaster is considered as the first container of an application and it manages the execution of the application logic on allocated containers.
 
-- For Hadoop installations, Cloudera recommends that the HDFS DataNodes and the YARN NodeManagers run on the same set of Worker nodes in the cluster.
-- 
-* dgdT 
-** 
-*** erte 
-**** werwr
-***** tet
+* Architecture
+
+ [[file:../images/Yarn-architecture_2017-03-23_15-01-20.png]]
+
++ The ResourceManager service runs on the master node of the cluster.
++ A YARN client submits an application to the ResourceManager. An application can be a single MapReduce job, a directed acyclic graph of jobs, a java application, or any shell script.
++ The client also defines an ApplicationMaster and a command to start the ApplicationMaster on a node.
++ The ApplicationManager service of resource manager will validate and accept the application request from the client.
++ The scheduler service of resource manager will allocate a container for the ApplicationMaster on a node and the NodeManager service on that node will use the command to start the ApplicationMaster service.
++ Each YARN application has a special container called ApplicationMaster. The ApplicationMaster container is the first container of an application.
++ The ApplicationMaster requests resources from the ResourceManager. The RequestRequest will have the location of the node, memory, and CPU cores required.
++ The ResourceManager will allocate the resources as containers on a set of nodes.
++ The ApplicationMaster will connect to the NodeManager services and request NodeManager to start containers.
++ The ApplicationMaster manages the execution of the containers and will notify the ResourceManager once the application execution is over. Application execution and progress monitoring is the responsibility of ApplicationMaster rather than ResourceManager.
++ The NodeManager service runs on each slave of the YARN cluster. It is responsible for running application's containers. The resources specified for a container are taken from the NodeManager resources. Each NodeManager periodically updates ResourceManager for the set of available resources. The ResourceManager scheduler service uses this resource matrix to allocate new containers to ApplicationMaster or to start execution of a new application.
+
+* Feature
++ Scalability and higher cluster utilization :: ~In YARN, the responsibility of resource management and job scheduling / monitoring is divided into separate daemons, allowing YARN daemons to scale the cluster without degrading the performance of the cluster.~ With a flexible and generic resource model in YARN, the scheduler handles an overall resource profile for each type of application. This structure makes the communication and storage of resource requests efficient for the scheduler resulting in higher cluster utilization.
++ High availability for components :: Fault tolerance is a core design principle for any multitenancy platform such as YARN. This responsibility is delegated to ResourceManager and ApplicationMaster. ~The application specific framework, ApplicationMaster, handles the failure of a container. The ResourceManager handles the failure of NodeManager and ApplicationMaster.~
++ Flexible resource model :: In YARN, a resource-request is defined in terms of memory, CPU, locality, and so on. It results in a generic definition for a resource request by an application. The NodeManager node is the worker node and its capability is calculated based on the installed memory and cores of the CPU.
++ Multiple data processing algorithms :: YARN is developed with a need to perform a wide variety of data processing over the data stored over Hadoop HDFS. YARN is a framework for generic resource management and allows users to execute multiple data processing algorithms over the data.
++ Log aggregation and resource localization :: To manage user logs, YARN introduced a concept of log aggregation. In YARN, once the application is finished, the NodeManager service aggregates the user logs related to an application and these aggregated logs are written out to a single log file in HDFS. To access the logs, users can use either the YARN commandline options, YARN web interface, or can fetch directly from HDFS. 
+* Executing Application on Yarn 
+** Phase 1 - Application initialization and submission 
+[[file:../images/Yarn-submission-phase-1-2017-03-24_17-48-36.png]]
+1) In the first phase of application execution, a client will connect to the applications manager service of the ResourceManager daemon and will request the ResourceManager for a new application ID.
+2) The ResourceManager will validate the client request and if the client is an authorized user, it will send a new and unique application ID, along with the cluster metrics to the client.
+3) The client will use this application ID, and will submit an application to the ResourceManager as described.

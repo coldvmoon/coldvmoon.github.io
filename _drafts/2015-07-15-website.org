@@ -17,6 +17,7 @@ It was early January when six of us travelled up to ....
 **** [[https://sspai.com/][少数派]]
 ** 技术类 :technic:
 *** emacs :emacs:
+**** [[http://sachachua.com/blog/][Sacha Chua]]
 **** [[http://doc.norang.ca/org-mode.html][Organize Your Life In Plain Text!]]                
 **** [[https://sourceforge.net/projects/emacsbinw64/?source=directory][64-Bit GNU Emacs for MS Windows with optimization]]
 *** crack :crack:
@@ -37,7 +38,13 @@ It was early January when six of us travelled up to ....
 **** [[http://www.onehourlife.com/][每天一小时记录片]]
 #+BEGIN_EXAMPLE
 获取 vip 的下载地址 http://www.onehourlife.com/wp-content/plugins/erphpdown/download.php?postid=12466
-#+END_EXAMPLE 
+#+END_EXAMPLE
+** Design
+*** all
++ [[http://www.gfxday.com/][GFXDAY]]
+** 生活
+*** 城市规划 :城市规划:
++ [[http://bbs.caup.net][国匠城]] 
 * 有用工具
 ** chrome :chrome:
 *** Tampermonkey
@@ -47,5 +54,11 @@ It was early January when six of us travelled up to ....
 *** [[http://www.wolframalpha.com/][Wolfram Alpha]]
 ** crack :crack:
 *** Cheat Engine
+** Font
++ NIXMAT
+
+  [[file:../images/nixmat-01-f_2017-03-21_11-20-03.jpg]]
+
++ 
 * Github
 + Flarum :: Flarum 是一款现代的，优雅的，简洁的，强大的论坛软件。Flarum 让在线交流变得更加轻松愉快。
