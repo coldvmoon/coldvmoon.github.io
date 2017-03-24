@@ -6,7 +6,7 @@ It was early January when six of us travelled up to ....
 * 常访问网站
 ** 资讯                                                              :news:
 *** 经济                                                         :economic:
-**** [[http://www.ftchinese.com/][FT中文网]]
+**** [[http://www.ftchinese.com/][FT 中文网]]
 *** knowledge
 **** [[https://news.ycombinator.com/][Hacker News]]
 **** [[https://www.reddit.com][Reddit]]
@@ -31,12 +31,12 @@ It was early January when six of us travelled up to ....
 **** [[http://www.youdict.com][优词词典]]                                             
 ** 影片                                                             :movie:
 *** all type
-**** [[http://www.fixsub.com/][FIX主站]]
+**** [[http://www.fixsub.com/][FIX 主站]]
 **** [[http://www.xunyingwang.com/][迅影网]]
 *** 纪录片                                                    :documentary:
 **** [[http://www.onehourlife.com/][每天一小时记录片]]
 #+BEGIN_EXAMPLE
-获取vip的下载地址http://www.onehourlife.com/wp-content/plugins/erphpdown/download.php?postid=12466
+获取 vip 的下载地址 http://www.onehourlife.com/wp-content/plugins/erphpdown/download.php?postid=12466
 #+END_EXAMPLE*** 
 * 有用工具
 ** chrome                                                          :chrome:
@@ -47,4 +47,5 @@ It was early January when six of us travelled up to ....
 *** [[http://www.wolframalpha.com/][Wolfram Alpha]]
 ** crack
 *** Cheat Engine
+
 

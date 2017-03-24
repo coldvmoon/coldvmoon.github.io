@@ -1,24 +1,31 @@
 #+HTML: ---
 #+HTML: layout: default
-#+HTML: title: 关于CDH的一些tips
+#+HTML: title: 关于 CDH 的一些 tips
 #+HTML: ---
 
 
+* Org-mdoe
++ 关于 Org-mode 的一些全局快捷键
+  #+BEGIN_SRC emacs-lisp
+    (global-set-key "\C-cl" 'org-store-link)
+    (global-set-key "\C-ca" 'org-agenda)
+    (global-set-key "\C-cb" 'org-iswitchb)
+  #+END_SRC
 
 
 * 显示左侧目录列表 SPC f t  
 
-| Key Binding	 | Description           |
-|---------------+-----------------------|
-| SPC t l       | toggle truncate lines |
-|               |                       |
-|               |                       |
-|               |                       |
-|               |                       |
-|               |                       |
-|               |                       |
-|               |                       |
-|               |                       |
+| Key Binding	 | Description             |
+|---------------+-------------------------|
+| SPC t l       | toggle truncate lines   |
+| SPC m '       | confirm in org-src-mode |
+|               |                         |
+|               |                         |
+|               |                         |
+|               |                         |
+|               |                         |
+|               |                         |
+|               |                         |
 
 
 
