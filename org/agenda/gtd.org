@@ -1,0 +1,36 @@
+* 工作安排
+
+
+
+* Daiyly
+
+** TODO Read English News 
+SCHEDULED: <2017-03-27 周一 +1d>
+:PROPERTIES:
+:LAST_REPEAT: [2017-03-27 周一 00:08]
+:END:
+:LOGBOOK:
+CLOCK: [2017-03-26 周日 23:39]--[2017-03-27 周一 00:04] =>  0:25
+:END:
+
+* Weekly
+:PROPERTIES:
+:CUSTOM_ID: WeeklyTask
+:id:       WeeklyTask
+:END:
+** TODO sdfdsf
+** TODO [[file:2017-03-19-documentary.org][看记录片]]
+SCHEDULED: <2017-04-02 周日 .+1w>
+:PROPERTIES:
+:STYLE:    habit
+:END:
+
+#+BEGIN: columnview :hli nes 1 :id WeeklyTask
+| ITEM     | TODO | PRIORITY | TAGS |
+|----------+------+----------+------|
+| Weekly   |      | B        |      |
+| sdfdsf   | TODO | B        |      |
+| [[file:2017-03-19-documentary.org][看记录片]] | TODO | B        |      |
+#+END:
+
+

@@ -1,6 +1,0 @@
-#+HTML: ---
-#+HTML: layout: default
-#+HTML: title: 在CDH(Cloudera Manager)中调试HiveServer2
-#+HTML: ---
-* Problem
-HiveServer2在CDH(Cloudera Manager)中使用时候，HiveServer2的启停都是通过管理界面，无法像自己搭建的hive环境一样简单使用  *beeline --debug* 进行调试

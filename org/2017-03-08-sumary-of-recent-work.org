@@ -1,0 +1,110 @@
+#+HTML: ---
+#+HTML: layout: default
+#+HTML: title: 最近工作总结
+#+HTML: ---
+* Sentry Authentication  
+** LDAP Installation
+** Hive Configuration
+* Hive Debug
+* Hive Hook
+** Hooks lifecycle
+There are several types of hooks depending on at which stage you want to inject your custom code:
+- Driver run hooks (Pre/Post)
+- Semantic analyizer hooks (Pre/Post)
+- Execution hooks (Pre/Failure/Post)
+- Client statistics publisher
+If you run a script the processing flow looks like as follows:
+1. *Driver.run()* takes the command
+2. *HiveDriverRunHook.preDriverRun()* ~HiveConf.ConfVars.HIVE_DRIVER_RUN_HOOKS~
+3. *Driver.compile()* starts processing the command: creates the abstract syntax tree
+4. *AbstractSemanticAnalyzerHook.preAnalyze()* ~AbstractSemanticAnalyzerHook.preAnalyze()~
+5. Semantic analysis
+6. *AbstractSemanticAnalyzerHook.postAnalyze()* ~HiveConf.ConfVars.SEMANTIC_ANALYZER_HOOK~
+7. Create and validate the query plan (physical plan)
+8. *Driver.execute()* : ready to run the jobs
+9. *ExecuteWithHookContext.run()*  ~HiveConf.ConfVars.PREEXECHOOKS~
+10. *ExecDriver.execute()* runs all the jobs
+11. For each job at every ~HiveConf.ConfVars.HIVECOUNTERSPULLINTERVAL~ interval: 
+    *ClientStatsPublisher.run()* is called to publish statistics ~HiveConf.ConfVars.CLIENTSTATSPUBLISHERS~ 
+    If a task fails: *ExecuteWithHookContext.run()* ~HiveConf.ConfVars.ONFAILUREHOOKS~
+12. Finish all the tasks
+13. *ExecuteWithHookContext.run()* ~HiveConf.ConfVars.POSTEXECHOOKS~
+14. Before returning the result *HiveDriverRunHook.postDriverRun()* ~HiveConf.ConfVars.HIVE_DRIVER_RUN_HOOKS~
+15. Return the result.
+
+** Usage in DDW
+*** ExecuteWithHookContext
+1) 设置HiveConf的mapreduce.job.queuename值，方便CDH中的资源池管理。
+2) HiveHistory文件追踪，监控Hive SQL的进度
+#+BEGIN_SRC java 
+ /**
+ * 1 ) 用于将用户提交到对应的pool中,这样便于统一对某个用户执行资源(mem/cpu)使用控制,防止其占用过多资源卡住其他job
+ * 2 ) 创建任务
+ * Created by xkwu on 2017/1/17.
+ */
+public class CustomExecuteWithHookContext implements ExecuteWithHookContext {
+    private static final Log LOG = LogFactory.getLog(CustomExecuteWithHookContext.class);
+    private static TailerTracker tailerTracker = new TailerTracker();
+
+    static {
+        tailerTracker.start();
+    }
+    @Override
+    public void run(HookContext hookContext) throws Exception {
+        try {
+        UserGroupInformation ugi = hookContext.getUgi();
+        hookContext.getConf().set("mapreduce.job.queuename", ugi.getUserName());//1)修改queuename
+
+            QueryPlan queryPlan = hookContext.getQueryPlan();
+            int jobs = Utilities.getMRTasks(queryPlan.getRootTasks()).size();
+            if (jobs > 0) {
+                String histFileName = SessionState.get().getHiveHistory().getHistFileName();
+                tailerTracker.track(hookContext.getUserName(), histFileName);//2)创建监控HiveHistory的listener
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+    }
+}
+   #+END_SRC
+*** AbstractSemanticAnalyzerHook                                    
+1) 禁止drop databases,create databases等操作
+2) 将创建未压缩table的语句以邮件的形式发送给管理员
+#+BEGIN_SRC java 
+/**
+ *
+ * 主要用于过滤出创建表,却不指定采用压缩格式.
+ * 便于我们及时跟进指导业务方修正
+ *
+ * Created by xkwu on 2017/1/18.
+ */
+public class CustomSemanticAnalyzerHook extends AbstractSemanticAnalyzerHook {
+    private static final Log LOG = LogFactory.getLog(CustomSemanticAnalyzerHook.class);
+    private Pattern pattern = Pattern.compile("(STORED\\s+?AS\\s+?)(parquet|rcfile|orcfile|orc)", Pattern.CASE_INSENSITIVE);   // 正则匹配采用了压缩存储格式的表scheme
+
+    @Override
+    public ASTNode preAnalyze(HiveSemanticAnalyzerHookContext context,
+                              ASTNode ast) throws SemanticException {
+        switch (ast.getToken().getType()) {
+            case HiveParser.TOK_CREATETABLE:
+                Matcher m = pattern.matcher(context.getCommand());
+                if (!m.find()) {
+                    LOG.info(context.getUserName() + "执行了操作: " + context.getCommand());
+                    new EmailThread("/hive/notifyAboutCreateTable", "cmd=" + context.getCommand() + "&groupCode=" + context.getUserName()).start();
+                }
+                break;
+            case HiveParser.TOK_CREATEDATABASE:
+            case HiveParser.TOK_DROPDATABASE:
+                String adminAccount = ConfigUtils.prop.getProperty("ADMIN_ACCOUNT");
+                if (StringUtils.isEmpty(context.getUserName()) || !context.getUserName().equals(adminAccount)) {
+                    throw new SemanticException("Only the admin accounts of ddw bigdata platform can create/drop database.");
+                }
+                break; 
+            default:
+                break;
+        }
+        return ast;
+    }
+}
+#+END_SRC
+
