@@ -1,9 +1,9 @@
 #+HTML: ---
 #+HTML: layout: default
-#+HTML: title: Hive整合Sentry和OpenLDAP
+#+HTML: title: Hive 整合 Sentry 和 OpenLDAP
 #+HTML: ---
-* 安装OpenLDAP 
-1) 使用yum安装OpenLdap
+* 安装 OpenLDAP 
+1) 使用 yum 安装 OpenLdap
 #+BEGIN_SRC sh
 sudo yum install -y openldap openldap-servers openldap-clients
 #+END_SRC
@@ -40,14 +40,14 @@ sudo chown ldap.ldap /etc/openldap/*
 sudo chown ldap.ldap /var/lib/ldap/*
 #+END_SRC
 
-5) 启动sladp,启动后的389端口就是默认端口。
+5) 启动 sladp,启动后的 389 端口就是默认端口。
 #+BEGIN_SRC sh
 sudo service slapd start
 #+END_SRC
 
 [[../images/2017-03-09_11-26-32.jpg]]
 
-6) 新建文件example.ldif
+6) 新建文件 example.ldif
 #+BEGIN_EXAMPLE
 dn:dc=example,dc=com
 objectclass:dcObject
@@ -59,7 +59,7 @@ objectclass:organizationalRole
 cn:Manager
 
 #+END_EXAMPLE
-7) 导入example.ldif
+7) 导入 example.ldif
 #+BEGIN_SRC sh
 ldapadd -x -W -D "cn=Manager,dc=example,dc=com" -f example.ldif
 #+END_SRC
@@ -73,15 +73,15 @@ ldapsearch -x -b "dc=example,dc=com"
 
 [[../images/2017-03-09_11-56-32.jpg]]
 
-* Sentry整合OpenLDAP
-照着cloudera官方文档来[[http://www.cloudera.com/documentation/enterprise/5-2-x/topics/cdh_sg_hiveserver2_security.html][http://www.cloudera.com/documentation/enterprise/5-2-x/topics/cdh_sg_hiveserver2_security.html]]
+* Sentry 整合 OpenLDAP
+照着 cloudera 官方文档来[[http://www.cloudera.com/documentation/enterprise/5-2-x/topics/cdh_sg_hiveserver2_security.html][http://www.cloudera.com/documentation/enterprise/5-2-x/topics/cdh_sg_hiveserver2_security.html]]
 
 [[../images/2017-03-09_11-66-32.jpg]]
 
-1) 配置HiveServer2的参数
+1) 配置 HiveServer2 的参数
 [[../images/2017-03-09_13-66-32.jpg]]
 
-2) 重新启动hive，使用beeline登录，使用一个错误的账号和密码（因为还木有正确的账号）
+2) 重新启动 hive，使用 beeline 登录，使用一个错误的账号和密码（因为还木有正确的账号）
 [[../images/2017-03-09_14-66-32.jpg]]
 
 3) 可以看见登录被拒绝了，查看日志
@@ -89,11 +89,11 @@ ldapsearch -x -b "dc=example,dc=com"
 tail -f /var/log/hive/hadoop-cmf-hive-HIVESERVER2-quickstart.cloudera.log.out
 #+END_SRC
 4) 问题来了，什么才是正确的用户名和密码呢？
-官方cloudera的文档是这样写的
+官方 cloudera 的文档是这样写的
 [[../images/2017-03-09_15-66-32.jpg]]
 
-*LDAP_Userid* 和 *LDAP_Password* 这个是个什么鬼？对应OpenLdap里面的什么？
-其实这个可以在Hive的源码中看到一个hook，是关于和ldap集成的。
+~LDAP_Userid~ 和 ~LDAP_Password~ 这个是个什么鬼？对应 OpenLdap 里面的什么？
+其实这个可以在 Hive 的源码中看到一个 hook，是关于和 ldap 集成的。
 
 5) 直接来结果吧！按照前面的方法再导入一条数据
 #+BEGIN_EXAMPLE
@@ -107,7 +107,7 @@ uidNumber: 123
 homeDirectory: wer
 #+END_EXAMPLE
 
-其中的 *uid* 就是用户名
+其中的 ~uid~ 就是用户名
 
 6) 为刚创建的数据添加密码
 #+BEGIN_SRC sh
@@ -118,38 +118,5 @@ ldappasswd -x -D "cn=Manager,dc=example,dc=com" -w secret "uid=testuid,cn=Manage
 [[../images/2017-03-09_15-66-33.jpg]]
 
 * 参考链接
-[[https://my.oschina.net/5lei/blog/193484][centos6.4安装配置LDAP服务]]
+[[https://my.oschina.net/5lei/blog/193484][centos6.4 安装配置 LDAP 服务]]
 [[https://www.cloudera.com/documentation/enterprise/5-2-x/topics/cdh_sg_hiveserver2_security.html][Cloudera Documention]]
-
-
-#+BEGIN_VERSE
-Great clouds overhead
-Tiny black birds rise and fall
-Snow covers Emacs
-
-
-    -- AlexSchroeder
-#+END_VERSE
-
-quotations in Org mode documents like this:
-#+BEGIN_QUOTE
-Everything should be made as simple as possible,
-but not any simpler -- Albert Einstein
-#+END_QUOTE
------- 
-#+BEGIN_CENTER
-Everything should be made as simple as possible, \\
-but not any simpler
-#+END_CENTER
-
-+-----------------+--------------------------------+-----------------+
-|     Command     |          Description           |   Key Binding   |
-+-----------------+--------------------------------+-----------------+
-|  forward-char   |Move point right N characters   |       C-f       |
-|                 |(left if N is negative).        |                 |
-|                 |                                |                 |
-+-----------------+--------------------------------+-----------------+
-|  backward-char  |Move point left N characters    |       C-b       |
-|                 |(right if N is negative).       |                 |
-|                 |                                |                 |
-+-----------------+--------------------------------+-----------------+

@@ -15,17 +15,17 @@
 
 * 显示左侧目录列表 SPC f t  
 
-| Key Binding	 | Description             |
-|---------------+-------------------------|
-| SPC t l       | toggle truncate lines   |
-| SPC m '       | confirm in org-src-mode |
-|               |                         |
-|               |                         |
-|               |                         |
-|               |                         |
-|               |                         |
-|               |                         |
-|               |                         |
+| Key Binding	 | Description                |
+|---------------+----------------------------|
+| SPC t l       | toggle truncate lines      |
+| SPC m '       | confirm in org-src-mode    |
+| SPC m p       | starts a pomodoro          |
+| SPC t m c     | toggle-mode-line-org-clock |
+|               |                            |
+|               |                            |
+|               |                            |
+|               |                            |
+|               |                            |
 
 
 
