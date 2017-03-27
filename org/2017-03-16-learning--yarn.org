@@ -1,14 +1,34 @@
 #+HTML: ---
 #+HTML: layout: default
-#+HTML: title: knowledge of yarn
+#+HTML: title: Learning Yarn
 #+HTML: ---
  
+
+
+* Catalog [25%]
+** DONE Chapter 1：Starting with Yarn Basics
+CLOSED: [2017-03-27 周一 15:45]
+- CLOSING NOTE [2017-03-27 周一 15:45]
+** TODO Chapter 2：Setting up a Hadoop-Yarn Cluster
+** TODO Chapter 3: Administering a Hadoop-YARN Cluster
+** DONE Chapter 4: Executing Applications Using YARN
+CLOSED: [2017-03-27 周一 15:53]
+- CLOSING NOTE [2017-03-27 周一 15:53]
+** DONE Chapter 5: Understanding YARN Life Cycle Management
+CLOSED: [2017-03-27 周一 15:53]
+- CLOSING NOTE [2017-03-27 周一 15:53]
+** TODO Chapter 6: Migrating from MRv1 to MRv2
+** TODO Chapter 7: Writing Your Own YARN Applications
+** TODO Chapter 8: Dive Deep into YARN Components
+** TODO Chapter 9: Exploring YARN REST Services
+** TODO Chapter 10: Scheduling YARN Applications
+** TODO Chapter 11: Enabling Security in YARN
+** TODO Chapter 12: Real-time Data Analytics Using YARN
 * Overview
 + ResourceManager :: ~A ResourceManager is a per cluster service that manages the scheduling of compute resources to applications. It optimizes cluster utilization in terms of memory, CPU cores, fairness, and SLAs.~ To allow different policy constraints, it has algorithms in terms of pluggable schedulers such as capacity and fair that allows resource allocation in a particular way.
-  + Scheduler :: ~This is a pure pluggable component that is only responsible for allocating resources to applications submitted to the cluster, applying constraint of capacities and queues.~ Scheduler does not provide any guarantee for job completion or monitoring, it only allocates the cluster resources governed by the nature of job and resource requirement.
-  + ApplicationsManager(AsM) :: ~This is a service used to manage application masters across the cluster that is responsible for accepting the application submission, providing the resources for application master to start, monitoring the application progress, and restart, in case of application failure.~
-+ NodeManager :: ~The NodeManager is a per node worker service that is responsible for the execution of containers based on the node capacity.~ Node capacity is calculated
-based on the installed memory and the number of CPU cores. The NodeManager service sends a heartbeat signal to the ResourceManager to update its health status. NodeManager also sends the status to ResourceManager, which could be the status of the node on which it is running or the status of tasks executing on it.
+  - Scheduler :: ~This is a pure pluggable component that is only responsible for allocating resources to applications submitted to the cluster, applying constraint of capacities and queues.~ Scheduler does not provide any guarantee for job completion or monitoring, it only allocates the cluster resources governed by the nature of job and resource requirement.
+  - ApplicationsManager(AsM) :: ~This is a service used to manage application masters across the cluster that is responsible for accepting the application submission, providing the resources for application master to start, monitoring the application progress, and restart, in case of application failure.~
++ NodeManager :: ~The NodeManager is a per node worker service that is responsible for the execution of containers based on the node capacity.~ Node capacity is calculated based on the installed memory and the number of CPU cores. The  NodeManager service sends a heartbeat signal to the ResourceManager to update its health status. NodeManager also sends the status to ResourceManager, which could be the status of the node on which it is running or the status of tasks executing on it.
 + ApplicationMaster :: An ApplicationMaster is a per application framework-specific library that manages each instance of an application that runs within YARN. YARN treats
  ~ApplicationMaster as a third-party library responsible for negotiating the resources from the ResourceManager scheduler and works with NodeManager to execute thetasks.~ ~The ResourceManager allocates containers to the ApplicationMaster and these containers are then used to run the application-specific processes.~ ApplicationMaster also tracks the status of the application and monitors the progress of the containers. When the execution of a container gets complete, the ApplicationMaster unregisters the containers with the ResourceManager and unregisters itself after the execution of the application is complete.
 + Container :: ~A container is a logical bundle of resources in terms of memory, CPU, disk, and so on that is bound to a particular node.~ The ResourceManager scheduler service

@@ -1,6 +1,6 @@
 #+HTML: ---
 #+HTML: layout: default
-#+HTML: title: Cloudera 中 CDH
+#+HTML: title: Hadoop
 #+HTML: ---
 * Point at Hadoop 
  + Coordinating the processes in a large-scale distributed computation is a challenge. ~The ardest aspect is gracefully handling partial failure—when you don’t know whether or not a remote process has failed—and still making progress with the overall computation.~

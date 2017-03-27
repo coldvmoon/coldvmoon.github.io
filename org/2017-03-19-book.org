@@ -1,4 +1,4 @@
 * IT book
 ** bigdata
-+ [[file:../book/Learning%20YARN.pdf][Learning Yarn]]
++ [[file:../book/Learning%20YARN.pdf][Learning Yarn]] [[file:2017-03-16-learning--yarn.org][notes]] 
 + [[file:../book/OReilly.Hadoop.The.Definitive.Guide.4th.Edition.2015.3.pdf][OReilly.Hadoop.The.Definitive.Guide.4th.Edition]]  
