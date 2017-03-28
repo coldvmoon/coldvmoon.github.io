@@ -1,0 +1,24 @@
+* Font-end
+* Back-end
+** Spring
++ Spring Framework
+* Big Data
+** Security 
++ Apache Ranger :: Ranger is a framework to enable, monitor and manage comprehensive data security across the Hadoop platform.
+** Governance
++ Apache Atlas  :: Atlas is a scalable and extensible set of core foundational governance services – enabling enterprises to effectively and efficiently meet their compliance requirements within Hadoop and allows integration with the whole enterprise data ecosystem.
+
+
++ sdf
+* 
+#+BEGIN_SRC ditaa :file orgmode-babel-ditaa2.png :cmdline -r
+      +--------+   +-------+    +-------+
+      |        | --+ ditaa +--> |       |
+      |  Text  |   +-------+    |diagram|
+      |Document|   |!magic!|    |       |
+      |     {d}|   |       |    |       |
+      +---+----+   +-------+    +-------+
+          :                         ^
+          |       Lots of work      |
+          +-------------------------+
+#+END_SRC

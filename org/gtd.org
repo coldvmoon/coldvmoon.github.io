@@ -1,0 +1,9 @@
+* 工作安排
+
+** TODO [#A] the workflow of yarn
+
+** TODO [#A] review the code about the insulation between spark streaming and mapreduced job
+
+** TODO [#B] how to reject illegal jobs
+
+

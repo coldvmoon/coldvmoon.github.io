@@ -46,7 +46,9 @@
 + [[http://www.gfxday.com/][GFXDAY]]
 ** 生活
 *** 城市规划 :城市规划:
-+ [[http://bbs.caup.net][国匠城]] 
++ [[http://bbs.caup.net][国匠城]]
+*** 空气质量
++ [[http://aqicn.org][Real-time Air Quality]]
 * 有用工具
 ** chrome :chrome:
 *** Tampermonkey
