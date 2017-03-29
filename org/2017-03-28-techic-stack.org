@@ -7,20 +7,5 @@
 + Apache Ranger :: Ranger is a framework to enable, monitor and manage comprehensive data security across the Hadoop platform.
 ** Governance
 + Apache Atlas  :: Atlas is a scalable and extensible set of core foundational governance services – enabling enterprises to effectively and efficiently meet their compliance requirements within Hadoop and allows integration with the whole enterprise data ecosystem.
-
-
-+ sdf
-* 
-
-#+begin_src plantuml  :file somefile.png  :exports both 
-:<math>int_0^1f(x)dx</math>;
-:<math>x^2+y_1+z_12^34</math>;
-note right
-Try also
-<math>d/dxf(x)=lim_(h->0)(f(x+h)-f(x))/h</math>
-<latex>P(y|\mathbf{x}) \mbox{ or } f(\mathbf{x})+\epsilon</latex>
-end note
-#+end_src
-
-#+RESULTS:
-[[file:somefile.png]]
+** Security 
++ Apache Ranger :: Ranger is a framework to enable, monitor and manage comprehensive data security across the Hadoop platform.

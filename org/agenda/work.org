@@ -1,0 +1,13 @@
+* 工作安排
+
+** DONE [#A] the workflow of yarn
+CLOSED: [2017-03-29 周三 10:20]
+
+- CLOSING NOTE [2017-03-29 周三 10:20]
+** DONE [#A] review the code about the insulation between spark streaming and mapreduced job
+CLOSED: [2017-03-29 周三 17:47]
+
+- CLOSING NOTE [2017-03-29 周三 17:47]
+** TODO [#B] how to reject illegal jobs
+
+
