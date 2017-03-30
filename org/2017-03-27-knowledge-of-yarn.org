@@ -2,7 +2,6 @@
 * Yarn WorkFlow
 #+BEGIN_SRC plantuml :file ../images/orgmode-babel-sequenceuml.png  :cmdline -charset UTF-8
   skinparam backgroundColor #EEEBDC
-  skinparam handwritten true
 
   skinparam sequence {
   ArrowColor DeepSkyBlue
@@ -19,7 +18,7 @@
   ActorFontSize 17
   ActorFontName Aapex
   }
-  title "Application submit to Yarn"
+  title "Client Application to Yarn"
   actor Client
 
   box "ResourceManager"
@@ -50,23 +49,29 @@
   ApplicationsManager->Client:17.Application Response
 #+END_SRC
 
+#+RESULTS:
+[[file:../images/orgmode-babel-sequenceuml.png]]
+
 * Modification
 ** AddApplication
-+ reject the steaming application without tags
-#+BEGIN_SRC 
-if(queue.getQueueName().startsWith("root.stream_")){
-      if(CollectionUtils.isEmpty(rmApp.getApplicationTags())){
-        String msg = "The streaming task require the 'spark.yarn.tags' "+queue.getQueueName();
-        LOG.info(msg);
-        rmContext.getDispatcher().getEventHandler()
-                .handle(new RMAppRejectedEvent(applicationId, msg));
-        return;
-      }
-    }
-#+END_SRC 
+*** reject the steaming application without tags
+  - modified code
+    #+BEGIN_SRC  java
+ if(queue.getQueueName().startsWith("root.stream_")){
+       if(CollectionUtils.isEmpty(rmApp.getApplicationTags())){
+         String msg = "The streaming task require the 'spark.yarn.tags' "+queue.getQueueName();
+         LOG.info(msg);
+         rmContext.getDispatcher().getEventHandler()
+                 .handle(new RMAppRejectedEvent(applicationId, msg));
+         return;
+       }
+     }
+    #+END_SRC 
 ** AssignedContainer
-+ insulting the streaming task and mapreduce task
-#+BEGIN_SRC  plantuml :file ../images/yarn-insulate-with-streaming-and-mapreduce.png :cmdline -charset UTF-8
+*** insulting the streaming task and mapreduce task
+- workflow
+   #+BEGIN_SRC  plantuml :file ../images/yarn-insulate-with-streaming-and-mapreduce.png :cmdline -charset UTF-8
+  skinparam backgroundColor #EEEBDC
 start
 :"NodeUpdate";
 #red:"分配 none Container";
@@ -86,8 +91,40 @@ repeat while ("未分配 Containe && 存在 runableApps ?") is (是)
 ->否;
 if ("是否分配 Container ?") then (是)
 #green:"运行 Application";
+else (否)
 endif
+:结束;
 end
+   #+END_SRC
+- modified code
+#+BEGIN_SRC java
+for (FSAppAttempt sched : runnableApps) {
+        if (sched.getQueueName().startsWith("root.stream_")) {//streaming task allocate to real-time cluster
+          RMApp rmApp = sched.getRMApp();
+          Set<String> tags = rmApp.getApplicationTags();
+          if (CollectionUtils.isEmpty(tags) || !tags.contains(node.getNodeName())) {
+            continue;
+          }
+        } else {//non-streaming task should guarantee that are assigned to off-line cluster
+          if (!groupMap.get("MAPREDUCE").contains(node.getNodeName())) {
+            continue;
+          }
+        }
+
+
+        if (SchedulerAppUtils.isBlacklisted(sched, node, LOG)) {
+          continue;
+        }
+
+        assigned = sched.assignContainer(node);
+        if (!assigned.equals(Resources.none())) {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Assigned container in queue:" + getName() + " " +
+                "container:" + assigned);
+          }
+          break;
+        }
+      }
 #+END_SRC
 
 ** ReloadAllocationConfiguration
