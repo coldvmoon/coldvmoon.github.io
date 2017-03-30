@@ -14,7 +14,7 @@
 
 
 * 显示左侧目录列表 SPC f t  
-
+  
 | Key Binding	 | Description                |
 |---------------+----------------------------|
 | SPC t l       | toggle truncate lines      |
@@ -24,7 +24,7 @@
 | C-c C-x p     | org-set-property           |
 | C-c C-x-i     | org-columns-insert-dblock  |
 |---------------+----------------------------|
-|               |                            |
+|               | org-edit-src-code          |
 |               |                            |
 |               |                            |
 

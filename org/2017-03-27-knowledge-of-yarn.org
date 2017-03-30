@@ -1,3 +1,96 @@
 * Overview
+* Yarn WorkFlow
+#+BEGIN_SRC plantuml :file ../images/orgmode-babel-sequenceuml.png  :cmdline -charset UTF-8
+  skinparam backgroundColor #EEEBDC
+  skinparam handwritten true
+
+  skinparam sequence {
+  ArrowColor DeepSkyBlue
+  ActorBorderColor DeepSkyBlue
+  LifeLineBorderColor blue
+  LifeLineBackgroundColor #A9DCDF
+  ParticipantBorderColor DeepSkyBlue
+  ParticipantBackgroundColor DodgerBlue
+  ParticipantFontName Impact
+  ParticipantFontSize 17
+  ParticipantFontColor #A9DCDF
+  ActorBackgroundColor aqua
+  ActorFontColor DeepSkyBlue
+  ActorFontSize 17
+  ActorFontName Aapex
+  }
+  title "Application submit to Yarn"
+  actor Client
+
+  box "ResourceManager"
+  participant Shedudler as S
+  participant ApplicationsManager
+  end box
+  box "NodeManager"
+  participant ApplicationMaster
+  participant Container
+  end box
+
+  Client->S:1.Client Request
+  S->Client:2.Feedback a ApplicationID and \n summary of resource capabilities
+  Client->S:3.Send the submission request
+  S->ApplicationMaster:4.Allocate container for ApplicationMaster
+  ApplicationMaster->ApplicationsManager:5.AM Registration
+  ApplicationsManager->ApplicationMaster:6.Registration Confirmation \n ACL,cluster metrics,tokens
+  ApplicationMaster->S:7.Resource Allocation Request
+  S->ApplicationMaster:8.Resource Allocation Response
+  ApplicationMaster->Container:9.Container Launch Request
+  ApplicationMaster-->Container:10.Container Status Request
+  Container-->ApplicationMaster:11.Container Status Response
+  Client-->ApplicationMaster:12.Application Status Request
+  ApplicationMaster-->Client:13.Application Status Response
+  Client-->ApplicationsManager:14.Application Status Request
+  ApplicationsManager-->Client:15.Application Status Response
+  ApplicationMaster->ApplicationsManager:16.Finish Application Request
+  ApplicationsManager->Client:17.Application Response
+#+END_SRC
+
+* Modification
+** AddApplication
++ reject the steaming application without tags
+#+BEGIN_SRC 
+if(queue.getQueueName().startsWith("root.stream_")){
+      if(CollectionUtils.isEmpty(rmApp.getApplicationTags())){
+        String msg = "The streaming task require the 'spark.yarn.tags' "+queue.getQueueName();
+        LOG.info(msg);
+        rmContext.getDispatcher().getEventHandler()
+                .handle(new RMAppRejectedEvent(applicationId, msg));
+        return;
+      }
+    }
+#+END_SRC 
+** AssignedContainer
++ insulting the streaming task and mapreduce task
+#+BEGIN_SRC  plantuml :file ../images/yarn-insulate-with-streaming-and-mapreduce.png :cmdline -charset UTF-8
+start
+:"NodeUpdate";
+#red:"分配 none Container";
+repeat
+    if ("是否是事实计算任务 ?") then (否)
+         if ("node 是否在离线 cluster 中 ?") then (是)
+            #yellow:分配 Containe;
+        else (否)
+        endif 
+    else (是)
+        if ("node 是否在 spark 指定的 cluster 中") then (是)
+           #yellow:分配 Container;
+        else (no)
+        endif
+    endif
+repeat while ("未分配 Containe && 存在 runableApps ?") is (是)
+->否;
+if ("是否分配 Container ?") then (是)
+#green:"运行 Application";
+endif
+end
+#+END_SRC
+
+** ReloadAllocationConfiguration
++ a thread reload the allocation periodically
 
 * Associated Book

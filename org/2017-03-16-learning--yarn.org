@@ -58,7 +58,33 @@ dynamically allocates resources as containers. A container grants rights to an A
 + Log aggregation and resource localization :: To manage user logs, YARN introduced a concept of log aggregation. In YARN, once the application is finished, the NodeManager service aggregates the user logs related to an application and these aggregated logs are written out to a single log file in HDFS. To access the logs, users can use either the YARN commandline options, YARN web interface, or can fetch directly from HDFS. 
 * Executing Application on Yarn 
 ** Phase 1 - Application initialization and submission 
-[[file:../images/Yarn-submission-phase-1-2017-03-24_17-48-36.png]]
-1) In the first phase of application execution, a client will connect to the applications manager service of the ResourceManager daemon and will request the ResourceManager for a new application ID.
-2) The ResourceManager will validate the client request and if the client is an authorized user, it will send a new and unique application ID, along with the cluster metrics to the client.
-3) The client will use this application ID, and will submit an application to the ResourceManager as described.
+[[file:../images/Yarn-phase-1_2017-03-26_20-22-09.png]]
+1) In the first phase of application execution, ~a client will connect to the applications manager service of the ResourceManager daemon and will request the ResourceManager for a new application ID.~
+2) The ResourceManager will validate the client request and if the client is an authorized user, ~it will send a new and unique application ID, along with the cluster metrics to the client.~
+3) ~The client will use this application ID, and will submit an application to the ResourceManager.~ The client will send ApplicationSubmissionContext along with the submission request. The submission context contains metadata information related to an application, such as application queue, name, and so on. It also contains the information to start the ApplicationMaster service on a particular node. The application submission is a blocking call which waits for the application completion.In the background, the ResourceManager service will accept the application and will allocate containers for application execution.
+** Phase 2 - Allocate memory and start ApplicationMaster
+[[file:../images/Yarn-phase-2_2017-03-26_20-22-09.png]]
+1) The ResourceManager daemon starts an ApplicationMaster service on any of the NodeManager node. The scheduler service within the ResourceManager is responsible for the node selection. The basic criteria for selecting a node for the ApplicationMaster container is that the amount of memory required by the ApplicationMaster service should be available on that node.
+2) The ApplicationSubmissionContext submitted by the client contains LaunchContext for the ApplicationMaster's container. The LaunchContext contains information such as the memory requirements for ApplicationMaster, command to start the ApplicationMaster, and so on.
+3) The scheduler service of the ResourceManager daemon allocates memory specified in the LaunchContext and sends the context a NodeManager node to start the ApplicationMaster service.
+** Phase 3 – ApplicationMaster registration and resource allocation
+[[file:../images/Yarn-phase-3_2017-03-26_20-22-25.png]]
+1) ApplicationMaster's container creates clients to communicate with the ResourceManager and NodeManager of the cluster.
+2) The ApplicationMaster then registers itself with the ResourceManager using the AMRMClient service. It specifies the host and port for the container it is running on. While developing an application, a developer can also use AMRMClientAsync, an asynchronous implementation of the AppMaster ResourceManager client. It also sends a tracking URL for the application. The tracking URL is an application specific framework used to monitor the application execution.
+3) The ResourceManager sends back the registration response with information related to access control lists, cluster capabilities, and access tokens
+4) The ApplicationMaster requests the ResourceManager for containers allocation on the NodeManager nodes to execute the application tasks. The request includes the desired capabilities of the worker containers in terms of memory and CPU cores with the application priority. The optional parameters include nodes and racks specifications for execution of containers.
+5) The ResourceManager iterates the list of asked containers, filters out the blacklisted
+containers, and creates a list of containers to be released.
+** Phase 4 – Launch and monitor containers
+[[file:../images/Yarn-phase-4_2017-03-26_20-23-26.png]]
+1) Once the ResourceManager allocates the requested containers to the ApplicationMaster, the ApplicationMaster connects to the NodeManager nodes using AMNMClient.The ApplicationMaster sends the LaunchContext for each worker container to the NodeManager node. It is also possible that the ResourceManager allocates two containers on a single NodeManager node. The NodeManager node then uses the information in the LaunchContext to start a container. Each container runs as a YARN child process on the NodeManager node.
+2) The ApplicationMaster asks for the status of the current state of running containers.
+3) The response for container status request consists of a list of newly created andcompleted container's information
+** Phase 5 – Application progress report
+[[file:../images/Yarn-phase-5_2017-03-26_20-24-17.png]]
+1) An application specific framework to monitor the application is exposed through the tracking URL for that application. The YARN client uses the tracking URL to monitor the current status of an application. The tracking URL generally contains the application metrics. For example, if the application is a MapReduce job, then the tracking URL will expose the list of mappers and reducers for the job,
+** Phase 6 - Application completion
+[[file:../images/Yarn-phase-6_2017-03-26_20-24-35.png]]
+1) On completion of an application, the ApplicationMaster sends out an un-registration request to the ResourceManager.
+2) The ApplicationMaster terminates itself and releases the used memory back to the NodeManager. For an application, there is a final state and a final status. The ResourceManager marks the final state of the application as FINISHED. The final status of the application is set by the ApplicationMaster and is specific to the application executed.
+3) The YARN client may interrupt the application execution at any point by sending a kill request to the ResourceManager. The ResourceManager kills the running containers for that application and changes the application status to completed.
