@@ -5,7 +5,7 @@
 #+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
 #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
-Contributing
+#+LATEX_CLASS: ctexart
 * Yarn WorkFlow
 #+BEGIN_SRC plantuml :file ../images/yarn-workflow-sequenceuml.png  :cmdline -charset UTF-8
   skinparam backgroundColor #EEEBDC
@@ -106,7 +106,7 @@ Contributing
 ** AssignedContainer (对应上图中的步骤 4、8)
 *** insulting the streaming task and mapreduce task
 - workflow
-  #+BEGIN_SRC  plantuml :file ../images/yarn-insulate-with-streaming-and-mapreduce.png :cmdline -charset UTF-8
+  #+BEGIN_SRC  plantuml :file ../images/yarn-insulate-with-streaming-and-mapreduce.png :export none :cmdline -charset UTF-8
   skinparam backgroundColor #EEEBDC
 start
 :"NodeUpdate";
@@ -137,8 +137,6 @@ endif
 end
   #+END_SRC
 
-#+RESULTS:
-[[file:../images/yarn-insulate-with-streaming-and-mapreduce.png]]
 
 - modified code
 #+BEGIN_SRC java
@@ -213,4 +211,3 @@ end
               newPlacementPolicy, configuredQueues, nonPreemptableQueues, groupMap);
       //************DDW modification(DDW 改动代码)**************//
 #+END_SRC
-* Associated Book
