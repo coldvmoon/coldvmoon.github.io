@@ -1,6 +1,13 @@
-* Overview
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+Contributing
 * Yarn WorkFlow
-#+BEGIN_SRC plantuml :file ../images/orgmode-babel-sequenceuml.png  :cmdline -charset UTF-8
+#+BEGIN_SRC plantuml :file ../images/yarn-workflow-sequenceuml.png  :cmdline -charset UTF-8
   skinparam backgroundColor #EEEBDC
 
   skinparam sequence {
@@ -50,42 +57,75 @@
 #+END_SRC
 
 #+RESULTS:
-[[file:../images/orgmode-babel-sequenceuml.png]]
+[[file:../images/yarn-workflow-sequenceuml.png]]
 
-* Modification
-** AddApplication
+* Modification 
+** AddApplication (对应上图中的步骤 3、4)
 *** reject the steaming application without tags
-  - modified code
-    #+BEGIN_SRC  java
- if(queue.getQueueName().startsWith("root.stream_")){
-       if(CollectionUtils.isEmpty(rmApp.getApplicationTags())){
-         String msg = "The streaming task require the 'spark.yarn.tags' "+queue.getQueueName();
-         LOG.info(msg);
-         rmContext.getDispatcher().getEventHandler()
-                 .handle(new RMAppRejectedEvent(applicationId, msg));
-         return;
-       }
-     }
-    #+END_SRC 
-** AssignedContainer
+- modified code
+  #+BEGIN_SRC  java
+    //************DDW modification(DDW 改动代码)**************//
+    if(queue.getQueueName().startsWith("root.stream_")){
+        Set<String> tags = rmApp.getApplicationTags();
+        if(CollectionUtils.isEmpty(tags)){//保证实时任务传递了参数 spark.yarn.tags
+            String msg = "[DDW] The streaming task require the 'spark.yarn.tags' when submitting to queue: "+queue.getQueueName();
+            LOG.info(msg);
+            rmContext.getDispatcher().getEventHandler()
+                .handle(new RMAppRejectedEvent(applicationId, msg));
+            return;
+        }else {
+            for(String tag:tags){
+                if(StringUtils.isEmpty(tag)){//保证参数 spark.yarn.tags 中的每个值都存在
+                    String msg = "[DDW] The 'spark.yarn.tags' have an empty tag when submitting to queue: "+queue.getQueueName();
+                    LOG.info(msg);
+                    rmContext.getDispatcher().getEventHandler()
+                        .handle(new RMAppRejectedEvent(applicationId, msg));
+                    return;
+                }
+                if(!tag.startsWith("signature#")){//保证指定运行任务的主机都是在集群中
+                    boolean isInNodes=false;
+                    for(NodeId nodeId:nodes.keySet()){
+                        if(nodeId.getHost().equals(tag)){
+                            isInNodes=true;
+                            break;
+                        }
+                    }
+                    if(!isInNodes) {
+                        String msg = "[DDW] The 'spark.yarn.tags' have a host that is not in real-time cluster  when submitting to queue: " + queue.getQueueName();
+                        LOG.info(msg);
+                        rmContext.getDispatcher().getEventHandler()
+                            .handle(new RMAppRejectedEvent(applicationId, msg));
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    //************DDW modification(DDW 改动代码)**************// 
+  #+END_SRC 
+** AssignedContainer (对应上图中的步骤 4、8)
 *** insulting the streaming task and mapreduce task
 - workflow
-   #+BEGIN_SRC  plantuml :file ../images/yarn-insulate-with-streaming-and-mapreduce.png :cmdline -charset UTF-8
+  #+BEGIN_SRC  plantuml :file ../images/yarn-insulate-with-streaming-and-mapreduce.png :cmdline -charset UTF-8
   skinparam backgroundColor #EEEBDC
 start
 :"NodeUpdate";
 #red:"分配 none Container";
 repeat
-    if ("是否是事实计算任务 ?") then (否)
+if ("是否是事实计算任务 ?") then (否)
+     partition "离线任务" {
          if ("node 是否在离线 cluster 中 ?") then (是)
             #yellow:分配 Containe;
         else (否)
         endif 
+     }
     else (是)
+     partition "实时任务" {
         if ("node 是否在 spark 指定的 cluster 中") then (是)
            #yellow:分配 Container;
         else (no)
         endif
+     }
     endif
 repeat while ("未分配 Containe && 存在 runableApps ?") is (是)
 ->否;
@@ -95,39 +135,82 @@ else (否)
 endif
 :结束;
 end
-   #+END_SRC
+  #+END_SRC
+
+#+RESULTS:
+[[file:../images/yarn-insulate-with-streaming-and-mapreduce.png]]
+
 - modified code
 #+BEGIN_SRC java
-for (FSAppAttempt sched : runnableApps) {
-        if (sched.getQueueName().startsWith("root.stream_")) {//streaming task allocate to real-time cluster
+  //************DDW modification(DDW 改动代码)**************//
+  Map<String, Set<String>> groupMap = scheduler.getAllocationConfiguration().getGroupMap();
+  for (FSAppAttempt sched : runnableApps) {
+
+
+      if (sched.getQueueName().startsWith("root.stream_")) {//实时任务只能在任务指定的 node 上运行
           RMApp rmApp = sched.getRMApp();
           Set<String> tags = rmApp.getApplicationTags();
           if (CollectionUtils.isEmpty(tags) || !tags.contains(node.getNodeName())) {
-            continue;
+              continue;
           }
-        } else {//non-streaming task should guarantee that are assigned to off-line cluster
+      } else {//非实时任务确保在离线集群运行
           if (!groupMap.get("MAPREDUCE").contains(node.getNodeName())) {
-            continue;
+              continue;
           }
-        }
-
-
-        if (SchedulerAppUtils.isBlacklisted(sched, node, LOG)) {
-          continue;
-        }
-
-        assigned = sched.assignContainer(node);
-        if (!assigned.equals(Resources.none())) {
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("Assigned container in queue:" + getName() + " " +
-                "container:" + assigned);
-          }
-          break;
-        }
       }
+  }
+  //************DDW modification(DDW 改动代码)**************//
 #+END_SRC
 
 ** ReloadAllocationConfiguration
-+ a thread reload the allocation periodically
+*** a thread reload the allocation periodically
+  - modified code
+#+BEGIN_SRC java
+  reloadThread = new Thread() {
+          @Override
+          public void run() {
+              while (running) {
+                  //************DDW modification(DDW 改动代码)**************//
+                  try {
+                      reloadAllocations();
+                  } catch (Exception ex) {
+                      if (!lastReloadAttemptFailed) {
+                          LOG.error("Failed to reload fair scheduler config file - " +
+                                    "will use existing allocations.", ex);
+                      }
+                      lastReloadAttemptFailed = true;
+                  }
+                  //************DDW modification(DDW 改动代码)**************//
+                  try {
+                      Thread.sleep(reloadIntervalMs);
+                  } catch (InterruptedException ex) {
+                      LOG.info(
+                               "Interrupted while waiting to reload alloc configuration");
+                  }
+              }
+          }
+      };
+  reloadThread.setName("AllocationFileReloader");
+  reloadThread.setDaemon(true);
+#+END_SRC
+*** get configuration form ddw-api
+- modified code
+#+BEGIN_SRC java
+   //************DDW modification(DDW 改动代码)**************//
+        Map<String, Set<String>> groupMap = getGroupMapFromHttp();
+      if(MapUtils.isEmpty(groupMap)|| CollectionUtils.isEmpty(groupMap.get("MAPREDUCE")) {
+        throw new ParserConfigurationException("[DDW] can not get the group configuration from http!!!");
+        //1.ResourceManager 启动时产生异常，直接反应为启动失败
+        //2.ResourceManager 进行 reload 时产生的异常，不会影响原本的配置信息，只会在日志中输出错误
+      }
 
+      AllocationConfiguration info = new AllocationConfiguration(minQueueResources,
+          maxQueueResources, queueMaxApps, userMaxApps, queueWeights,
+          queueMaxAMShares, userMaxAppsDefault, queueMaxAppsDefault,
+          queueMaxResourcesDefault, queueMaxAMShareDefault, queuePolicies,
+          defaultSchedPolicy, minSharePreemptionTimeouts,
+          fairSharePreemptionTimeouts, fairSharePreemptionThresholds, queueAcls,
+              newPlacementPolicy, configuredQueues, nonPreemptableQueues, groupMap);
+      //************DDW modification(DDW 改动代码)**************//
+#+END_SRC
 * Associated Book

@@ -9,13 +9,17 @@
 *** knowledge
 + [[https://news.ycombinator.com/][Hacker News]]
 + [[https://www.reddit.com][Reddit]]
-*** thechnic
-**** [[https://www.webcodegeeks.com/][Web Code Geeks]]
-**** [[https://www.javacodegeeks.com/][Java Code geeks]]
 *** App/Software :app:software:
 + [[https://sspai.com/][少数派]]
 + [[http://www.appinn.com/][小众软件]]
 ** 技术类 :technic:
+*** front 
+**** [[https://www.webcodegeeks.com/][Web Code Geeks]]
+*** java
++ [[https://www.javacodegeeks.com/][Java Code geeks]]
++ [[http://www.javaworld.com/][Java World]]
++ [[http://www.theserverside.com/][The Server Side]]
++ [[https://jaxenter.com/][JaxEnter]]
 *** emacs :emacs:
 **** [[http://sachachua.com/blog/][Sacha Chua]]
 **** [[http://doc.norang.ca/org-mode.html][Organize Your Life In Plain Text!]]                
