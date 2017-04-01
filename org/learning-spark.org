@@ -1,0 +1,26 @@
+* Catalog [9%]
+** DONE 1. [[Introduction to Data Analysis with Spark]]
+CLOSED: [2017-04-01 周六 16:25]
+- CLOSING NOTE [2017-04-01 周六 16:25]
+** TODO 2. Downloading Spark and Getting Started
+** TODO 3. Programming with RDDs
+** TODO 4. Working with Key/Value Pairs
+** TODO 5. Loading and Saving Your Data
+** TODO 6. Advanced Spark Programming
+** TODO 7. Running on a Cluster
+** TODO 8. Tuning and Debugging Spark
+** TODO 9. Spark SQL
+** TODO 10. Spark Streaming
+** TODO 11. Machine Learning with MLlib
+* Introduction to Data Analysis with Spark
+** Features
++ ~Spark offers for speed is the ability to run computations in memory,~ but the system is also more efficient than MapReduce for complex applications running on disk.
++ ~Spark makes it easy and inexpensive to combine different processing types,~ which is often necessary in production data analysis pipelines.
++ ~Spark is designed to be highly accessible, offering simple APIs in Python, Java, Scala, and SQL, and rich built-in libraries. It also integrates closely with other Big Data tools.~ In particular, Spark can run in Hadoop clusters and access any Hadoop data source, including Cassandra.
+** Components
++ Spark Core :: Spark Core contains the basic functionality of Spark, ~including components for task scheduling, memory management, fault recovery, interacting with storage systems, and more.~ ~Spark Core is also home to the API that defines resilient distributed datasets (RDDs),~ which are Spark’s main programming abstraction. 
++ Spark SQL 
++ Spark Streaming
++ MLlib :: Spark comes with a library containing common machine learning (ML) functionality,called MLlib.
++ GraphX :: GraphX is a library for manipulating graphs (e.g., a social network’s friend graph) and performing graph-parallel computations.
++ Cluster Managers
