@@ -1,0 +1,182 @@
+<div id="outline-container-org5c4e346" class="outline-2">
+<h2 id="org5c4e346"><span class="section-number-2">1</span> Yarn WorkFlow</h2>
+<div class="outline-text-2" id="text-1">
+
+<div class="figure">
+<p><img src="../images/yarn-workflow-sequenceuml.png" alt="yarn-workflow-sequenceuml.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga10fde8" class="outline-2">
+<h2 id="orga10fde8"><span class="section-number-2">2</span> Modification</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgec9c430" class="outline-3">
+<h3 id="orgec9c430"><span class="section-number-3">2.1</span> AddApplication (对应上图中的步骤 3、4)</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><div id="outline-container-org2993a64" class="outline-4">
+<h4 id="org2993a64"><span class="section-number-4">2.1.1</span> reject the steaming application without tags</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<ul class="org-ul">
+<li><p>
+modified code
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+<span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #4f97d7;">(</span>queue.getQueueName<span style="color: #bc6ec5;">()</span>.startsWith<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"root.stream_"</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">){</span>
+    <span style="color: #ce537a; font-weight: bold;">Set</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">String</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #7590db;">tags</span> = rmApp.getApplicationTags<span style="color: #bc6ec5;">()</span>;
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span>CollectionUtils.isEmpty<span style="color: #2d9574;">(</span>tags<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">){</span><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#20445;&#35777;&#23454;&#26102;&#20219;&#21153;&#20256;&#36882;&#20102;&#21442;&#25968; spark.yarn.tags</span>
+        <span style="color: #ce537a; font-weight: bold;">String</span> <span style="color: #7590db;">msg</span> = <span style="color: #2d9574;">"[DDW] The streaming task require the 'spark.yarn.tags' when submitting to queue: "</span>+queue.getQueueName<span style="color: #2d9574;">()</span>;
+        LOG.info<span style="color: #2d9574;">(</span>msg<span style="color: #2d9574;">)</span>;
+        rmContext.getDispatcher<span style="color: #2d9574;">()</span>.getEventHandler<span style="color: #2d9574;">()</span>
+            .handle<span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">RMAppRejectedEvent</span><span style="color: #67b11d;">(</span>applicationId, msg<span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>;
+        <span style="color: #4f97d7; font-weight: bold;">return</span>;
+    <span style="color: #bc6ec5;">}</span><span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #bc6ec5;">{</span>
+        <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">String</span> <span style="color: #7590db;">tag</span>:tags<span style="color: #2d9574;">){</span>
+            <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #67b11d;">(</span>StringUtils.isEmpty<span style="color: #b1951d;">(</span>tag<span style="color: #b1951d;">)</span><span style="color: #67b11d;">){</span><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#20445;&#35777;&#21442;&#25968; spark.yarn.tags &#20013;&#30340;&#27599;&#20010;&#20540;&#37117;&#23384;&#22312;</span>
+                <span style="color: #ce537a; font-weight: bold;">String</span> <span style="color: #7590db;">msg</span> = <span style="color: #2d9574;">"[DDW] The 'spark.yarn.tags' have an empty tag when submitting to queue: "</span>+queue.getQueueName<span style="color: #b1951d;">()</span>;
+                LOG.info<span style="color: #b1951d;">(</span>msg<span style="color: #b1951d;">)</span>;
+                rmContext.getDispatcher<span style="color: #b1951d;">()</span>.getEventHandler<span style="color: #b1951d;">()</span>
+                    .handle<span style="color: #b1951d;">(</span><span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">RMAppRejectedEvent</span><span style="color: #4f97d7;">(</span>applicationId, msg<span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span>;
+                <span style="color: #4f97d7; font-weight: bold;">return</span>;
+            <span style="color: #67b11d;">}</span>
+            <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #67b11d;">(</span><span style="color: #a45bad;">!</span>tag.startsWith<span style="color: #b1951d;">(</span><span style="color: #2d9574;">"signature#"</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">){</span><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#20445;&#35777;&#25351;&#23450;&#36816;&#34892;&#20219;&#21153;&#30340;&#20027;&#26426;&#37117;&#26159;&#22312;&#38598;&#32676;&#20013;</span>
+                <span style="color: #ce537a; font-weight: bold;">boolean</span> <span style="color: #7590db;">isInNodes</span>=<span style="color: #a45bad;">false</span>;
+                <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #b1951d;">(</span><span style="color: #ce537a; font-weight: bold;">NodeId</span> <span style="color: #bc6ec5; font-weight: bold;">nodeId</span>:nodes.keySet<span style="color: #4f97d7;">()</span><span style="color: #b1951d;">){</span>
+                    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #4f97d7;">(</span>nodeId.getHost<span style="color: #bc6ec5;">()</span>.equals<span style="color: #bc6ec5;">(</span>tag<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">){</span>
+                        isInNodes=<span style="color: #a45bad;">true</span>;
+                        <span style="color: #4f97d7; font-weight: bold;">break</span>;
+                    <span style="color: #4f97d7;">}</span>
+                <span style="color: #b1951d;">}</span>
+                <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #b1951d;">(</span><span style="color: #a45bad;">!</span>isInNodes<span style="color: #b1951d;">)</span> <span style="color: #b1951d;">{</span>
+                    <span style="color: #ce537a; font-weight: bold;">String</span> <span style="color: #7590db;">msg</span> = <span style="color: #2d9574;">"[DDW] The 'spark.yarn.tags' have a host that is not in real-time cluster  when submitting to queue: "</span> + queue.getQueueName<span style="color: #4f97d7;">()</span>;
+                    LOG.info<span style="color: #4f97d7;">(</span>msg<span style="color: #4f97d7;">)</span>;
+                    rmContext.getDispatcher<span style="color: #4f97d7;">()</span>.getEventHandler<span style="color: #4f97d7;">()</span>
+                        .handle<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">RMAppRejectedEvent</span><span style="color: #bc6ec5;">(</span>applicationId, msg<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>;
+                    <span style="color: #4f97d7; font-weight: bold;">return</span>;
+                <span style="color: #b1951d;">}</span>
+            <span style="color: #67b11d;">}</span>
+        <span style="color: #2d9574;">}</span>
+    <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
+<span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc117ccd" class="outline-3">
+<h3 id="orgc117ccd"><span class="section-number-3">2.2</span> AssignedContainer (对应上图中的步骤 4、8)</h3>
+<div class="outline-text-3" id="text-2-2">
+</div><div id="outline-container-org271c86f" class="outline-4">
+<h4 id="org271c86f"><span class="section-number-4">2.2.1</span> insulting the streaming task and mapreduce task</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li>workflow</li>
+</ul>
+
+<div class="figure">
+<p><img src="../images/yarn-insulate-with-streaming-and-mapreduce.png" alt="yarn-insulate-with-streaming-and-mapreduce.png" />
+</p>
+</div>
+
+
+<ul class="org-ul">
+<li>modified code</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+<span style="color: #ce537a; font-weight: bold;">Map</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">String</span>, <span style="color: #ce537a; font-weight: bold;">Set</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">String</span><span style="color: #bc6ec5;">&gt;</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">groupMap</span> = scheduler.getAllocationConfiguration<span style="color: #4f97d7;">()</span>.getGroupMap<span style="color: #4f97d7;">()</span>;
+<span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">FSAppAttempt</span> <span style="color: #7590db;">sched</span> : runnableApps<span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+
+
+    <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>sched.getQueueName<span style="color: #2d9574;">()</span>.startsWith<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"root.stream_"</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#23454;&#26102;&#20219;&#21153;&#21482;&#33021;&#22312;&#20219;&#21153;&#25351;&#23450;&#30340; node &#19978;&#36816;&#34892;</span>
+        <span style="color: #ce537a; font-weight: bold;">RMApp</span> <span style="color: #7590db;">rmApp</span> = sched.getRMApp<span style="color: #2d9574;">()</span>;
+        <span style="color: #ce537a; font-weight: bold;">Set</span><span style="color: #2d9574;">&lt;</span><span style="color: #ce537a; font-weight: bold;">String</span><span style="color: #2d9574;">&gt;</span> <span style="color: #7590db;">tags</span> = rmApp.getApplicationTags<span style="color: #2d9574;">()</span>;
+        <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">(</span>CollectionUtils.isEmpty<span style="color: #67b11d;">(</span>tags<span style="color: #67b11d;">)</span> || <span style="color: #a45bad;">!</span>tags.contains<span style="color: #67b11d;">(</span>node.getNodeName<span style="color: #b1951d;">()</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+            <span style="color: #4f97d7; font-weight: bold;">continue</span>;
+        <span style="color: #2d9574;">}</span>
+    <span style="color: #bc6ec5;">}</span> <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #bc6ec5;">{</span><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#38750;&#23454;&#26102;&#20219;&#21153;&#30830;&#20445;&#22312;&#31163;&#32447;&#38598;&#32676;&#36816;&#34892;</span>
+        <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">(</span><span style="color: #a45bad;">!</span>groupMap.get<span style="color: #67b11d;">(</span><span style="color: #2d9574;">"MAPREDUCE"</span><span style="color: #67b11d;">)</span>.contains<span style="color: #67b11d;">(</span>node.getNodeName<span style="color: #b1951d;">()</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+            <span style="color: #4f97d7; font-weight: bold;">continue</span>;
+        <span style="color: #2d9574;">}</span>
+    <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
+<span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga3d6a0c" class="outline-3">
+<h3 id="orga3d6a0c"><span class="section-number-3">2.3</span> ReloadAllocationConfiguration</h3>
+<div class="outline-text-3" id="text-2-3">
+</div><div id="outline-container-org95cd45e" class="outline-4">
+<h4 id="org95cd45e"><span class="section-number-4">2.3.1</span> a thread reload the allocation periodically</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<ul class="org-ul">
+<li>modified code</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-java">reloadThread = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">Thread</span><span style="color: #4f97d7;">()</span> <span style="color: #4f97d7;">{</span>
+        <span style="color: #a45bad;">@Override</span>
+        <span style="color: #4f97d7; font-weight: bold;">public</span> <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">run</span><span style="color: #bc6ec5;">()</span> <span style="color: #bc6ec5;">{</span>
+            <span style="color: #4f97d7; font-weight: bold;">while</span> <span style="color: #2d9574;">(</span>running<span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+                <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+                <span style="color: #4f97d7; font-weight: bold;">try</span> <span style="color: #67b11d;">{</span>
+                    reloadAllocations<span style="color: #b1951d;">()</span>;
+                <span style="color: #67b11d;">}</span> <span style="color: #4f97d7; font-weight: bold;">catch</span> <span style="color: #67b11d;">(</span><span style="color: #ce537a; font-weight: bold;">Exception</span> <span style="color: #7590db;">ex</span><span style="color: #67b11d;">)</span> <span style="color: #67b11d;">{</span>
+                    <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #b1951d;">(</span><span style="color: #a45bad;">!</span>lastReloadAttemptFailed<span style="color: #b1951d;">)</span> <span style="color: #b1951d;">{</span>
+                        LOG.error<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"Failed to reload fair scheduler config file - "</span> +
+                                  <span style="color: #2d9574;">"will use existing allocations."</span>, ex<span style="color: #4f97d7;">)</span>;
+                    <span style="color: #b1951d;">}</span>
+                    lastReloadAttemptFailed = <span style="color: #a45bad;">true</span>;
+                <span style="color: #67b11d;">}</span>
+                <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+                <span style="color: #4f97d7; font-weight: bold;">try</span> <span style="color: #67b11d;">{</span>
+                    Thread.sleep<span style="color: #b1951d;">(</span>reloadIntervalMs<span style="color: #b1951d;">)</span>;
+                <span style="color: #67b11d;">}</span> <span style="color: #4f97d7; font-weight: bold;">catch</span> <span style="color: #67b11d;">(</span><span style="color: #ce537a; font-weight: bold;">InterruptedException</span> <span style="color: #7590db;">ex</span><span style="color: #67b11d;">)</span> <span style="color: #67b11d;">{</span>
+                    LOG.info<span style="color: #b1951d;">(</span>
+                             <span style="color: #2d9574;">"Interrupted while waiting to reload alloc configuration"</span><span style="color: #b1951d;">)</span>;
+                <span style="color: #67b11d;">}</span>
+            <span style="color: #2d9574;">}</span>
+        <span style="color: #bc6ec5;">}</span>
+    <span style="color: #4f97d7;">}</span>;
+reloadThread.setName<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"AllocationFileReloader"</span><span style="color: #4f97d7;">)</span>;
+reloadThread.setDaemon<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">true</span><span style="color: #4f97d7;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0d6e1d0" class="outline-4">
+<h4 id="org0d6e1d0"><span class="section-number-4">2.3.2</span> get configuration form ddw-api</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<ul class="org-ul">
+<li>modified code</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+     <span style="color: #ce537a; font-weight: bold;">Map</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">String</span>, <span style="color: #ce537a; font-weight: bold;">Set</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">String</span><span style="color: #bc6ec5;">&gt;</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">groupMap</span> = getGroupMapFromHttp<span style="color: #4f97d7;">()</span>;
+   <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #4f97d7;">(</span>MapUtils.isEmpty<span style="color: #bc6ec5;">(</span>groupMap<span style="color: #bc6ec5;">)</span>|| CollectionUtils.isEmpty<span style="color: #bc6ec5;">(</span>groupMap.get<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"MAPREDUCE"</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+     <span style="color: #4f97d7; font-weight: bold;">throw</span> <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">ParserConfigurationException</span><span style="color: #2d9574;">(</span><span style="color: #2d9574;">"[DDW] can not get the group configuration from http!!!"</span><span style="color: #2d9574;">)</span>;
+     <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">1.ResourceManager &#21551;&#21160;&#26102;&#20135;&#29983;&#24322;&#24120;&#65292;&#30452;&#25509;&#21453;&#24212;&#20026;&#21551;&#21160;&#22833;&#36133;</span>
+     <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">2.ResourceManager &#36827;&#34892; reload &#26102;&#20135;&#29983;&#30340;&#24322;&#24120;&#65292;&#19981;&#20250;&#24433;&#21709;&#21407;&#26412;&#30340;&#37197;&#32622;&#20449;&#24687;&#65292;&#21482;&#20250;&#22312;&#26085;&#24535;&#20013;&#36755;&#20986;&#38169;&#35823;</span>
+   <span style="color: #bc6ec5;">}</span>
+
+   <span style="color: #ce537a; font-weight: bold;">AllocationConfiguration</span> <span style="color: #7590db;">info</span> = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">AllocationConfiguration</span><span style="color: #bc6ec5;">(</span>minQueueResources,
+       maxQueueResources, queueMaxApps, userMaxApps, queueWeights,
+       queueMaxAMShares, userMaxAppsDefault, queueMaxAppsDefault,
+       queueMaxResourcesDefault, queueMaxAMShareDefault, queuePolicies,
+       defaultSchedPolicy, minSharePreemptionTimeouts,
+       fairSharePreemptionTimeouts, fairSharePreemptionThresholds, queueAcls,
+           newPlacementPolicy, configuredQueues, nonPreemptableQueues, groupMap<span style="color: #bc6ec5;">)</span>;
+   <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
