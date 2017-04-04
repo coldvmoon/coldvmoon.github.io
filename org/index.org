@@ -1,0 +1,4 @@
+* [[file:2015-07-15-website.org][Web Site]]
+* [[file:2017-03-28-techic-stack.org][Technic Stack]]
+* [[file:2017-03-19-spacemacs.org][Spacemacs]] 
+* [[file:2017-03-19-book.org][Book]]

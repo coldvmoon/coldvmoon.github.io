@@ -2,10 +2,12 @@
 * Back-end
 ** Spring
 + Spring Framework
-* Big Data
-** Security 
+* Big Data(Hadoop) 
+** Security  
 + Apache Ranger :: Ranger is a framework to enable, monitor and manage comprehensive data security across the Hadoop platform.
 ** Governance
 + Apache Atlas  :: Atlas is a scalable and extensible set of core foundational governance services – enabling enterprises to effectively and efficiently meet their compliance requirements within Hadoop and allows integration with the whole enterprise data ecosystem.
 ** Security 
 + Apache Ranger :: Ranger is a framework to enable, monitor and manage comprehensive data security across the Hadoop platform.
+** Resource Manager 
++ [[file:2017-03-27-knowledge-of-yarn.org][Yarn]] 

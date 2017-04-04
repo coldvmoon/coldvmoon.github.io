@@ -3,7 +3,40 @@
 #+HTML: title: 关于 CDH 的一些 tips
 #+HTML: ---
 
+* Installation 
+** Install Spacemacs
+1) Download Spacemacs from github [[https://github.com/syl20bnr/spacemacs]]
+** Environment 
+*** Home Path
+1) Default Win10 home path is ~C:\Users\coldvmoon\AppData\Roaming~ , create file named .emacs in the place .
+   #+BEGIN_SRC emacs-lisp
+     (load-file "F:/emacs/.emacs.d/init.el")
+   #+END_SRC
+2) set home path in ~F:\emacs\.emacs.d~
+   #+BEGIN_SRC emacs-lisp
+     (defconst spacemacs-version          "0.200.7" "Spacemacs version.")
+     (defconst spacemacs-emacs-min-version   "24.4" "Minimal version of Emacs.")
+     
 
+     ;;set home path
+     (setenv "HOME" "F:/emacs")
+
+     (if (not (version<= spacemacs-emacs-min-version emacs-version))
+         (message (concat "Your version of Emacs (%s) is too old. "
+                          "Spacemacs requires Emacs version %s or above.")
+                  emacs-version spacemacs-emacs-min-version)
+       (load-file (concat (file-name-directory load-file-name)
+                          "core/core-load-paths.el"))
+       (require 'core-spacemacs)
+       (spacemacs/init)
+       (spacemacs/maybe-install-dotfile)
+       (configuration-layer/sync)
+       (spacemacs-buffer/display-info-box)
+       (spacemacs/setup-startup-hook)
+       (require 'server)
+       (unless (server-running-p) (server-start)))
+
+   #+END_SRC
 * Org-mdoe
 + 关于 Org-mode 的一些全局快捷键
   #+BEGIN_SRC emacs-lisp

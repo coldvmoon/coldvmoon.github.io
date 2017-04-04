@@ -7,5 +7,5 @@
 **** spark
 + [[file:../book/Learning%20Spark.pdf][Learning Spark]] [[file:learning-spark.org][notes]]
 ** java
-+ [[file:../book/Java%20Language%20and%20Virtual%20Machine%20Specifications%208.pdf][The Java® Virtual Machine Specification Java SE 8 Edition]]
++ [[file:../book/Java%20Language%20and%20Virtual%20Machine%20Specifications%208.pdf][The Java® Virtual MachineSpecification Java SE 8 Edition]]
 + [[file:../book/The%20Java%C2%AE%20Language%20Specification%20Java%20SE%208%20Edition.pdf][The Java® Language Specification Java SE 8 Edition]]
