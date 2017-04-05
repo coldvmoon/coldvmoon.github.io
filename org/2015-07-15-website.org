@@ -9,6 +9,7 @@
 *** knowledge
 + [[https://news.ycombinator.com/][Hacker News]]
 + [[https://www.reddit.com][Reddit]]
++ [[http://www.solidot.org/][Solidot]]
 *** App/Software :app:software:
 + [[https://sspai.com/][少数派]]
 + [[http://www.appinn.com/][小众软件]]
@@ -25,7 +26,8 @@
 **** [[http://doc.norang.ca/org-mode.html][Organize Your Life In Plain Text!]]                
 **** [[https://sourceforge.net/projects/emacsbinw64/?source=directory][64-Bit GNU Emacs for MS Windows with optimization]]
 *** crack :crack:
-**** [[http://www.52pojie.cn/][吾爱破解]] 
++ [[http://www.freebuf.com/][Freebuf]]
++ [[http://www.52pojie.cn/][吾爱破解]] 
 ** 见识类
 *** 书画
 **** [[https://www.google.com/culturalinstitute/beta/u/0/][Google Arts&Culture(欧美画作)]]

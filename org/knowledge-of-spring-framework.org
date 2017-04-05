@@ -1,0 +1,13 @@
+* SpringMvc 参数转换 
+1) @DateTimeFormat
+   #+BEGIN_SRC java
+     public class MyModel {
+         @DateTimeFormat(iso=ISO.DATE)
+         private Date date;
+     }
+
+     @RequestMapping(path = "/{day}", method = RequestMethod.GET)
+     public Map<String, Appointment> getForDay(@PathVariable @DateTimeFormat(iso=ISO.DATE) Date day, Model model) {
+         return appointmentBook.getAppointmentsForDay(day);
+     }
+   #+END_SRC
