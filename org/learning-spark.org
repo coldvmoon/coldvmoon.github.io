@@ -1,10 +1,16 @@
-* Catalog [9%]
+#+TITLE: sdf
+#+LATEX_CLASS: cn-article
+* Catalog [27%]
 ** DONE 1. [[Introduction to Data Analysis with Spark]]
 CLOSED: [2017-04-01 周六 16:25]
 - CLOSING NOTE [2017-04-01 周六 16:25]
-** TODO 2. Downloading Spark and Getting Started
-** TODO 3. Programming with RDDs
-** TODO 4. Working with Key/Value Pairs
+** DONE 2. [[Downloading Spark and Getting Started]]
+CLOSED: [2017-04-08 周六 21:04]
+- CLOSING NOTE [2017-04-08 周六 21:04]
+** DONE 3. [[Programming with RDDs]]
+CLOSED: [2017-04-09 周日 20:54]
+- CLOSING NOTE [2017-04-09 周日 20:54]
+** TODO 4. [[Working with Key/Value Pairs]] 
 ** TODO 5. Loading and Saving Your Data
 ** TODO 6. Advanced Spark Programming
 ** TODO 7. Running on a Cluster
@@ -24,3 +30,121 @@ CLOSED: [2017-04-01 周六 16:25]
 + MLlib :: Spark comes with a library containing common machine learning (ML) functionality,called MLlib.
 + GraphX :: GraphX is a library for manipulating graphs (e.g., a social network’s friend graph) and performing graph-parallel computations.
 + Cluster Managers
+* Downloading Spark and Getting Started
+** Initiallizing Spark in Java
+#+BEGIN_SRC java
+import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaSparkContext;
+SparkConf conf = new SparkConf().setMaster("local").setAppName("My App");
+JavaSparkContext sc = new JavaSparkContext(conf);
+#+END_SRC
++ A cluster URL, namely local in these examples, which tells Spark how to
+  connect to a cluster. local is a special value that runs Spark on one thread
+  on the local machine, without connecting to a cluster.
++ An application name, namely My App in these examples. This will identify your
+  application on the cluster manager’s UI if you connect to a cluster.
+** Building Standalone Applications
+#+BEGIN_SRC xml
+  <project>
+    <groupId>com.oreilly.learningsparkexamples.mini</groupId>
+    <artifactId>learning-spark-mini-example</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <name>example</name>
+    <packaging>jar</packaging>
+    <version>0.0.1</version>
+    <dependencies>
+      <dependency> <!-- Spark dependency -->
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-core_2.10</artifactId>
+        <version>1.2.0</version>
+        <scope>provided</scope>
+      </dependency>
+    </dependencies>
+    <properties>
+      <java.version>1.6</java.version>
+    </properties>
+    <build>
+      <pluginManagement>
+        <plugins>
+          <plugin> <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.1</version>
+          <configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+          </configuration> </plugin> </plugin>
+        </plugins>
+      </pluginManagement>
+    </build>
+  </project>
+#+END_SRC
+=The spark-core package is marked as provided in case we package our application
+into an assembly JAR.=
+** Running Standalone Applications
+#+BEGIN_SRC shell
+spark-submit --master local[2] \\
+             --class com.oreilly.learningsparkexamples.java.WordCount \\ 
+             ./java-0.0.2.jar local ./README.md ./out
+#+END_SRC
+This is a little diffent with the example. Maybe, It is old submit way. Here is
+[[https://spark.apache.org/docs/latest/submitting-applications.html][new way]]
+#+BEGIN_SRC java
+  /**
+   ,* Illustrates a wordcount in Java
+   ,*/
+  package com.oreilly.learningsparkexamples.java;
+
+  import java.util.Arrays;
+  import java.util.List;
+  import java.lang.Iterable;
+
+  import scala.Tuple2;
+
+  import org.apache.commons.lang.StringUtils;
+
+  import org.apache.spark.api.java.JavaRDD;
+  import org.apache.spark.api.java.JavaPairRDD;
+  import org.apache.spark.api.java.JavaSparkContext;
+  import org.apache.spark.api.java.function.FlatMapFunction;
+  import org.apache.spark.api.java.function.Function2;
+  import org.apache.spark.api.java.function.PairFunction;
+
+
+  public class WordCount {
+    public static void main(String[] args) throws Exception {
+		  String master = args[0];
+		  JavaSparkContext sc = new JavaSparkContext(
+        master, "wordcount", System.getenv("SPARK_HOME"), System.getenv("JARS"));
+      JavaRDD<String> rdd = sc.textFile(args[1]);
+      JavaPairRDD<String, Integer> counts = rdd.flatMap(
+        new FlatMapFunction<String, String>() {
+          public Iterable<String> call(String x) {
+            return Arrays.asList(x.split(" "));
+          }}).mapToPair(new PairFunction<String, String, Integer>(){
+              public Tuple2<String, Integer> call(String x){
+                return new Tuple2(x, 1);
+              }}).reduceByKey(new Function2<Integer, Integer, Integer>(){
+                  public Integer call(Integer x, Integer y){ return x+y;}});
+      counts.saveAsTextFile(args[2]);
+	  }
+  }
+#+END_SRC 
+* Programming with RDDs
+** Creating RDDs
+** RDD Operations
+*** transformations
+*** actions
+** Lazy Evaluation
+** Common Transformations and Actions
+** Persistence (Caching)
+To avoid computing an RDD multiple times, we can ask Spark to persist the data.
+When we ask Spark to persist an RDD, the nodes that compute the RDD store their
+partitions. If a node that has data persisted on it fails, Spark will recompute
+the lost partitions of the data when needed. We can also replicate our data on
+multiple nodes if we want to be able to handle node failure without slowdown.
+* Working with Key/Value Pairs
+** Data Partitioning (Advanced)
+Partitioning will not be helpful in all applications—for example, if a given RDD
+is scanned only once, there is no point in partitioning it in advance. It is
+useful only when a dataset is reused multiple times in key-oriented operations
+such as joins.
