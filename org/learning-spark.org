@@ -174,8 +174,3 @@ such as joins.
 |                |           |shared code. Breaks if you change you classes,as it relies |
 |                |           |on Java Serialization.                                     |
 +----------------+-----------+-----------------------------------------------------------+
-#+begin_src latex :file ../images/orgmode-babel-latex.png :exports results
-  \begin{equation}
-  \Pr(X_t=j|X_{t-1}=i) = \frac{j(j-1)}{2}\Big(\frac{i}{N}\Big)^j\Big(\frac{N-i}{N}\Big)^{n-j}
-  \end{equation}
-#+end_src

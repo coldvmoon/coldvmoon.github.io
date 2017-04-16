@@ -47,5 +47,5 @@ node_modules
 _algolia_api_key
 
 Gemfile.lock
-/org/*
-!/org/*.org
+org/*
+org/*.org

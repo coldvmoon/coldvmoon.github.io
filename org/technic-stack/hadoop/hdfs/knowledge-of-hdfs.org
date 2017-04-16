@@ -1,0 +1,48 @@
+* HDFS Data Flow
+#+BEGIN_SRC plantuml :file hdfs-workflow-sequenceuml.png  :cmdline -charset UTF-8
+skinparam backgroundColor #EEEBDC
+skinparam handwritten true
+skinparam interface {
+  backgroundColor RosyBrown
+  borderColor orange
+}
+
+skinparam component {
+  FontSize 13
+  BackgroundColor<<Apache>> Red
+  BorderColor<<Apache>> #FF6655
+  BorderColor black
+  BackgroundColor gold
+  ArrowColor  #FF6655
+  ArrowFontColor #777777
+}
+
+
+package "Client Node" {
+  actor Client
+  Client -> [Distributed FileSystem]:1. open
+  [NameNode] -> [FSData InputStream]:3. return locations
+}
+package "NameNode"{
+  [Distributed FileSystem] -> [NameNode]:2. get block locations \ sort
+}
+package "DataNode 1" {
+  component DataNode as D1
+  [FSData InputStream] <..> D1:4. read block
+}
+note bottom
+the datanodes are sorted according to their proximity to the client 
+(according to the topology of the cluster’s network)
+end note
+package "DataNode 2" {
+  component DataNode as D2 
+  [FSData InputStream] <..> D2:5. read block 
+}
+[FSData InputStream] -> Client:6. close
+
+#+END_SRC
+
+#+CAPTION: HDFS Data Flow
+#+RESULTS:
+[[file:hdfs-workflow-sequenceuml.png]]
+

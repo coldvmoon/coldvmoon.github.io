@@ -3,9 +3,13 @@
 #+HTML: title: Hadoop
 #+HTML: ---
 * Catalog [%]
-** Part I. Hadoop Fundamentals
-*** 1. Meet Hadoop
-*** 2. [[MapReduce]]
+** [-] Part I. Hadoop Fundamentals [2/2]
+*** DONE 1. Meet Hadoop
+CLOSED: [2017-04-16 周日 17:00]
+- CLOSING NOTE [2017-04-16 周日 17:00]
+*** DONE 2. [[MapReduce]]
+CLOSED: [2017-04-16 周日 17:00]
+- CLOSING NOTE [2017-04-16 周日 17:00]
 *** 3. [[The Hadoop Distributed Filesystem]]
 *** 4. YARN
 *** 5. Hadoop I/O
@@ -63,3 +67,14 @@
 *** Blocking Caching
 + =Normally a datanode reads blocks from disk, but for frequently accessed files the blocks may be explicitly cached in the datanode’s memory, in an off-heap block cache.~= By default, a block is cached in only one datanode’s memory, although the number is configurable on a per-file basis. Job schedulers (for MapReduce, Spark, and other frameworks) can take advantage of cached blocks by running tasks on the datanode where a block is cached, for increased read performance. A small lookup table used in a join is a good candidate for caching.
 *** HDFS Federation
++ HDFS federation, introduced in the 2.x release series, allows a cluster to scale by adding namenodes, each of which manages a portion of the filesystem namespace.
+*** HDFS High Availability
++ A few architectural changes are needed to allow HDFS high vailability(HA):
+  - The namenodes must use highly available shared storage(NFS filter,or a quorum journal manager) to share the edit log. When a standby namenode comes up, it reads up to the end of the shared edit log to synchronize its state with the active namenode, and then continues to read new entries as they are written by the active namenode.
+  - Datanodes must send block reports to both namenodes because the block mappings are stored in a namenode’s memory, and not on disk.
+  - Clients must be configured to handle namenode failover, using a mechanism that is transparent to users.
+  - The secondary namenode’s role is subsumed by the standby, which takes periodic checkpoints of the active namenode’s namespace.
++ Failover and fencing
+** Data Flow
+*** Anatomy of a File Read 
+  
