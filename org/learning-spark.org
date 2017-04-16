@@ -11,7 +11,7 @@ CLOSED: [2017-04-08 周六 21:04]
 CLOSED: [2017-04-09 周日 20:54]
 - CLOSING NOTE [2017-04-09 周日 20:54]
 ** TODO 4. [[Working with Key/Value Pairs]] 
-** TODO 5. Loading and Saving Your Data
+** TODO 5. [[Loading and Saving Your Data]]
 ** TODO 6. Advanced Spark Programming
 ** TODO 7. Running on a Cluster
 ** TODO 8. Tuning and Debugging Spark
@@ -143,8 +143,39 @@ partitions. If a node that has data persisted on it fails, Spark will recompute
 the lost partitions of the data when needed. We can also replicate our data on
 multiple nodes if we want to be able to handle node failure without slowdown.
 * Working with Key/Value Pairs
+** Transformations on Pair RDDs
+** Actions Available on Pair RDDs
 ** Data Partitioning (Advanced)
 Partitioning will not be helpful in all applications—for example, if a given RDD
 is scanned only once, there is no point in partitioning it in advance. It is
 useful only when a dataset is reused multiple times in key-oriented operations
 such as joins.
+* Loading and Saving Your Data
+** File Formats
+#+ATTR_HTML: :border 2 :rules all :frame border
+#+CAPTION: Common supported file formats
++----------------+-----------+-----------------------------------------------------------+
+|   Format name  |Structured |Comments                                                   |
++----------------+-----------+-----------------------------------------------------------+
+|    Text files  |    No     |Plain old text files,Records are assumed to be one per     |
+|                |           |line.                                                      |
++----------------+-----------+-----------------------------------------------------------+
+|       JSON     |   Semi    |Common text-based format,semistructured; most libraries    |
+|                |           |require one record per line.                               |
++----------------+-----------+-----------------------------------------------------------+
+|       CSV      |    Yes    |Very common text-based format,often used with spreadsheet  |
+|                |           |applications.                                              |
++----------------+-----------+-----------------------------------------------------------+
+|    SquenceFiles|    Yes    |Acommon Hadoop file format used for key/value data.        |
++----------------+-----------+-----------------------------------------------------------+
+|Protocol buffers|    Yes    |A fast,space-efficient ,multilanguage format.              |
++----------------+-----------+-----------------------------------------------------------+
+|   Object files |    Yes    |Useful for saving data from a Spark job to be consumed by  |
+|                |           |shared code. Breaks if you change you classes,as it relies |
+|                |           |on Java Serialization.                                     |
++----------------+-----------+-----------------------------------------------------------+
+#+begin_src latex :file ../images/orgmode-babel-latex.png :exports results
+  \begin{equation}
+  \Pr(X_t=j|X_{t-1}=i) = \frac{j(j-1)}{2}\Big(\frac{i}{N}\Big)^j\Big(\frac{N-i}{N}\Big)^{n-j}
+  \end{equation}
+#+end_src
