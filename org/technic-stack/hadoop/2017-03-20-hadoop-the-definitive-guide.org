@@ -3,16 +3,18 @@
 #+HTML: title: Hadoop
 #+HTML: ---
 * Catalog [%]
-** [-] Part I. Hadoop Fundamentals [2/2]
+** [-] Part I. Hadoop Fundamentals [3/5]
 *** DONE 1. Meet Hadoop
 CLOSED: [2017-04-16 周日 17:00]
 - CLOSING NOTE [2017-04-16 周日 17:00]
 *** DONE 2. [[MapReduce]]
 CLOSED: [2017-04-16 周日 17:00]
 - CLOSING NOTE [2017-04-16 周日 17:00]
-*** 3. [[The Hadoop Distributed Filesystem]]
-*** 4. YARN
-*** 5. Hadoop I/O
+*** DONE 3. [[The Hadoop Distributed Filesystem]]
+CLOSED: [2017-04-19 周三 19:36]
+- CLOSING NOTE [2017-04-19 周三 19:36]
+*** TODO 4. YARN
+*** TODO 5. Hadoop I/O
 ** Part II. MapReduce 
 *** 6. Developing a MapReduce Application
 *** 7. How MapReduce Works
@@ -79,5 +81,14 @@ CLOSED: [2017-04-16 周日 17:00]
 *** Anatomy of a File Read 
 *** Anatomy of a File Write
 *** Replica Placement
- 
+[[file:data-replica-placement.png]] 
++ place the first replica on the same node as the client (for clients running outside the cluster, a node is chosen at random, although the system tries not to pick nodes that are too full or too busy).
++ The second replica is placed on a different rack from the first (off-rack), chosen at random.
++ The third replica is placed on the same rack as the second, but on a different node chosen at random.
++ Further replicas are placed on random nodes in the cluster, although the system tries to avoid placing too many replicas on the same rack.
 *** Coherency Model
++ flush()
++ hflush()
++ hsync()
+*** Parallel Copying with distcp
+*** Keeping an HDFS Cluster Balanced
