@@ -12,7 +12,9 @@
 + [[http://www.solidot.org/][Solidot]]
 *** App/Software :app:software:
 + [[https://sspai.com/][少数派]]
-+ [[http://www.appinn.com/][小众软件]]
++ [[http://www.appinn.com/][小众软件]] 
+*** Artificial Intelligence 
+**** [[http://artificialbrain.xyz][Artificial Brain]]
 ** 技术类 :technic:
 *** front 
 **** [[https://www.webcodegeeks.com/][Web Code Geeks]]
@@ -28,7 +30,8 @@
 **** [[https://emacsgifs.github.io/][emacsgifs]]
 *** crack :crack:
 + [[http://www.freebuf.com/][Freebuf]]
-+ [[http://www.52pojie.cn/][吾爱破解]] 
++ [[http://www.52pojie.cn/][吾爱破解]]
++ [[http://blog.knownsec.com/Knownsec_RD_Checklist/index.html][知道创宇研发技能表]]
 ** 见识类
 *** 书画
 **** [[https://www.google.com/culturalinstitute/beta/u/0/][Google Arts&Culture(欧美画作)]]
