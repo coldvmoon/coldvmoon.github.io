@@ -78,6 +78,17 @@ CLOSED: [2017-04-16 周日 17:00]
 ** Data Flow
 *** Anatomy of a File Read 
 *** Anatomy of a File Write
-*** Replica Placement
- 
+*** Replica Placement 
 *** Coherency Model
+* Yarn
+** Anatomy of a Yarn Application Run
+*** Resource Request
+*** Application Lifespan
++ The simplest case is one application per user job, which is the approach that MapReduce takes.
++ The second model is to run one application per workflow or user session of (possibly unrelated) jobs. eg: Spark
++ The third model is a long-running application that is shared by different users. eg: Impala
+** Scheduling in YARN
+*** Scheduler Options
++ FIFO
++ Capacity
++ Fair Scheduler
