@@ -12,7 +12,7 @@
 + [[http://www.solidot.org/][Solidot]]
 *** App/Software :app:software:
 + [[https://sspai.com/][少数派]]
-+ [[http://www.appinn.com/][小众软件]] 
++ [[http://www.appinn.com/][小众软件]]
 *** Artificial Intelligence 
 **** [[http://artificialbrain.xyz][Artificial Brain]]
 ** 技术类 :technic:
@@ -28,6 +28,7 @@
 **** [[http://doc.norang.ca/org-mode.html][Organize Your Life In Plain Text!]]                
 **** [[https://sourceforge.net/projects/emacsbinw64/?source=directory][64-Bit GNU Emacs for MS Windows with optimization]]
 **** [[https://emacsgifs.github.io/][emacsgifs]]
+**** [[http://xahlee.org/][Xah Lee Web 李杀网]]
 *** crack :crack:
 + [[http://www.freebuf.com/][Freebuf]]
 + [[http://www.52pojie.cn/][吾爱破解]]
