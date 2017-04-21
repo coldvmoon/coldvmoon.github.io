@@ -78,5 +78,11 @@
   [[file:../images/nixmat-01-f_2017-03-21_11-20-03.jpg]]
  
 * Github
+** emacs
+*** [[https://github.com/lujun9972/emacs-document][emacs-document]]
+** Tools
 + Flarum :: Flarum 是一款现代的，优雅的，简洁的，强大的论坛软件。Flarum 让在线交流变得更加轻松愉快。
 + [[https://github.com/lw-lin/CoolplaySpark][酷玩 spark]] :: Spark 源码分析
+** Deep Leanring
+*** [[https://github.com/HFTrader/DeepLearningBook][DeepLearningBook]]
+
