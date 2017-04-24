@@ -3,15 +3,19 @@
 #+HTML: title: Hadoop
 #+HTML: ---
 * Catalog [%]
-** [-] Part I. Hadoop Fundamentals [2/2]
+** [-] Part I. Hadoop Fundamentals [4/4]
 *** DONE 1. Meet Hadoop
 CLOSED: [2017-04-16 周日 17:00]
 - CLOSING NOTE [2017-04-16 周日 17:00]
 *** DONE 2. [[MapReduce]]
 CLOSED: [2017-04-16 周日 17:00]
 - CLOSING NOTE [2017-04-16 周日 17:00]
-*** 3. [[The Hadoop Distributed Filesystem]]
-*** 4. YARN
+*** DONE 3. [[The Hadoop Distributed Filesystem]]
+CLOSED: [2017-04-24 周一 15:53]
+- CLOSING NOTE [2017-04-24 周一 15:53]
+*** DONE 4. [[YARN]]
+CLOSED: [2017-04-24 周一 15:54]
+- CLOSING NOTE [2017-04-24 周一 15:54]
 *** 5. Hadoop I/O
 ** Part II. MapReduce 
 *** 6. Developing a MapReduce Application
@@ -80,7 +84,7 @@ CLOSED: [2017-04-16 周日 17:00]
 *** Anatomy of a File Write
 *** Replica Placement 
 *** Coherency Model
-* Yarn
+* YARN
 ** Anatomy of a Yarn Application Run
 *** Resource Request
 *** Application Lifespan
@@ -92,3 +96,7 @@ CLOSED: [2017-04-16 周日 17:00]
 + FIFO
 + Capacity
 + Fair Scheduler
+*** Capacity Scheduler Configuration
+*** Fair Scheduler Configuration
+*** Delay Scheduling
+*** Dominant Resource Fairness
