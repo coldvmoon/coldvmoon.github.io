@@ -16,7 +16,7 @@ CLOSED: [2017-04-24 周一 15:53]
 *** DONE 4. [[YARN]]
 CLOSED: [2017-04-24 周一 15:54]
 - CLOSING NOTE [2017-04-24 周一 15:54]
-*** 5. Hadoop I/O
+*** 5. [[Hadoop I/O]]
 ** Part II. MapReduce 
 *** 6. Developing a MapReduce Application
 *** 7. How MapReduce Works
@@ -100,3 +100,11 @@ CLOSED: [2017-04-24 周一 15:54]
 *** Fair Scheduler Configuration
 *** Delay Scheduling
 *** Dominant Resource Fairness
+* Hadoop I/O
+** Data Integrity
+*** Data Integrity in HDFS
+*** LocalFileSystem
+*** ChecksumFileSystem
+** Compression
+*** Codecs
+*** Compression and Input splits

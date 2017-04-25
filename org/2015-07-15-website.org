@@ -63,6 +63,8 @@
 + [[http://bbs.caup.net][国匠城]]
 *** 空气质量
 + [[http://aqicn.org][Real-time Air Quality]]
+** eBook
+*** [[http://www.allitebooks.com][all IT eBooks]]
 * 有用工具
 ** chrome :chrome:
 *** Tampermonkey
