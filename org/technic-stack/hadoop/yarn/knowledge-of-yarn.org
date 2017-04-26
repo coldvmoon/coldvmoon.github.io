@@ -1,0 +1,18 @@
+#+TITLE: Knowledge Of Yarn
+* ResourceManager High Availability[fn:1]
+** Architecture
+[[file:fair-over-architecture.png]]
+** RM Failover
+ResourceManager HA is realized through an Active/Standby architecture - at any point of time, one of the RMs is Active, and one or more RMs are in Standby mode waiting to take over should anything happen to the Active. The trigger to transition-to-active comes from either the admin (through CLI) or through the integrated failover-controller when automatic-failover is enabled.
+*** Manual transitions and failover
+Transition can be done using the "yarn rmadmin" CLI.
+*** Automatic failover
+The RMs have an option to embed the Zookeeper-based ActiveStandbyElector to decide which RM should be the Active.
+*** Client, ApplicationMaster and NodeManager on RM failover
+ Clients, ApplicationMasters (AMs) and NodeManagers (NMs) try connecting to the RMs in a round-robin fashion until they hit the Active RM. Ifthe Active goes down, they resume the round-robin polling until they hit the “new” Active.
+** Recovering prevous active-RM’s state
+With the ResourceManger Restart enabled, the RM being promoted to an active state loads the RM internal state and continues to operate from where the previous active left off as much as possible depending on the RM restart feature. A new attempt is spawned for each managed application previously submitted to the RM. Applications can checkpoint periodically to avoid losing any work. The state-store must be visible from the both of Active/Standby RMs. Currently, there are two RMStateStore implementations for persistence - ~FileSystemRMStateStore~ and ~ZKRMStateStore.~ The ZKRMStateStore implicitly allows write access to a single RM at any point in time, and hence is the recommended store to use in an HA cluster. When using the ZKRMStateStore, there is no need for a separate fencing mechanism to address a potential split-brain situation where multiple RMs can potentially assume the Active role. When using the ZKRMStateStore, it is advisable to NOT set the “zookeeper.DigestAuthenticationProvider.superDigest” property on the Zookeeper cluster to ensure that the zookeeper admin does not have access to YARN application/user credential information.
+* Footnotes
+
+[fn:1] [[https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/ResourceManagerHA.html][ResourceManager High Availability]] 
+

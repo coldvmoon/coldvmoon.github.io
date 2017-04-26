@@ -1,0 +1,11 @@
+* Yarn Insulation
+** Active/Standby Failover
+*** _if ddw-api is down, it will be the single point of failure. Standby can not take over the cluster_ 
+*** 
+** 
+* DDW Admin
+** create a spark task and verify the validation
+** _off-line cluster should have at least one host_
+** _manual schudle and system scheduler_
+** _spark monitor should hide without applicationId_ 
+** _spark task should have paramters_
