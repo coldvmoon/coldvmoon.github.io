@@ -1,0 +1,52 @@
+#+TITLE: DDW(数据集市)
+* 架构
+#+BEGIN_SRC plantuml :file ddw-architecture.png  :cmdline -charset UTF-8
+  skinparam backgroundColor #EEEBDC
+  skinparam handwritten true
+  skinparam sequence {
+  ArrowColor DeepSkyBlue
+  ActorBorderColor DeepSkyBlue
+  LifeLineBorderColor blue
+  LifeLineBackgroundColor #A9DCDF
+  ParticipantBorderColor DeepSkyBlue
+  ParticipantBackgroundColor DodgerBlue
+  ParticipantFontName Impact
+  ParticipantFontSize 17
+  ParticipantFontColor #A9DCDF
+  ActorBackgroundColor aqua
+  ActorFontColor DeepSkyBlue
+  ActorFontSize 17
+  ActorFontName Aapex
+  }
+  title 数据集市架构
+  file 日志 as log
+  database "Mysql\nMongoDB\nSQL Server" as DB
+  rectangle "DLC(日志系统)" as DLC
+  rectangle "DDH(异构数据同步)" as DDH
+  rectangle "DMG(消息网关)[kafka]" as DMG
+  log-->>DLC
+  DB-->>DDH
+  DLC-->>DMG
+  DDH-->>DMG
+#+END_SRC
+
+#+RESULTS:
+[[file:ddw-architecture.png]]
+
+* 主要模块
+** Cloudera Manager(chd 5.8)[fn:1]
+Cloudera Manager 是 CDH 版本 hadoop 组件集群的管理工具。
+** Admin(管理端)
+Web 界面，提供界面交互。
+** API Server
+对外提供 API 调用接口。
+** 任务调度
+** ETL(DataX)
+ETL 是数据抽取（Extract）、转换（Transform）、加载（Load）的简写，它的功能是从数
+据源抽取出所需的数据，经过数据清洗和转换，最终按照预先定义好的数据仓库模型，将数
+据加载到数据仓库中去，是构建数据仓库最重要的一步。
+* 权限认证
+* 质量监控
+* Footnotes
+
+[fn:1] [[file:%E7%BA%AF%E4%BA%BA%E5%B7%A5%E5%AE%89%E8%A3%85Hadoop%E9%9B%86%E7%BE%A4.pdf][纯人工安装 Hadoop 集群.pdf]]

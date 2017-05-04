@@ -132,6 +132,9 @@ endif
 end
   #+END_SRC
 
+#+RESULTS:
+[[file:../images/yarn-insulate-with-streaming-and-mapreduce.png]]
+
 
 - modified code
 #+BEGIN_SRC java

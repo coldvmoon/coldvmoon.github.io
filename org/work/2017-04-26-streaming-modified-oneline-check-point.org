@@ -1,11 +1,38 @@
-* Yarn Insulation
-** Active/Standby Failover
-*** _if ddw-api is down, it will be the single point of failure. Standby can not take over the cluster_ 
-*** 
-** 
-* DDW Admin
+* Yarn Active/Standby Failover [0/3]
+*** TODO _if ddw-api is down, it will be the single point of failure. Standby can not take over the cluster_ 
+*** TODO _running task will be a crash When resource Manager failover_
+*** TODO _check if queue name is not exsists_
+* DDW Admin [85%]
 ** create a spark task and verify the validation
-** _off-line cluster should have at least one host_
-** _manual schudle and system scheduler_
-** _spark monitor should hide without applicationId_ 
-** _spark task should have paramters_
+** DONE _off-line cluster should have at least one host_
+CLOSED: [2017-04-28 周五 10:53]
+- CLOSING NOTE [2017-04-28 周五 10:53]
+** DONE _spark monitor should hide without applicationId_ 
+CLOSED: [2017-04-27 周四 14:37]
+- CLOSING NOTE [2017-04-27 周四 14:37]
+** TODO [#C] _spark task should have paramters_
+** DONE _duplicate running task_
+CLOSED: [2017-04-27 周四 14:29]
+- CLOSING NOTE [2017-04-27 周四 14:29]
+** DONE _check historical reschedule_ 
+CLOSED: [2017-05-03 周三 10:31]
+- CLOSING NOTE [2017-05-03 周三 10:31]
+** DONE check cluster group division
+CLOSED: [2017-04-28 周五 11:32]
+- CLOSING NOTE [2017-04-28 周五 11:32]
+** DONE _check exceptions with task submit_
+CLOSED: [2017-05-03 周三 10:52]
+- CLOSING NOTE [2017-05-03 周三 10:52]
+* Matters 
+** _pay attention to sql modification for new added columns having old default value._
+** _change ddw-api url in yarn insulating jar_
+* Online workflow
+1) apply modification to databases
+2) start ddw-api
+3) start ddw-admin
+4) change ddw-api url in yarn insulating jar
+5) cp jar to ~/opt/cloudera/parcels/CDH-5.8.0-1.cdh5.8.0.p0.42/jars/~
+6) restart resourcemanager
+
+
+

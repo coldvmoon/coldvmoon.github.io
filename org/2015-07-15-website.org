@@ -65,6 +65,8 @@
 + [[http://aqicn.org][Real-time Air Quality]]
 ** eBook
 *** [[http://www.allitebooks.com][all IT eBooks]]
+** Hackintosh
+*** [[http://www.asiba.cn][ASIBA]] coldvmoon 19901225
 * 有用工具
 ** chrome :chrome:
 *** Tampermonkey
@@ -78,7 +80,7 @@
 + NIXMAT
 
   [[file:../images/nixmat-01-f_2017-03-21_11-20-03.jpg]]
- 
+  
 * Github
 ** emacs
 *** [[https://github.com/lujun9972/emacs-document][emacs-document]]
@@ -87,4 +89,5 @@
 + [[https://github.com/lw-lin/CoolplaySpark][酷玩 spark]] :: Spark 源码分析
 ** Deep Leanring
 *** [[https://github.com/HFTrader/DeepLearningBook][DeepLearningBook]]
-
+** Effect
+*** [[https://github.com/nvbn/thefuck][thefuck]]
