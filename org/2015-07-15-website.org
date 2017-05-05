@@ -7,9 +7,9 @@
 *** 经济 :economic:
 + [[http://www.ftchinese.com/][FT 中文网]]
 *** knowledge
-+ [[https://news.ycombinator.com/][Hacker News]]
-+ [[https://www.reddit.com][Reddit]]
-+ [[http://www.solidot.org/][Solidot]]
+**** [[https://news.ycombinator.com/][Hacker News]]
+**** [[https://www.reddit.com][Reddit]]
+**** [[http://www.solidot.org/][Solidot]]
 *** App/Software :app:software:
 + [[https://sspai.com/][少数派]]
 + [[http://www.appinn.com/][小众软件]]
@@ -80,7 +80,8 @@
 + NIXMAT
 
   [[file:../images/nixmat-01-f_2017-03-21_11-20-03.jpg]]
-  
+** emacs
+*** [[https://github.com/alphapapa/helm-org-rifle][helm-org-rifle]] org 文件的搜索工具
 * Github
 ** emacs
 *** [[https://github.com/lujun9972/emacs-document][emacs-document]]

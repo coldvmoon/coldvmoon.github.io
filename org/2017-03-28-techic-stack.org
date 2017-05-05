@@ -1,7 +1,8 @@
 * Font-end
+** Javscript
+** Css
 * Back-end
-** Spring
-+ Spring Framework
+** Spring Framework
 * Big Data(Hadoop) 
 ** Security  
 + Apache Ranger :: Ranger is a framework to enable, monitor and manage comprehensive data security across the Hadoop platform.
@@ -12,3 +13,5 @@
 ** Resource Manager 
 + [[file:2017-03-27-knowledge-of-yarn.org][Yarn]]
 ** Cloduera Manager
+* Machine Learning
+
