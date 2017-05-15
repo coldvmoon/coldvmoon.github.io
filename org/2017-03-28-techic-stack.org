@@ -14,4 +14,3 @@
 + [[file:2017-03-27-knowledge-of-yarn.org][Yarn]]
 ** Cloduera Manager
 * Machine Learning
-
