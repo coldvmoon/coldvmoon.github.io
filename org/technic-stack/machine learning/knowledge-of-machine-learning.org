@@ -9,12 +9,16 @@ between the input and the output.
 continuous value 
 **** regression
 discrete value
+**** hypothesis function
+**** cost function
 *** Unsupervised learning
 Unsupervised learning allows us to approach problems with little or no idea what
 our results should look like. We can derive structure from data where we don't
 necessarily know the effect of the variables.
-
 ** Others
 *** Reinforcement learning
 *** recommender systems
+** Linear regression
+*** Cost Function
+*** Gradient Descent Intuintion
 * Mathematics
