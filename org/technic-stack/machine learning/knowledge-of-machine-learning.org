@@ -21,4 +21,12 @@ necessarily know the effect of the variables.
 ** Linear regression
 *** Cost Function
 *** Gradient Descent Intuintion
+* Concept Reservation
+** Induction
+** Deduction
+** Generalization
+** Specialization
+** Version Space
+** OverFitting
+** Underfitting
 * Mathematics
