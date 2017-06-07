@@ -33,6 +33,8 @@
 + [[http://www.freebuf.com/][Freebuf]]
 + [[http://www.52pojie.cn/][吾爱破解]]
 + [[http://blog.knownsec.com/Knownsec_RD_Checklist/index.html][知道创宇研发技能表]]
+*** analysis
+**** [[https://www.analyticsvidhya.com/][Analytics Vidhya]]
 ** 见识类
 *** 书画
 **** [[https://www.google.com/culturalinstitute/beta/u/0/][Google Arts&Culture(欧美画作)]]
@@ -88,7 +90,11 @@
 ** Tools
 + Flarum :: Flarum 是一款现代的，优雅的，简洁的，强大的论坛软件。Flarum 让在线交流变得更加轻松愉快。
 + [[https://github.com/lw-lin/CoolplaySpark][酷玩 spark]] :: Spark 源码分析
-** Deep Leanring
+** Deep Leanring && Machine Learning
 *** [[https://github.com/HFTrader/DeepLearningBook][DeepLearningBook]]
+*** [[http://neuralnetworksanddeeplearning.com/index.html][Neutral Networks and Deep Learning]]
+*** [[http://www.itl.nist.gov/div898/handbook/index.htm][Engineering Statistics Handbook]]
 ** Effect
 *** [[https://github.com/nvbn/thefuck][thefuck]]
+** Book
+*** [[https://github.com/yuanliangding/books][yuanliangding/books]]

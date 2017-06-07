@@ -8,7 +8,11 @@ CLOSED: [2017-03-29 周三 10:20]
 CLOSED: [2017-03-29 周三 17:47]
 
 - CLOSING NOTE [2017-03-29 周三 17:47]
-** TODO [#B] how to reject illegal jobs
+** DONE [#B] how to reject illegal jobs
+CLOSED: [2017-05-23 周二 16:18]
 
+- CLOSING NOTE [2017-05-23 周二 16:18]
 ** TODO [#B] http://www.3blue1brown.com/ 
+
+** TODO [#B] Flash Boys  
 

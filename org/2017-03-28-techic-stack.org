@@ -11,6 +11,9 @@
 ** Security 
 + Apache Ranger :: Ranger is a framework to enable, monitor and manage comprehensive data security across the Hadoop platform.
 ** Resource Manager 
-+ [[file:2017-03-27-knowledge-of-yarn.org][Yarn]]
+*** [[file:2017-03-27-knowledge-of-yarn.org][Yarn]]
 ** Cloduera Manager
 * Machine Learning
+** book
+*** [[file:../book/DeepLearningBook.pdf][DeepLearningBook]]
+*** [[file:../book/Pattern%20Recognition%20and%20Machine%20Learning_PRML.pdf][Pattern Recognition and Machine Learning]]

@@ -15,12 +15,26 @@ discrete value
 Unsupervised learning allows us to approach problems with little or no idea what
 our results should look like. We can derive structure from data where we don't
 necessarily know the effect of the variables.
+** Logistic Regression
 ** Others
 *** Reinforcement learning
 *** recommender systems
 ** Linear regression
 *** Cost Function
 *** Gradient Descent Intuintion
+*** Feature Scaling 
+** Optimization algorithm 
+*** Gradient Descent
+*** Conjugate gradient
+*** BFGS
+*** L-BFGS
+** OverFitting
+*** Reduce the number of features
+**** Manually select which feature to keep 
+**** use a model selection algorithm 
+*** Regularization 
+**** Keep all the feature,but reduce the magnitude of parameter 
+**** Regularization works well when we have a lot of slightly userful features.
 * Concept Reservation
 ** Induction
 ** Deduction
@@ -30,3 +44,8 @@ necessarily know the effect of the variables.
 ** OverFitting
 ** Underfitting
 * Mathematics
+** Probability Theory
+*** Continuous Values
+*** Discrete Values 
+* Book
+* 

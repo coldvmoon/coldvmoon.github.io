@@ -1,0 +1,8 @@
+#+TITLE:  Mysql Anomaly Detection
+* Metrics
+** Network 
+** Connections 
+** QPS
+** InnoDB
+* Exception
+** 
