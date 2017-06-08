@@ -35,6 +35,8 @@
 + [[http://blog.knownsec.com/Knownsec_RD_Checklist/index.html][知道创宇研发技能表]]
 *** analysis
 **** [[https://www.analyticsvidhya.com/][Analytics Vidhya]]
+*** linux
+**** [[http://man.linuxde.net/][Linux 命令大全]]
 ** 见识类
 *** 书画
 **** [[https://www.google.com/culturalinstitute/beta/u/0/][Google Arts&Culture(欧美画作)]]
