@@ -1,37 +1,488 @@
----
-layout: default
-title: Home
----
+<!DOCTYPE html>
+<html lang="en-us">
 
-<div class="posts">
-  {% for post in paginator.posts %}
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Hyde &middot; A Jekyll theme, with instant search
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="/public/css/algolia.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body class="theme-base-09">
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          Hyde
+        </a>
+      </h1>
+      <p class="lead">The popular <a href="http://hyde.getpoole.com/" target="_blank">Hyde theme</a> for <a href="http://jekyllrb.com" target="_blank">Jekyll</a>, now with instant-search capabilities. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a> and <a href="https://www.algolia.com/" target="_blank">Algolia</a></p>
+    </div>
+
+    <input type="text" class="algolia__input js-algolia__input" autocomplete="off" name="query" placeholder="Search in this site..." />
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Home</a>
+
+      
+
+      
+      
+        
+          
+        
+      
+        
+          
+          <a class="sidebar-nav-item" href="/about.html">About</a>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+
+      <a class="sidebar-nav-item" href="https://github.com/coldvmoon/coldvmoon.github.io">GitHub project</a>
+      <span class="sidebar-nav-item">Currently v2.1.0</span>
+    </nav>
+
+    <p>&copy; 2017. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="algolia__initial-content js-algolia__initial-content"><div class="posts">
+  
   <div class="post">
     <h1 class="post-title">
-      <a href="{{ site.baseurl }}{{ post.url }}">
-        {{ post.title }}
+      <a href="/knowledge-of-yarn.html">
+        Knowledge Of Yarn
       </a>
     </h1>
 
-    <span class="post-date">{{ post.date | date_to_string }}</span>
+    <span class="post-date">27 Mar 2017</span>
 
-    {{ post.content }}
+    <div id="outline-container-org5c4e346" class="outline-2">
+<h2 id="org5c4e346"><span class="section-number-2">1</span> Yarn WorkFlow</h2>
+<div class="outline-text-2" id="text-1">
+
+<div class="figure">
+<p><img src="../images/yarn-workflow-sequenceuml.png" alt="yarn-workflow-sequenceuml.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga10fde8" class="outline-2">
+<h2 id="orga10fde8"><span class="section-number-2">2</span> Modification</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgec9c430" class="outline-3">
+<h3 id="orgec9c430"><span class="section-number-3">2.1</span> AddApplication (对应上图中的步骤 3、4)</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><div id="outline-container-org2993a64" class="outline-4">
+<h4 id="org2993a64"><span class="section-number-4">2.1.1</span> reject the steaming application without tags</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<ul class="org-ul">
+<li><p>
+modified code
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+<span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #4f97d7;">(</span>queue.getQueueName<span style="color: #bc6ec5;">()</span>.startsWith<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">"root.stream_"</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">){</span>
+    <span style="color: #ce537a; font-weight: bold;">Set</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">String</span><span style="color: #bc6ec5;">&gt;</span> <span style="color: #7590db;">tags</span> = rmApp.getApplicationTags<span style="color: #bc6ec5;">()</span>;
+    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #bc6ec5;">(</span>CollectionUtils.isEmpty<span style="color: #2d9574;">(</span>tags<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">){</span><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#20445;&#35777;&#23454;&#26102;&#20219;&#21153;&#20256;&#36882;&#20102;&#21442;&#25968; spark.yarn.tags</span>
+        <span style="color: #ce537a; font-weight: bold;">String</span> <span style="color: #7590db;">msg</span> = <span style="color: #2d9574;">"[DDW] The streaming task require the 'spark.yarn.tags' when submitting to queue: "</span>+queue.getQueueName<span style="color: #2d9574;">()</span>;
+        LOG.info<span style="color: #2d9574;">(</span>msg<span style="color: #2d9574;">)</span>;
+        rmContext.getDispatcher<span style="color: #2d9574;">()</span>.getEventHandler<span style="color: #2d9574;">()</span>
+            .handle<span style="color: #2d9574;">(</span><span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">RMAppRejectedEvent</span><span style="color: #67b11d;">(</span>applicationId, msg<span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>;
+        <span style="color: #4f97d7; font-weight: bold;">return</span>;
+    <span style="color: #bc6ec5;">}</span><span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #bc6ec5;">{</span>
+        <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #2d9574;">(</span><span style="color: #ce537a; font-weight: bold;">String</span> <span style="color: #7590db;">tag</span>:tags<span style="color: #2d9574;">){</span>
+            <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #67b11d;">(</span>StringUtils.isEmpty<span style="color: #b1951d;">(</span>tag<span style="color: #b1951d;">)</span><span style="color: #67b11d;">){</span><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#20445;&#35777;&#21442;&#25968; spark.yarn.tags &#20013;&#30340;&#27599;&#20010;&#20540;&#37117;&#23384;&#22312;</span>
+                <span style="color: #ce537a; font-weight: bold;">String</span> <span style="color: #7590db;">msg</span> = <span style="color: #2d9574;">"[DDW] The 'spark.yarn.tags' have an empty tag when submitting to queue: "</span>+queue.getQueueName<span style="color: #b1951d;">()</span>;
+                LOG.info<span style="color: #b1951d;">(</span>msg<span style="color: #b1951d;">)</span>;
+                rmContext.getDispatcher<span style="color: #b1951d;">()</span>.getEventHandler<span style="color: #b1951d;">()</span>
+                    .handle<span style="color: #b1951d;">(</span><span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">RMAppRejectedEvent</span><span style="color: #4f97d7;">(</span>applicationId, msg<span style="color: #4f97d7;">)</span><span style="color: #b1951d;">)</span>;
+                <span style="color: #4f97d7; font-weight: bold;">return</span>;
+            <span style="color: #67b11d;">}</span>
+            <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #67b11d;">(</span><span style="color: #a45bad;">!</span>tag.startsWith<span style="color: #b1951d;">(</span><span style="color: #2d9574;">"signature#"</span><span style="color: #b1951d;">)</span><span style="color: #67b11d;">){</span><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#20445;&#35777;&#25351;&#23450;&#36816;&#34892;&#20219;&#21153;&#30340;&#20027;&#26426;&#37117;&#26159;&#22312;&#38598;&#32676;&#20013;</span>
+                <span style="color: #ce537a; font-weight: bold;">boolean</span> <span style="color: #7590db;">isInNodes</span>=<span style="color: #a45bad;">false</span>;
+                <span style="color: #4f97d7; font-weight: bold;">for</span><span style="color: #b1951d;">(</span><span style="color: #ce537a; font-weight: bold;">NodeId</span> <span style="color: #bc6ec5; font-weight: bold;">nodeId</span>:nodes.keySet<span style="color: #4f97d7;">()</span><span style="color: #b1951d;">){</span>
+                    <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #4f97d7;">(</span>nodeId.getHost<span style="color: #bc6ec5;">()</span>.equals<span style="color: #bc6ec5;">(</span>tag<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">){</span>
+                        isInNodes=<span style="color: #a45bad;">true</span>;
+                        <span style="color: #4f97d7; font-weight: bold;">break</span>;
+                    <span style="color: #4f97d7;">}</span>
+                <span style="color: #b1951d;">}</span>
+                <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #b1951d;">(</span><span style="color: #a45bad;">!</span>isInNodes<span style="color: #b1951d;">)</span> <span style="color: #b1951d;">{</span>
+                    <span style="color: #ce537a; font-weight: bold;">String</span> <span style="color: #7590db;">msg</span> = <span style="color: #2d9574;">"[DDW] The 'spark.yarn.tags' have a host that is not in real-time cluster  when submitting to queue: "</span> + queue.getQueueName<span style="color: #4f97d7;">()</span>;
+                    LOG.info<span style="color: #4f97d7;">(</span>msg<span style="color: #4f97d7;">)</span>;
+                    rmContext.getDispatcher<span style="color: #4f97d7;">()</span>.getEventHandler<span style="color: #4f97d7;">()</span>
+                        .handle<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">RMAppRejectedEvent</span><span style="color: #bc6ec5;">(</span>applicationId, msg<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>;
+                    <span style="color: #4f97d7; font-weight: bold;">return</span>;
+                <span style="color: #b1951d;">}</span>
+            <span style="color: #67b11d;">}</span>
+        <span style="color: #2d9574;">}</span>
+    <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
+<span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc117ccd" class="outline-3">
+<h3 id="orgc117ccd"><span class="section-number-3">2.2</span> AssignedContainer (对应上图中的步骤 4、8)</h3>
+<div class="outline-text-3" id="text-2-2">
+</div><div id="outline-container-org271c86f" class="outline-4">
+<h4 id="org271c86f"><span class="section-number-4">2.2.1</span> insulting the streaming task and mapreduce task</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li>workflow</li>
+</ul>
+
+<div class="figure">
+<p><img src="../images/yarn-insulate-with-streaming-and-mapreduce.png" alt="yarn-insulate-with-streaming-and-mapreduce.png" />
+</p>
+</div>
+
+
+<ul class="org-ul">
+<li>modified code</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+<span style="color: #ce537a; font-weight: bold;">Map</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">String</span>, <span style="color: #ce537a; font-weight: bold;">Set</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">String</span><span style="color: #bc6ec5;">&gt;</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">groupMap</span> = scheduler.getAllocationConfiguration<span style="color: #4f97d7;">()</span>.getGroupMap<span style="color: #4f97d7;">()</span>;
+<span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">FSAppAttempt</span> <span style="color: #7590db;">sched</span> : runnableApps<span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+
+
+    <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>sched.getQueueName<span style="color: #2d9574;">()</span>.startsWith<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"root.stream_"</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#23454;&#26102;&#20219;&#21153;&#21482;&#33021;&#22312;&#20219;&#21153;&#25351;&#23450;&#30340; node &#19978;&#36816;&#34892;</span>
+        <span style="color: #ce537a; font-weight: bold;">RMApp</span> <span style="color: #7590db;">rmApp</span> = sched.getRMApp<span style="color: #2d9574;">()</span>;
+        <span style="color: #ce537a; font-weight: bold;">Set</span><span style="color: #2d9574;">&lt;</span><span style="color: #ce537a; font-weight: bold;">String</span><span style="color: #2d9574;">&gt;</span> <span style="color: #7590db;">tags</span> = rmApp.getApplicationTags<span style="color: #2d9574;">()</span>;
+        <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">(</span>CollectionUtils.isEmpty<span style="color: #67b11d;">(</span>tags<span style="color: #67b11d;">)</span> || <span style="color: #a45bad;">!</span>tags.contains<span style="color: #67b11d;">(</span>node.getNodeName<span style="color: #b1951d;">()</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+            <span style="color: #4f97d7; font-weight: bold;">continue</span>;
+        <span style="color: #2d9574;">}</span>
+    <span style="color: #bc6ec5;">}</span> <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #bc6ec5;">{</span><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">&#38750;&#23454;&#26102;&#20219;&#21153;&#30830;&#20445;&#22312;&#31163;&#32447;&#38598;&#32676;&#36816;&#34892;</span>
+        <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">(</span><span style="color: #a45bad;">!</span>groupMap.get<span style="color: #67b11d;">(</span><span style="color: #2d9574;">"MAPREDUCE"</span><span style="color: #67b11d;">)</span>.contains<span style="color: #67b11d;">(</span>node.getNodeName<span style="color: #b1951d;">()</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+            <span style="color: #4f97d7; font-weight: bold;">continue</span>;
+        <span style="color: #2d9574;">}</span>
+    <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
+<span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga3d6a0c" class="outline-3">
+<h3 id="orga3d6a0c"><span class="section-number-3">2.3</span> ReloadAllocationConfiguration</h3>
+<div class="outline-text-3" id="text-2-3">
+</div><div id="outline-container-org95cd45e" class="outline-4">
+<h4 id="org95cd45e"><span class="section-number-4">2.3.1</span> a thread reload the allocation periodically</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<ul class="org-ul">
+<li>modified code</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-java">reloadThread = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">Thread</span><span style="color: #4f97d7;">()</span> <span style="color: #4f97d7;">{</span>
+        <span style="color: #a45bad;">@Override</span>
+        <span style="color: #4f97d7; font-weight: bold;">public</span> <span style="color: #ce537a; font-weight: bold;">void</span> <span style="color: #bc6ec5; font-weight: bold;">run</span><span style="color: #bc6ec5;">()</span> <span style="color: #bc6ec5;">{</span>
+            <span style="color: #4f97d7; font-weight: bold;">while</span> <span style="color: #2d9574;">(</span>running<span style="color: #2d9574;">)</span> <span style="color: #2d9574;">{</span>
+                <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+                <span style="color: #4f97d7; font-weight: bold;">try</span> <span style="color: #67b11d;">{</span>
+                    reloadAllocations<span style="color: #b1951d;">()</span>;
+                <span style="color: #67b11d;">}</span> <span style="color: #4f97d7; font-weight: bold;">catch</span> <span style="color: #67b11d;">(</span><span style="color: #ce537a; font-weight: bold;">Exception</span> <span style="color: #7590db;">ex</span><span style="color: #67b11d;">)</span> <span style="color: #67b11d;">{</span>
+                    <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #b1951d;">(</span><span style="color: #a45bad;">!</span>lastReloadAttemptFailed<span style="color: #b1951d;">)</span> <span style="color: #b1951d;">{</span>
+                        LOG.error<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"Failed to reload fair scheduler config file - "</span> +
+                                  <span style="color: #2d9574;">"will use existing allocations."</span>, ex<span style="color: #4f97d7;">)</span>;
+                    <span style="color: #b1951d;">}</span>
+                    lastReloadAttemptFailed = <span style="color: #a45bad;">true</span>;
+                <span style="color: #67b11d;">}</span>
+                <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+                <span style="color: #4f97d7; font-weight: bold;">try</span> <span style="color: #67b11d;">{</span>
+                    Thread.sleep<span style="color: #b1951d;">(</span>reloadIntervalMs<span style="color: #b1951d;">)</span>;
+                <span style="color: #67b11d;">}</span> <span style="color: #4f97d7; font-weight: bold;">catch</span> <span style="color: #67b11d;">(</span><span style="color: #ce537a; font-weight: bold;">InterruptedException</span> <span style="color: #7590db;">ex</span><span style="color: #67b11d;">)</span> <span style="color: #67b11d;">{</span>
+                    LOG.info<span style="color: #b1951d;">(</span>
+                             <span style="color: #2d9574;">"Interrupted while waiting to reload alloc configuration"</span><span style="color: #b1951d;">)</span>;
+                <span style="color: #67b11d;">}</span>
+            <span style="color: #2d9574;">}</span>
+        <span style="color: #bc6ec5;">}</span>
+    <span style="color: #4f97d7;">}</span>;
+reloadThread.setName<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">"AllocationFileReloader"</span><span style="color: #4f97d7;">)</span>;
+reloadThread.setDaemon<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">true</span><span style="color: #4f97d7;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0d6e1d0" class="outline-4">
+<h4 id="org0d6e1d0"><span class="section-number-4">2.3.2</span> get configuration form ddw-api</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<ul class="org-ul">
+<li>modified code</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-java"><span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+     <span style="color: #ce537a; font-weight: bold;">Map</span><span style="color: #4f97d7;">&lt;</span><span style="color: #ce537a; font-weight: bold;">String</span>, <span style="color: #ce537a; font-weight: bold;">Set</span><span style="color: #bc6ec5;">&lt;</span><span style="color: #ce537a; font-weight: bold;">String</span><span style="color: #bc6ec5;">&gt;</span><span style="color: #4f97d7;">&gt;</span> <span style="color: #7590db;">groupMap</span> = getGroupMapFromHttp<span style="color: #4f97d7;">()</span>;
+   <span style="color: #4f97d7; font-weight: bold;">if</span><span style="color: #4f97d7;">(</span>MapUtils.isEmpty<span style="color: #bc6ec5;">(</span>groupMap<span style="color: #bc6ec5;">)</span>|| CollectionUtils.isEmpty<span style="color: #bc6ec5;">(</span>groupMap.get<span style="color: #2d9574;">(</span><span style="color: #2d9574;">"MAPREDUCE"</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+     <span style="color: #4f97d7; font-weight: bold;">throw</span> <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">ParserConfigurationException</span><span style="color: #2d9574;">(</span><span style="color: #2d9574;">"[DDW] can not get the group configuration from http!!!"</span><span style="color: #2d9574;">)</span>;
+     <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">1.ResourceManager &#21551;&#21160;&#26102;&#20135;&#29983;&#24322;&#24120;&#65292;&#30452;&#25509;&#21453;&#24212;&#20026;&#21551;&#21160;&#22833;&#36133;</span>
+     <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">2.ResourceManager &#36827;&#34892; reload &#26102;&#20135;&#29983;&#30340;&#24322;&#24120;&#65292;&#19981;&#20250;&#24433;&#21709;&#21407;&#26412;&#30340;&#37197;&#32622;&#20449;&#24687;&#65292;&#21482;&#20250;&#22312;&#26085;&#24535;&#20013;&#36755;&#20986;&#38169;&#35823;</span>
+   <span style="color: #bc6ec5;">}</span>
+
+   <span style="color: #ce537a; font-weight: bold;">AllocationConfiguration</span> <span style="color: #7590db;">info</span> = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">AllocationConfiguration</span><span style="color: #bc6ec5;">(</span>minQueueResources,
+       maxQueueResources, queueMaxApps, userMaxApps, queueWeights,
+       queueMaxAMShares, userMaxAppsDefault, queueMaxAppsDefault,
+       queueMaxResourcesDefault, queueMaxAMShareDefault, queuePolicies,
+       defaultSchedPolicy, minSharePreemptionTimeouts,
+       fairSharePreemptionTimeouts, fairSharePreemptionThresholds, queueAcls,
+           newPlacementPolicy, configuredQueues, nonPreemptableQueues, groupMap<span style="color: #bc6ec5;">)</span>;
+   <span style="color: #2aa1ae; background-color: #292e34;">//</span><span style="color: #2aa1ae; background-color: #292e34;">************DDW modification(DDW &#25913;&#21160;&#20195;&#30721;)**************//</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
   </div>
-  {% endfor %}
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/spacemacs.html">
+        关于CDH的一些tips
+      </a>
+    </h1>
+
+    <span class="post-date">19 Mar 2017</span>
+
+    <ul class="org-ul">
+<li>For Hadoop installations, Cloudera recommends that the HDFS DataNodes and the YARN NodeManagers run on the same set of Worker nodes in the cluster.</li>
+<li></li>
+</ul>
+<div id="outline-container-orga484734" class="outline-2">
+<h2 id="orga484734"><span class="section-number-2">1</span> dgdT</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgfafb836" class="outline-3">
+<h3 id="orgfafb836"><span class="section-number-3">1.1</span> </h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-org5901a75" class="outline-4">
+<h4 id="org5901a75"><span class="section-number-4">1.1.1</span> erte</h4>
+<div class="outline-text-4" id="text-1-1-1">
+</div><div id="outline-container-orgc897aa5" class="outline-5">
+<h5 id="orgc897aa5"><span class="section-number-5">1.1.1.1</span> werwr</h5>
+<div class="outline-text-5" id="text-1-1-1-1">
+</div><ol class="org-ol"><li><a id="org3cfbdc2"></a>tet<br /></li></ol>
+</div>
+</div>
+</div>
+</div>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/documentary.html">
+        documentary
+      </a>
+    </h1>
+
+    <span class="post-date">19 Mar 2017</span>
+
+    <div id="outline-container-org2a5b72a" class="outline-2">
+<h2 id="org2a5b72a"><span class="section-number-2">1</span> china</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orge268ee9" class="outline-3">
+<h3 id="orge268ee9"><span class="section-number-3">1.1</span> 中国.新超级大国.China.die.neue.Supermacht</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+邀请了来自不同领域，不同社会阶层，不同职业的国内各界人士来介绍自19世纪到21世纪的中国历史，第一集介绍民国初期，毛泽东与邓小平初期。 第二集介绍邓小平中后期以及人民对于自主性的苏醒。 第三集当代中国，胡锦涛时期，当下的经济发展以及社会性问题。 
+</p>
+
+
+<div class="figure">
+<p><img src="../images/China1_2017-03-18_23-27-56.jpg" alt="China1_2017-03-18_23-27-56.jpg" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf7b6d07" class="outline-2">
+<h2 id="orgf7b6d07"><span class="section-number-2">2</span> </h2>
+</div>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/knowledge-of-yarn.html">
+        关于CDH的一些tips
+      </a>
+    </h1>
+
+    <span class="post-date">16 Mar 2017</span>
+
+    <ul class="org-ul">
+<li>For Hadoop installations, Cloudera recommends that the HDFS DataNodes and the YARN NodeManagers run on the same set of Worker nodes in the cluster.</li>
+<li></li>
+</ul>
+<div id="outline-container-org5862d89" class="outline-2">
+<h2 id="org5862d89"><span class="section-number-2">1</span> dgdT</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orge09f8db" class="outline-3">
+<h3 id="orge09f8db"><span class="section-number-3">1.1</span> </h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-org1ff3bdd" class="outline-4">
+<h4 id="org1ff3bdd"><span class="section-number-4">1.1.1</span> erte</h4>
+<div class="outline-text-4" id="text-1-1-1">
+</div><div id="outline-container-org2711169" class="outline-5">
+<h5 id="org2711169"><span class="section-number-5">1.1.1.1</span> werwr</h5>
+<div class="outline-text-5" id="text-1-1-1-1">
+</div><ol class="org-ol"><li><a id="org9dfeedc"></a>tet<br /></li></ol>
+</div>
+</div>
+</div>
+</div>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/some-tips-about-cdh.html">
+        Some Tips About Cdh
+      </a>
+    </h1>
+
+    <span class="post-date">14 Mar 2017</span>
+
+    <div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org19e24f0">1. dgdT</a>
+<ul>
+<li><a href="#org9d44c3a">1.1. </a>
+<ul>
+<li><a href="#org2cf5c1b">1.1.1. erte</a>
+<ul>
+<li><a href="#org2647d15">1.1.1.1. werwr</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+---
+layout: default
+title: 关于CDH的一些tips
+---
+
+<ul class="org-ul">
+<li>For Hadoop installations, Cloudera recommends that the HDFS DataNodes and the YARN NodeManagers run on the same set of Worker nodes in the cluster.</li>
+<li></li>
+</ul>
+<div id="outline-container-org19e24f0" class="outline-2">
+<h2 id="org19e24f0"><span class="section-number-2">1</span> dgdT</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-org9d44c3a" class="outline-3">
+<h3 id="org9d44c3a"><span class="section-number-3">1.1</span> </h3>
+<div class="outline-text-3" id="text-1-1">
+</div><div id="outline-container-org2cf5c1b" class="outline-4">
+<h4 id="org2cf5c1b"><span class="section-number-4">1.1.1</span> erte</h4>
+<div class="outline-text-4" id="text-1-1-1">
+</div><div id="outline-container-org2647d15" class="outline-5">
+<h5 id="org2647d15"><span class="section-number-5">1.1.1.1</span> werwr</h5>
+<div class="outline-text-5" id="text-1-1-1-1">
+</div><ol class="org-ol"><li><a id="orgddd2531"></a>tet<br  /></li></ol>
+</div>
+</div>
+</div>
+</div>
+
+  </div>
+  
 </div>
 
 <div class="pagination">
-  {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ site.baseurl }}/page{{paginator.next_page}}">Older</a>
-  {% else %}
-    <span class="pagination-item older">Older</span>
-  {% endif %}
-  {% if paginator.previous_page %}
-    {% if paginator.page == 2 %}
-      <a class="pagination-item newer" href="{{ site.baseurl }}">Newer</a>
-    {% else %}
-      <a class="pagination-item newer" href="{{ site.baseurl }}/page{{paginator.previous_page}}">Newer</a>
-    {% endif %}
-  {% else %}
+  
+    <a class="pagination-item older" href="/page2">Older</a>
+  
+  
     <span class="pagination-item newer">Newer</span>
-  {% endif %}
+  
 </div>
+</div>
+
+      <div class="algolia__search-content js-algolia__search-content">
+        <h1 class="page-title">Search</h1>
+        <div class="posts algolia__results"></div>
+      </div>
+    </div>
+
+  <script>
+  window.ALGOLIA_CONFIG = {
+    'applicationId': 'NJQT0OSANV',
+    'indexName': 'jekyll',
+    'apiKey': '6477c5e01e6450c825c154610c3c0ba6',
+    'baseurl': ''
+  }
+</script>
+<script id="algolia__template" type="text/template">
+
+  <div class="algolia__result">
+    <a class="algolia__result-link" href="{{ full_url }}#algolia:{{ css_selector }}">{{{ _highlightResult.title.value }}}</a>
+    {{#posted_at}}
+    <div class="algolia__result-date">{{ posted_at_readable }}</div>
+    {{/posted_at}}
+    <div class="algolia__result-text">{{{ _highlightResult.text.value }}}</div>
+  </div>
+
+</script>
+<script id="algolia__template--no-results" type="text/template">
+  No results found.
+</script>
+<script src="//cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/algoliasearch/3.6.0/algoliasearch.min.js"></script>
+<script src="//cdn.jsdelivr.net/algoliasearch.helper/2.1.0/algoliasearch.helper.min.js"></script>
+<script src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.js"></script>
+<script src="//cdn.jsdelivr.net/momentjs/2.10.3/moment.min.js"></script>
+<script src="/public/js/algolia.js"></script>
+
+  </body>
+</html>

@@ -1,28 +1,1064 @@
----
-layout: null
----
-
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
- <title>{{ site.title }}</title>
- <link href="{{ site.url }}/atom.xml" rel="self"/>
- <link href="{{ site.url }}/"/>
- <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>{{ site.url }}</id>
+ <title>Hyde</title>
+ <link href="https://github.com/coldvmoon/coldvmoon.github.io/atom.xml" rel="self"/>
+ <link href="https://github.com/coldvmoon/coldvmoon.github.io/"/>
+ <updated>2017-06-30T08:06:28+00:00</updated>
+ <id>https://github.com/coldvmoon/coldvmoon.github.io</id>
  <author>
-   <name>{{ site.author.name }}</name>
-   <email>{{ site.author.email }}</email>
+   <name>Algolia</name>
+   <email></email>
  </author>
 
- {% for post in site.posts %}
+ 
  <entry>
-   <title>{{ post.title }}</title>
-   <link href="{{ site.url }}{{ post.url }}"/>
-   <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>{{ site.url }}{{ post.id }}</id>
-   <content type="html">{{ post.content | xml_escape }}</content>
+   <title>Knowledge Of Yarn</title>
+   <link href="https://github.com/coldvmoon/coldvmoon.github.io/knowledge-of-yarn.html"/>
+   <updated>2017-03-27T00:00:00+00:00</updated>
+   <id>https://github.com/coldvmoon/coldvmoon.github.io/knowledge-of-yarn</id>
+   <content type="html">&lt;div id=&quot;outline-container-org5c4e346&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;org5c4e346&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; Yarn WorkFlow&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../images/yarn-workflow-sequenceuml.png&quot; alt=&quot;yarn-workflow-sequenceuml.png&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;outline-container-orga10fde8&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;orga10fde8&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;2&lt;/span&gt; Modification&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-2&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-orgec9c430&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;orgec9c430&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;2.1&lt;/span&gt; AddApplication (对应上图中的步骤 3、4)&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-2-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org2993a64&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org2993a64&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;2.1.1&lt;/span&gt; reject the steaming application without tags&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-2-1-1&quot;&gt;
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;&lt;p&gt;
+modified code
+&lt;/p&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-java&quot;&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;************DDW modification(DDW &amp;#25913;&amp;#21160;&amp;#20195;&amp;#30721;)**************//&lt;/span&gt;
+&lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;(&lt;/span&gt;queue.getQueueName&lt;span style=&quot;color: #bc6ec5;&quot;&gt;()&lt;/span&gt;.startsWith&lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;root.stream_&quot;&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;){&lt;/span&gt;
+    &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Set&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;String&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;tags&lt;/span&gt; = rmApp.getApplicationTags&lt;span style=&quot;color: #bc6ec5;&quot;&gt;()&lt;/span&gt;;
+    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;CollectionUtils.isEmpty&lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;tags&lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;){&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;&amp;#20445;&amp;#35777;&amp;#23454;&amp;#26102;&amp;#20219;&amp;#21153;&amp;#20256;&amp;#36882;&amp;#20102;&amp;#21442;&amp;#25968; spark.yarn.tags&lt;/span&gt;
+        &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;String&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;msg&lt;/span&gt; = &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;[DDW] The streaming task require the 'spark.yarn.tags' when submitting to queue: &quot;&lt;/span&gt;+queue.getQueueName&lt;span style=&quot;color: #2d9574;&quot;&gt;()&lt;/span&gt;;
+        LOG.info&lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;msg&lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt;;
+        rmContext.getDispatcher&lt;span style=&quot;color: #2d9574;&quot;&gt;()&lt;/span&gt;.getEventHandler&lt;span style=&quot;color: #2d9574;&quot;&gt;()&lt;/span&gt;
+            .handle&lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;new&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;RMAppRejectedEvent&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;applicationId, msg&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt;;
+        &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;return&lt;/span&gt;;
+    &lt;span style=&quot;color: #bc6ec5;&quot;&gt;}&lt;/span&gt;&lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;else&lt;/span&gt; &lt;span style=&quot;color: #bc6ec5;&quot;&gt;{&lt;/span&gt;
+        &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;for&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;String&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;tag&lt;/span&gt;:tags&lt;span style=&quot;color: #2d9574;&quot;&gt;){&lt;/span&gt;
+            &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;StringUtils.isEmpty&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;tag&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;){&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;&amp;#20445;&amp;#35777;&amp;#21442;&amp;#25968; spark.yarn.tags &amp;#20013;&amp;#30340;&amp;#27599;&amp;#20010;&amp;#20540;&amp;#37117;&amp;#23384;&amp;#22312;&lt;/span&gt;
+                &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;String&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;msg&lt;/span&gt; = &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;[DDW] The 'spark.yarn.tags' have an empty tag when submitting to queue: &quot;&lt;/span&gt;+queue.getQueueName&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;;
+                LOG.info&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;msg&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt;;
+                rmContext.getDispatcher&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;.getEventHandler&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;
+                    .handle&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;new&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;RMAppRejectedEvent&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;(&lt;/span&gt;applicationId, msg&lt;span style=&quot;color: #4f97d7;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt;;
+                &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;return&lt;/span&gt;;
+            &lt;span style=&quot;color: #67b11d;&quot;&gt;}&lt;/span&gt;
+            &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #a45bad;&quot;&gt;!&lt;/span&gt;tag.startsWith&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;signature#&quot;&lt;/span&gt;&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;){&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;&amp;#20445;&amp;#35777;&amp;#25351;&amp;#23450;&amp;#36816;&amp;#34892;&amp;#20219;&amp;#21153;&amp;#30340;&amp;#20027;&amp;#26426;&amp;#37117;&amp;#26159;&amp;#22312;&amp;#38598;&amp;#32676;&amp;#20013;&lt;/span&gt;
+                &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;boolean&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;isInNodes&lt;/span&gt;=&lt;span style=&quot;color: #a45bad;&quot;&gt;false&lt;/span&gt;;
+                &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;for&lt;/span&gt;&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;NodeId&lt;/span&gt; &lt;span style=&quot;color: #bc6ec5; font-weight: bold;&quot;&gt;nodeId&lt;/span&gt;:nodes.keySet&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt;&lt;span style=&quot;color: #b1951d;&quot;&gt;){&lt;/span&gt;
+                    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;(&lt;/span&gt;nodeId.getHost&lt;span style=&quot;color: #bc6ec5;&quot;&gt;()&lt;/span&gt;.equals&lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;tag&lt;span style=&quot;color: #bc6ec5;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;){&lt;/span&gt;
+                        isInNodes=&lt;span style=&quot;color: #a45bad;&quot;&gt;true&lt;/span&gt;;
+                        &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;break&lt;/span&gt;;
+                    &lt;span style=&quot;color: #4f97d7;&quot;&gt;}&lt;/span&gt;
+                &lt;span style=&quot;color: #b1951d;&quot;&gt;}&lt;/span&gt;
+                &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt;&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #a45bad;&quot;&gt;!&lt;/span&gt;isInNodes&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #b1951d;&quot;&gt;{&lt;/span&gt;
+                    &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;String&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;msg&lt;/span&gt; = &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;[DDW] The 'spark.yarn.tags' have a host that is not in real-time cluster  when submitting to queue: &quot;&lt;/span&gt; + queue.getQueueName&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt;;
+                    LOG.info&lt;span style=&quot;color: #4f97d7;&quot;&gt;(&lt;/span&gt;msg&lt;span style=&quot;color: #4f97d7;&quot;&gt;)&lt;/span&gt;;
+                    rmContext.getDispatcher&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt;.getEventHandler&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt;
+                        .handle&lt;span style=&quot;color: #4f97d7;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;new&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;RMAppRejectedEvent&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;applicationId, msg&lt;span style=&quot;color: #bc6ec5;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;)&lt;/span&gt;;
+                    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;return&lt;/span&gt;;
+                &lt;span style=&quot;color: #b1951d;&quot;&gt;}&lt;/span&gt;
+            &lt;span style=&quot;color: #67b11d;&quot;&gt;}&lt;/span&gt;
+        &lt;span style=&quot;color: #2d9574;&quot;&gt;}&lt;/span&gt;
+    &lt;span style=&quot;color: #bc6ec5;&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #4f97d7;&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;************DDW modification(DDW &amp;#25913;&amp;#21160;&amp;#20195;&amp;#30721;)**************//&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-orgc117ccd&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;orgc117ccd&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;2.2&lt;/span&gt; AssignedContainer (对应上图中的步骤 4、8)&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-2-2&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org271c86f&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org271c86f&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;2.2.1&lt;/span&gt; insulting the streaming task and mapreduce task&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-2-2-1&quot;&gt;
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;workflow&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../images/yarn-insulate-with-streaming-and-mapreduce.png&quot; alt=&quot;yarn-insulate-with-streaming-and-mapreduce.png&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;modified code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-java&quot;&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;************DDW modification(DDW &amp;#25913;&amp;#21160;&amp;#20195;&amp;#30721;)**************//&lt;/span&gt;
+&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Map&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;String&lt;/span&gt;, &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Set&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;String&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;groupMap&lt;/span&gt; = scheduler.getAllocationConfiguration&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt;.getGroupMap&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt;;
+&lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;for&lt;/span&gt; &lt;span style=&quot;color: #4f97d7;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;FSAppAttempt&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;sched&lt;/span&gt; : runnableApps&lt;span style=&quot;color: #4f97d7;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #4f97d7;&quot;&gt;{&lt;/span&gt;
+
+
+    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;sched.getQueueName&lt;span style=&quot;color: #2d9574;&quot;&gt;()&lt;/span&gt;.startsWith&lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;root.stream_&quot;&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #bc6ec5;&quot;&gt;{&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;&amp;#23454;&amp;#26102;&amp;#20219;&amp;#21153;&amp;#21482;&amp;#33021;&amp;#22312;&amp;#20219;&amp;#21153;&amp;#25351;&amp;#23450;&amp;#30340; node &amp;#19978;&amp;#36816;&amp;#34892;&lt;/span&gt;
+        &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;RMApp&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;rmApp&lt;/span&gt; = sched.getRMApp&lt;span style=&quot;color: #2d9574;&quot;&gt;()&lt;/span&gt;;
+        &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Set&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;String&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;tags&lt;/span&gt; = rmApp.getApplicationTags&lt;span style=&quot;color: #2d9574;&quot;&gt;()&lt;/span&gt;;
+        &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;CollectionUtils.isEmpty&lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;tags&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt; || &lt;span style=&quot;color: #a45bad;&quot;&gt;!&lt;/span&gt;tags.contains&lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;node.getNodeName&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;{&lt;/span&gt;
+            &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;continue&lt;/span&gt;;
+        &lt;span style=&quot;color: #2d9574;&quot;&gt;}&lt;/span&gt;
+    &lt;span style=&quot;color: #bc6ec5;&quot;&gt;}&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;else&lt;/span&gt; &lt;span style=&quot;color: #bc6ec5;&quot;&gt;{&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;&amp;#38750;&amp;#23454;&amp;#26102;&amp;#20219;&amp;#21153;&amp;#30830;&amp;#20445;&amp;#22312;&amp;#31163;&amp;#32447;&amp;#38598;&amp;#32676;&amp;#36816;&amp;#34892;&lt;/span&gt;
+        &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #a45bad;&quot;&gt;!&lt;/span&gt;groupMap.get&lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;MAPREDUCE&quot;&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt;.contains&lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;node.getNodeName&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;{&lt;/span&gt;
+            &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;continue&lt;/span&gt;;
+        &lt;span style=&quot;color: #2d9574;&quot;&gt;}&lt;/span&gt;
+    &lt;span style=&quot;color: #bc6ec5;&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #4f97d7;&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;************DDW modification(DDW &amp;#25913;&amp;#21160;&amp;#20195;&amp;#30721;)**************//&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;outline-container-orga3d6a0c&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;orga3d6a0c&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;2.3&lt;/span&gt; ReloadAllocationConfiguration&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-2-3&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org95cd45e&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org95cd45e&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;2.3.1&lt;/span&gt; a thread reload the allocation periodically&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-2-3-1&quot;&gt;
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;modified code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-java&quot;&gt;reloadThread = &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;new&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Thread&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt; &lt;span style=&quot;color: #4f97d7;&quot;&gt;{&lt;/span&gt;
+        &lt;span style=&quot;color: #a45bad;&quot;&gt;@Override&lt;/span&gt;
+        &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;public&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #bc6ec5; font-weight: bold;&quot;&gt;run&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;()&lt;/span&gt; &lt;span style=&quot;color: #bc6ec5;&quot;&gt;{&lt;/span&gt;
+            &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;while&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;running&lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;{&lt;/span&gt;
+                &lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;************DDW modification(DDW &amp;#25913;&amp;#21160;&amp;#20195;&amp;#30721;)**************//&lt;/span&gt;
+                &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;try&lt;/span&gt; &lt;span style=&quot;color: #67b11d;&quot;&gt;{&lt;/span&gt;
+                    reloadAllocations&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;;
+                &lt;span style=&quot;color: #67b11d;&quot;&gt;}&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;catch&lt;/span&gt; &lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Exception&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;ex&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #67b11d;&quot;&gt;{&lt;/span&gt;
+                    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #a45bad;&quot;&gt;!&lt;/span&gt;lastReloadAttemptFailed&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #b1951d;&quot;&gt;{&lt;/span&gt;
+                        LOG.error&lt;span style=&quot;color: #4f97d7;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;Failed to reload fair scheduler config file - &quot;&lt;/span&gt; +
+                                  &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;will use existing allocations.&quot;&lt;/span&gt;, ex&lt;span style=&quot;color: #4f97d7;&quot;&gt;)&lt;/span&gt;;
+                    &lt;span style=&quot;color: #b1951d;&quot;&gt;}&lt;/span&gt;
+                    lastReloadAttemptFailed = &lt;span style=&quot;color: #a45bad;&quot;&gt;true&lt;/span&gt;;
+                &lt;span style=&quot;color: #67b11d;&quot;&gt;}&lt;/span&gt;
+                &lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;************DDW modification(DDW &amp;#25913;&amp;#21160;&amp;#20195;&amp;#30721;)**************//&lt;/span&gt;
+                &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;try&lt;/span&gt; &lt;span style=&quot;color: #67b11d;&quot;&gt;{&lt;/span&gt;
+                    Thread.sleep&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;reloadIntervalMs&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt;;
+                &lt;span style=&quot;color: #67b11d;&quot;&gt;}&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;catch&lt;/span&gt; &lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;InterruptedException&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;ex&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #67b11d;&quot;&gt;{&lt;/span&gt;
+                    LOG.info&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;
+                             &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;Interrupted while waiting to reload alloc configuration&quot;&lt;/span&gt;&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt;;
+                &lt;span style=&quot;color: #67b11d;&quot;&gt;}&lt;/span&gt;
+            &lt;span style=&quot;color: #2d9574;&quot;&gt;}&lt;/span&gt;
+        &lt;span style=&quot;color: #bc6ec5;&quot;&gt;}&lt;/span&gt;
+    &lt;span style=&quot;color: #4f97d7;&quot;&gt;}&lt;/span&gt;;
+reloadThread.setName&lt;span style=&quot;color: #4f97d7;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;AllocationFileReloader&quot;&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;)&lt;/span&gt;;
+reloadThread.setDaemon&lt;span style=&quot;color: #4f97d7;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #a45bad;&quot;&gt;true&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;)&lt;/span&gt;;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-org0d6e1d0&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org0d6e1d0&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;2.3.2&lt;/span&gt; get configuration form ddw-api&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-2-3-2&quot;&gt;
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;modified code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-java&quot;&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;************DDW modification(DDW &amp;#25913;&amp;#21160;&amp;#20195;&amp;#30721;)**************//&lt;/span&gt;
+     &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Map&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;String&lt;/span&gt;, &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Set&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;String&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;groupMap&lt;/span&gt; = getGroupMapFromHttp&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt;;
+   &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;(&lt;/span&gt;MapUtils.isEmpty&lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;groupMap&lt;span style=&quot;color: #bc6ec5;&quot;&gt;)&lt;/span&gt;|| CollectionUtils.isEmpty&lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;groupMap.get&lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;MAPREDUCE&quot;&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #bc6ec5;&quot;&gt;{&lt;/span&gt;
+     &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;throw&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;new&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;ParserConfigurationException&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;[DDW] can not get the group configuration from http!!!&quot;&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt;;
+     &lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;1.ResourceManager &amp;#21551;&amp;#21160;&amp;#26102;&amp;#20135;&amp;#29983;&amp;#24322;&amp;#24120;&amp;#65292;&amp;#30452;&amp;#25509;&amp;#21453;&amp;#24212;&amp;#20026;&amp;#21551;&amp;#21160;&amp;#22833;&amp;#36133;&lt;/span&gt;
+     &lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;2.ResourceManager &amp;#36827;&amp;#34892; reload &amp;#26102;&amp;#20135;&amp;#29983;&amp;#30340;&amp;#24322;&amp;#24120;&amp;#65292;&amp;#19981;&amp;#20250;&amp;#24433;&amp;#21709;&amp;#21407;&amp;#26412;&amp;#30340;&amp;#37197;&amp;#32622;&amp;#20449;&amp;#24687;&amp;#65292;&amp;#21482;&amp;#20250;&amp;#22312;&amp;#26085;&amp;#24535;&amp;#20013;&amp;#36755;&amp;#20986;&amp;#38169;&amp;#35823;&lt;/span&gt;
+   &lt;span style=&quot;color: #bc6ec5;&quot;&gt;}&lt;/span&gt;
+
+   &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;AllocationConfiguration&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;info&lt;/span&gt; = &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;new&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;AllocationConfiguration&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;minQueueResources,
+       maxQueueResources, queueMaxApps, userMaxApps, queueWeights,
+       queueMaxAMShares, userMaxAppsDefault, queueMaxAppsDefault,
+       queueMaxResourcesDefault, queueMaxAMShareDefault, queuePolicies,
+       defaultSchedPolicy, minSharePreemptionTimeouts,
+       fairSharePreemptionTimeouts, fairSharePreemptionThresholds, queueAcls,
+           newPlacementPolicy, configuredQueues, nonPreemptableQueues, groupMap&lt;span style=&quot;color: #bc6ec5;&quot;&gt;)&lt;/span&gt;;
+   &lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;************DDW modification(DDW &amp;#25913;&amp;#21160;&amp;#20195;&amp;#30721;)**************//&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
  </entry>
- {% endfor %}
+ 
+ <entry>
+   <title>关于CDH的一些tips</title>
+   <link href="https://github.com/coldvmoon/coldvmoon.github.io/spacemacs.html"/>
+   <updated>2017-03-19T00:00:00+00:00</updated>
+   <id>https://github.com/coldvmoon/coldvmoon.github.io/spacemacs</id>
+   <content type="html">&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;For Hadoop installations, Cloudera recommends that the HDFS DataNodes and the YARN NodeManagers run on the same set of Worker nodes in the cluster.&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&quot;outline-container-orga484734&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;orga484734&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; dgdT&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-orgfafb836&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;orgfafb836&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.1&lt;/span&gt; &lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org5901a75&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org5901a75&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;1.1.1&lt;/span&gt; erte&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-1-1-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-orgc897aa5&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;orgc897aa5&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.1.1.1&lt;/span&gt; werwr&lt;/h5&gt;
+&lt;div class=&quot;outline-text-5&quot; id=&quot;text-1-1-1-1&quot;&gt;
+&lt;/div&gt;&lt;ol class=&quot;org-ol&quot;&gt;&lt;li&gt;&lt;a id=&quot;org3cfbdc2&quot;&gt;&lt;/a&gt;tet&lt;br /&gt;&lt;/li&gt;&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>documentary</title>
+   <link href="https://github.com/coldvmoon/coldvmoon.github.io/documentary.html"/>
+   <updated>2017-03-19T00:00:00+00:00</updated>
+   <id>https://github.com/coldvmoon/coldvmoon.github.io/documentary</id>
+   <content type="html">&lt;div id=&quot;outline-container-org2a5b72a&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;org2a5b72a&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; china&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-orge268ee9&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;orge268ee9&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.1&lt;/span&gt; 中国.新超级大国.China.die.neue.Supermacht&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-1&quot;&gt;
+&lt;p&gt;
+邀请了来自不同领域，不同社会阶层，不同职业的国内各界人士来介绍自19世纪到21世纪的中国历史，第一集介绍民国初期，毛泽东与邓小平初期。 第二集介绍邓小平中后期以及人民对于自主性的苏醒。 第三集当代中国，胡锦涛时期，当下的经济发展以及社会性问题。 
+&lt;/p&gt;
+
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../images/China1_2017-03-18_23-27-56.jpg&quot; alt=&quot;China1_2017-03-18_23-27-56.jpg&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-orgf7b6d07&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;orgf7b6d07&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;2&lt;/span&gt; &lt;/h2&gt;
+&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>关于CDH的一些tips</title>
+   <link href="https://github.com/coldvmoon/coldvmoon.github.io/knowledge-of-yarn.html"/>
+   <updated>2017-03-16T00:00:00+00:00</updated>
+   <id>https://github.com/coldvmoon/coldvmoon.github.io/knowledge-of-yarn</id>
+   <content type="html">&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;For Hadoop installations, Cloudera recommends that the HDFS DataNodes and the YARN NodeManagers run on the same set of Worker nodes in the cluster.&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&quot;outline-container-org5862d89&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;org5862d89&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; dgdT&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-orge09f8db&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;orge09f8db&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.1&lt;/span&gt; &lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org1ff3bdd&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org1ff3bdd&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;1.1.1&lt;/span&gt; erte&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-1-1-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org2711169&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;org2711169&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.1.1.1&lt;/span&gt; werwr&lt;/h5&gt;
+&lt;div class=&quot;outline-text-5&quot; id=&quot;text-1-1-1-1&quot;&gt;
+&lt;/div&gt;&lt;ol class=&quot;org-ol&quot;&gt;&lt;li&gt;&lt;a id=&quot;org9dfeedc&quot;&gt;&lt;/a&gt;tet&lt;br /&gt;&lt;/li&gt;&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Some Tips About Cdh</title>
+   <link href="https://github.com/coldvmoon/coldvmoon.github.io/some-tips-about-cdh.html"/>
+   <updated>2017-03-14T00:00:00+00:00</updated>
+   <id>https://github.com/coldvmoon/coldvmoon.github.io/some-tips-about-cdh</id>
+   <content type="html">&lt;div id=&quot;table-of-contents&quot;&gt;
+&lt;h2&gt;Table of Contents&lt;/h2&gt;
+&lt;div id=&quot;text-table-of-contents&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#org19e24f0&quot;&gt;1. dgdT&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#org9d44c3a&quot;&gt;1.1. &lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#org2cf5c1b&quot;&gt;1.1.1. erte&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#org2647d15&quot;&gt;1.1.1.1. werwr&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+---
+layout: default
+title: 关于CDH的一些tips
+---
+
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;For Hadoop installations, Cloudera recommends that the HDFS DataNodes and the YARN NodeManagers run on the same set of Worker nodes in the cluster.&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&quot;outline-container-org19e24f0&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;org19e24f0&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; dgdT&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org9d44c3a&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;org9d44c3a&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.1&lt;/span&gt; &lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org2cf5c1b&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org2cf5c1b&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;1.1.1&lt;/span&gt; erte&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-1-1-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org2647d15&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;org2647d15&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.1.1.1&lt;/span&gt; werwr&lt;/h5&gt;
+&lt;div class=&quot;outline-text-5&quot; id=&quot;text-1-1-1-1&quot;&gt;
+&lt;/div&gt;&lt;ol class=&quot;org-ol&quot;&gt;&lt;li&gt;&lt;a id=&quot;orgddd2531&quot;&gt;&lt;/a&gt;tet&lt;br  /&gt;&lt;/li&gt;&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Tools</title>
+   <link href="https://github.com/coldvmoon/coldvmoon.github.io/tools.html"/>
+   <updated>2017-03-10T00:00:00+00:00</updated>
+   <id>https://github.com/coldvmoon/coldvmoon.github.io/tools</id>
+   <content type="html">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+&lt;div id=&quot;outline-container-org6dde65b&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;org6dde65b&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; FRONTEND&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org5eec477&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;org5eec477&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.1&lt;/span&gt; &lt;a href=&quot;https://maxwellito.github.io/vivus/&quot;&gt;vivus.js&lt;/a&gt;&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;svg&quot;&gt;svg&lt;/span&gt;&amp;#xa0;&lt;span class=&quot;animate&quot;&gt;animate&lt;/span&gt;&lt;/span&gt;&lt;/h3&gt;
+=======
+&lt;div id=&quot;table-of-contents&quot;&gt;
+&lt;h2&gt;Table of Contents&lt;/h2&gt;
+&lt;div id=&quot;text-table-of-contents&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#orgd5c4b7e&quot;&gt;1. FRONTEND&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#org1b55e06&quot;&gt;1.1. vivus.js&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;svg&quot;&gt;svg&lt;/span&gt;&amp;#xa0;&lt;span class=&quot;animate&quot;&gt;animate&lt;/span&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-orgd5c4b7e&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;orgd5c4b7e&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; FRONTEND&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org1b55e06&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;org1b55e06&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.1&lt;/span&gt; &lt;a href=&quot;https://maxwellito.github.io/vivus/&quot;&gt;vivus.js&lt;/a&gt;&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;svg&quot;&gt;svg&lt;/span&gt;&amp;#xa0;&lt;span class=&quot;animate&quot;&gt;animate&lt;/span&gt;&lt;/span&gt;&lt;/h3&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; e7265e900e39f1347a711a72fd5733517424c7d9
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-1&quot;&gt;
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../images/2017-03-10_17-11-08.gif&quot; alt=&quot;2017-03-10_17-11-08.gif&quot; /&gt; 
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>The Way To Debug Hiversver2 In Cdh</title>
+   <link href="https://github.com/coldvmoon/coldvmoon.github.io/the-way-to-debug-hiversver2-in-cdh.html"/>
+   <updated>2017-03-09T00:00:00+00:00</updated>
+   <id>https://github.com/coldvmoon/coldvmoon.github.io/the-way-to-debug-hiversver2-in-cdh</id>
+   <content type="html">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+=======
+&lt;div id=&quot;table-of-contents&quot;&gt;
+&lt;h2&gt;Table of Contents&lt;/h2&gt;
+&lt;div id=&quot;text-table-of-contents&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#orge61fb63&quot;&gt;1. Problem&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; e7265e900e39f1347a711a72fd5733517424c7d9
+---
+layout: default
+title: 在CDH(Cloudera Manager)中调试HiveServer2
+---
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+&lt;div id=&quot;outline-container-orga327452&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;orga327452&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; Problem&lt;/h2&gt;
+=======
+&lt;div id=&quot;outline-container-orge61fb63&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;orge61fb63&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; Problem&lt;/h2&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; e7265e900e39f1347a711a72fd5733517424c7d9
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
+&lt;p&gt;
+HiveServer2在CDH(Cloudera Manager)中使用时候，HiveServer2的启停都是通过管理界面，无法像自己搭建的hive环境一样简单使用  &lt;b&gt;beeline &amp;#x2013;debug&lt;/b&gt; 进行调试
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Sumary Of Recent Work</title>
+   <link href="https://github.com/coldvmoon/coldvmoon.github.io/sumary-of-recent-work.html"/>
+   <updated>2017-03-08T00:00:00+00:00</updated>
+   <id>https://github.com/coldvmoon/coldvmoon.github.io/sumary-of-recent-work</id>
+   <content type="html">&lt;div id=&quot;table-of-contents&quot;&gt;
+&lt;h2&gt;Table of Contents&lt;/h2&gt;
+&lt;div id=&quot;text-table-of-contents&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#orgd777141&quot;&gt;1. Sentry Authentication&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#org1438731&quot;&gt;1.1. LDAP Installation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#orgaa433b0&quot;&gt;1.2. Hive Configuration&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#org0c894b5&quot;&gt;2. Hive Debug&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#org34a5844&quot;&gt;3. Hive Hook&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#org7f99626&quot;&gt;3.1. Hooks lifecycle&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#orgd6a85fe&quot;&gt;3.2. Usage in DDW&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#org7b2f6bc&quot;&gt;3.2.1. ExecuteWithHookContext&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#orgd43cf03&quot;&gt;3.2.2. AbstractSemanticAnalyzerHook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+---
+layout: default
+title: 最近工作总结
+---
+&lt;div id=&quot;outline-container-orgd777141&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;orgd777141&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; Sentry Authentication&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org1438731&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;org1438731&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.1&lt;/span&gt; LDAP Installation&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-orgaa433b0&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;orgaa433b0&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.2&lt;/span&gt; Hive Configuration&lt;/h3&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-org0c894b5&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;org0c894b5&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;2&lt;/span&gt; Hive Debug&lt;/h2&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-org34a5844&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;org34a5844&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;3&lt;/span&gt; Hive Hook&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-3&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org7f99626&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;org7f99626&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;3.1&lt;/span&gt; Hooks lifecycle&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-3-1&quot;&gt;
+&lt;p&gt;
+There are several types of hooks depending on at which stage you want to inject your custom code:
+&lt;/p&gt;
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;Driver run hooks (Pre/Post)&lt;/li&gt;
+&lt;li&gt;Semantic analyizer hooks (Pre/Post)&lt;/li&gt;
+&lt;li&gt;Execution hooks (Pre/Failure/Post)&lt;/li&gt;
+&lt;li&gt;Client statistics publisher&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+If you run a script the processing flow looks like as follows:
+&lt;/p&gt;
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;&lt;b&gt;Driver.run()&lt;/b&gt; takes the command&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;HiveDriverRunHook.preDriverRun()&lt;/b&gt; &lt;code&gt;HiveConf.ConfVars.HIVE_DRIVER_RUN_HOOKS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Driver.compile()&lt;/b&gt; starts processing the command: creates the abstract syntax tree&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;AbstractSemanticAnalyzerHook.preAnalyze()&lt;/b&gt; &lt;code&gt;AbstractSemanticAnalyzerHook.preAnalyze()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Semantic analysis&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;AbstractSemanticAnalyzerHook.postAnalyze()&lt;/b&gt; &lt;code&gt;HiveConf.ConfVars.SEMANTIC_ANALYZER_HOOK&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Create and validate the query plan (physical plan)&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Driver.execute()&lt;/b&gt; : ready to run the jobs&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;ExecuteWithHookContext.run()&lt;/b&gt;  &lt;code&gt;HiveConf.ConfVars.PREEXECHOOKS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;ExecDriver.execute()&lt;/b&gt; runs all the jobs&lt;/li&gt;
+&lt;li&gt;For each job at every &lt;code&gt;HiveConf.ConfVars.HIVECOUNTERSPULLINTERVAL&lt;/code&gt; interval: 
+&lt;b&gt;ClientStatsPublisher.run()&lt;/b&gt; is called to publish statistics &lt;code&gt;HiveConf.ConfVars.CLIENTSTATSPUBLISHERS&lt;/code&gt; 
+If a task fails: &lt;b&gt;ExecuteWithHookContext.run()&lt;/b&gt; &lt;code&gt;HiveConf.ConfVars.ONFAILUREHOOKS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Finish all the tasks&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;ExecuteWithHookContext.run()&lt;/b&gt; &lt;code&gt;HiveConf.ConfVars.POSTEXECHOOKS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Before returning the result &lt;b&gt;HiveDriverRunHook.postDriverRun()&lt;/b&gt; &lt;code&gt;HiveConf.ConfVars.HIVE_DRIVER_RUN_HOOKS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Return the result.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;outline-container-orgd6a85fe&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;orgd6a85fe&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;3.2&lt;/span&gt; Usage in DDW&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-3-2&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org7b2f6bc&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org7b2f6bc&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;3.2.1&lt;/span&gt; ExecuteWithHookContext&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-3-2-1&quot;&gt;
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;设置HiveConf的mapreduce.job.queuename值，方便CDH中的资源池管理。&lt;/li&gt;
+&lt;li&gt;HiveHistory文件追踪，监控Hive SQL的进度&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-java&quot;&gt; &lt;span style=&quot;color: #2aa1ae;&quot;&gt;/**&lt;/span&gt;
+&lt;span style=&quot;color: #2aa1ae;&quot;&gt; * 1 ) &amp;#29992;&amp;#20110;&amp;#23558;&amp;#29992;&amp;#25143;&amp;#25552;&amp;#20132;&amp;#21040;&amp;#23545;&amp;#24212;&amp;#30340;pool&amp;#20013;,&amp;#36825;&amp;#26679;&amp;#20415;&amp;#20110;&amp;#32479;&amp;#19968;&amp;#23545;&amp;#26576;&amp;#20010;&amp;#29992;&amp;#25143;&amp;#25191;&amp;#34892;&amp;#36164;&amp;#28304;(mem/cpu)&amp;#20351;&amp;#29992;&amp;#25511;&amp;#21046;,&amp;#38450;&amp;#27490;&amp;#20854;&amp;#21344;&amp;#29992;&amp;#36807;&amp;#22810;&amp;#36164;&amp;#28304;&amp;#21345;&amp;#20303;&amp;#20854;&amp;#20182;job&lt;/span&gt;
+&lt;span style=&quot;color: #2aa1ae;&quot;&gt; * 2 ) &amp;#21019;&amp;#24314;&amp;#20219;&amp;#21153;&lt;/span&gt;
+&lt;span style=&quot;color: #2aa1ae;&quot;&gt; * Created by xkwu on 2017/1/17.&lt;/span&gt;
+&lt;span style=&quot;color: #2aa1ae;&quot;&gt; */&lt;/span&gt;
+&lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;public&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;class&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;CustomExecuteWithHookContext&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;implements&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;ExecuteWithHookContext&lt;/span&gt; &lt;span style=&quot;color: #4f97d7;&quot;&gt;{&lt;/span&gt;
+    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;private&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;static&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;final&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Log&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;LOG&lt;/span&gt; = LogFactory.getLog&lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;CustomExecuteWithHookContext.&lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;class&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;)&lt;/span&gt;;
+    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;private&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;static&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;TailerTracker&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;tailerTracker&lt;/span&gt; = &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;new&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;TailerTracker&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;()&lt;/span&gt;;
+
+    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;static&lt;/span&gt; &lt;span style=&quot;color: #bc6ec5;&quot;&gt;{&lt;/span&gt;
+        tailerTracker.start&lt;span style=&quot;color: #2d9574;&quot;&gt;()&lt;/span&gt;;
+    &lt;span style=&quot;color: #bc6ec5;&quot;&gt;}&lt;/span&gt;
+    &lt;span style=&quot;color: #a45bad;&quot;&gt;@Override&lt;/span&gt;
+    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;public&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color: #bc6ec5; font-weight: bold;&quot;&gt;run&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;HookContext&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;hookContext&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;throws&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Exception&lt;/span&gt; &lt;span style=&quot;color: #bc6ec5;&quot;&gt;{&lt;/span&gt;
+        &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;try&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;{&lt;/span&gt;
+        &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;UserGroupInformation&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;ugi&lt;/span&gt; = hookContext.getUgi&lt;span style=&quot;color: #67b11d;&quot;&gt;()&lt;/span&gt;;
+        hookContext.getConf&lt;span style=&quot;color: #67b11d;&quot;&gt;()&lt;/span&gt;.set&lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;mapreduce.job.queuename&quot;&lt;/span&gt;, ugi.getUserName&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt;;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;1)&amp;#20462;&amp;#25913;queuename&lt;/span&gt;
+
+            &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;QueryPlan&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;queryPlan&lt;/span&gt; = hookContext.getQueryPlan&lt;span style=&quot;color: #67b11d;&quot;&gt;()&lt;/span&gt;;
+            &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;int&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;jobs&lt;/span&gt; = Utilities.getMRTasks&lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;queryPlan.getRootTasks&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt;.size&lt;span style=&quot;color: #67b11d;&quot;&gt;()&lt;/span&gt;;
+            &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;jobs &amp;gt; &lt;span style=&quot;color: #a45bad;&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #67b11d;&quot;&gt;{&lt;/span&gt;
+                &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;String&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;histFileName&lt;/span&gt; = SessionState.get&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;.getHiveHistory&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;.getHistFileName&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;;
+                tailerTracker.track&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;hookContext.getUserName&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt;, histFileName&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt;;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;//&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;2)&amp;#21019;&amp;#24314;&amp;#30417;&amp;#25511;HiveHistory&amp;#30340;listener&lt;/span&gt;
+            &lt;span style=&quot;color: #67b11d;&quot;&gt;}&lt;/span&gt;
+        &lt;span style=&quot;color: #2d9574;&quot;&gt;}&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;catch&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Exception&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;e&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;{&lt;/span&gt;
+            LOG.error&lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;e.getMessage&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;, e&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt;;
+        &lt;span style=&quot;color: #2d9574;&quot;&gt;}&lt;/span&gt;
+    &lt;span style=&quot;color: #bc6ec5;&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #4f97d7;&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-orgd43cf03&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;orgd43cf03&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;3.2.2&lt;/span&gt; AbstractSemanticAnalyzerHook&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-3-2-2&quot;&gt;
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;禁止drop databases,create databases等操作&lt;/li&gt;
+&lt;li&gt;将创建未压缩table的语句以邮件的形式发送给管理员&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-java&quot;&gt;&lt;span style=&quot;color: #2aa1ae;&quot;&gt;/**&lt;/span&gt;
+&lt;span style=&quot;color: #2aa1ae;&quot;&gt; *&lt;/span&gt;
+&lt;span style=&quot;color: #2aa1ae;&quot;&gt; * &amp;#20027;&amp;#35201;&amp;#29992;&amp;#20110;&amp;#36807;&amp;#28388;&amp;#20986;&amp;#21019;&amp;#24314;&amp;#34920;,&amp;#21364;&amp;#19981;&amp;#25351;&amp;#23450;&amp;#37319;&amp;#29992;&amp;#21387;&amp;#32553;&amp;#26684;&amp;#24335;.&lt;/span&gt;
+&lt;span style=&quot;color: #2aa1ae;&quot;&gt; * &amp;#20415;&amp;#20110;&amp;#25105;&amp;#20204;&amp;#21450;&amp;#26102;&amp;#36319;&amp;#36827;&amp;#25351;&amp;#23548;&amp;#19994;&amp;#21153;&amp;#26041;&amp;#20462;&amp;#27491;&lt;/span&gt;
+&lt;span style=&quot;color: #2aa1ae;&quot;&gt; *&lt;/span&gt;
+&lt;span style=&quot;color: #2aa1ae;&quot;&gt; * Created by xkwu on 2017/1/18.&lt;/span&gt;
+&lt;span style=&quot;color: #2aa1ae;&quot;&gt; */&lt;/span&gt;
+&lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;public&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;class&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;CustomSemanticAnalyzerHook&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;extends&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;AbstractSemanticAnalyzerHook&lt;/span&gt; &lt;span style=&quot;color: #4f97d7;&quot;&gt;{&lt;/span&gt;
+    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;private&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;static&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;final&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Log&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;LOG&lt;/span&gt; = LogFactory.getLog&lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;CustomSemanticAnalyzerHook.&lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;class&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;)&lt;/span&gt;;
+    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;private&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Pattern&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;pattern&lt;/span&gt; = Pattern.compile&lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;(STORED\\s+?AS\\s+?)(parquet|rcfile|orcfile|orc)&quot;&lt;/span&gt;, &lt;span style=&quot;color: #a45bad;&quot;&gt;Pattern&lt;/span&gt;.CASE_INSENSITIVE&lt;span style=&quot;color: #bc6ec5;&quot;&gt;)&lt;/span&gt;;   &lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;// &lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;&amp;#27491;&amp;#21017;&amp;#21305;&amp;#37197;&amp;#37319;&amp;#29992;&amp;#20102;&amp;#21387;&amp;#32553;&amp;#23384;&amp;#20648;&amp;#26684;&amp;#24335;&amp;#30340;&amp;#34920;scheme&lt;/span&gt;
+
+    &lt;span style=&quot;color: #a45bad;&quot;&gt;@Override&lt;/span&gt;
+    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;public&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;ASTNode&lt;/span&gt; &lt;span style=&quot;color: #bc6ec5; font-weight: bold;&quot;&gt;preAnalyze&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;HiveSemanticAnalyzerHookContext&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;context&lt;/span&gt;,
+                              &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;ASTNode&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;ast&lt;/span&gt;&lt;span style=&quot;color: #bc6ec5;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;throws&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;SemanticException&lt;/span&gt; &lt;span style=&quot;color: #bc6ec5;&quot;&gt;{&lt;/span&gt;
+        &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;switch&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;ast.getToken&lt;span style=&quot;color: #67b11d;&quot;&gt;()&lt;/span&gt;.getType&lt;span style=&quot;color: #67b11d;&quot;&gt;()&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;{&lt;/span&gt;
+            &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;case&lt;/span&gt; &lt;span style=&quot;color: #a45bad;&quot;&gt;HiveParser&lt;/span&gt;.TOK_CREATETABLE:
+                &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;Matcher&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;m&lt;/span&gt; = pattern.matcher&lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;context.getCommand&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt;;
+                &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #a45bad;&quot;&gt;!&lt;/span&gt;m.find&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #67b11d;&quot;&gt;{&lt;/span&gt;
+                    LOG.info&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;context.getUserName&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt; + &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;&amp;#25191;&amp;#34892;&amp;#20102;&amp;#25805;&amp;#20316;: &quot;&lt;/span&gt; + context.getCommand&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt;&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt;;
+                    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;new&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;EmailThread&lt;/span&gt;&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;/hive/notifyAboutCreateTable&quot;&lt;/span&gt;, &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;cmd=&quot;&lt;/span&gt; + context.getCommand&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt; + &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;&amp;amp;groupCode=&quot;&lt;/span&gt; + context.getUserName&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt;&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt;.start&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;;
+                &lt;span style=&quot;color: #67b11d;&quot;&gt;}&lt;/span&gt;
+                &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;break&lt;/span&gt;;
+            &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;case&lt;/span&gt; &lt;span style=&quot;color: #a45bad;&quot;&gt;HiveParser&lt;/span&gt;.TOK_CREATEDATABASE:
+            &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;case&lt;/span&gt; &lt;span style=&quot;color: #a45bad;&quot;&gt;HiveParser&lt;/span&gt;.TOK_DROPDATABASE:
+                &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;String&lt;/span&gt; &lt;span style=&quot;color: #7590db;&quot;&gt;adminAccount&lt;/span&gt; = ConfigUtils.prop.getProperty&lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;ADMIN_ACCOUNT&quot;&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt;;
+                &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;StringUtils.isEmpty&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;context.getUserName&lt;span style=&quot;color: #4f97d7;&quot;&gt;()&lt;/span&gt;&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt; || &lt;span style=&quot;color: #a45bad;&quot;&gt;!&lt;/span&gt;context.getUserName&lt;span style=&quot;color: #b1951d;&quot;&gt;()&lt;/span&gt;.equals&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;adminAccount&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color: #67b11d;&quot;&gt;{&lt;/span&gt;
+                    &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;throw&lt;/span&gt; &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;new&lt;/span&gt; &lt;span style=&quot;color: #ce537a; font-weight: bold;&quot;&gt;SemanticException&lt;/span&gt;&lt;span style=&quot;color: #b1951d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;Only the admin accounts of ddw bigdata platform can create/drop database.&quot;&lt;/span&gt;&lt;span style=&quot;color: #b1951d;&quot;&gt;)&lt;/span&gt;;
+                &lt;span style=&quot;color: #67b11d;&quot;&gt;}&lt;/span&gt;
+                &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;break&lt;/span&gt;; 
+            &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;default&lt;/span&gt;:
+                &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;break&lt;/span&gt;;
+        &lt;span style=&quot;color: #2d9574;&quot;&gt;}&lt;/span&gt;
+        &lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;return&lt;/span&gt; ast;
+    &lt;span style=&quot;color: #bc6ec5;&quot;&gt;}&lt;/span&gt;
+&lt;span style=&quot;color: #4f97d7;&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Hive整合Sentry和OpenLDAP</title>
+   <link href="https://github.com/coldvmoon/coldvmoon.github.io/integrate-hive-with-sentry-and-openldap.html"/>
+   <updated>2017-03-08T00:00:00+00:00</updated>
+   <id>https://github.com/coldvmoon/coldvmoon.github.io/integrate-hive-with-sentry-and-openldap</id>
+   <content type="html">&lt;div id=&quot;outline-container-orgc30f243&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;orgc30f243&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; 安装OpenLDAP&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;使用yum安装OpenLdap&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-sh&quot;&gt;sudo yum install -y openldap openldap-servers openldap-clients
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;复制文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-sh&quot;&gt;sudo cp /usr/share/openldap-servers/slapd.conf.obsolete /etc/openldap/slapd.conf
+sudo cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
+sudo mv /etc/openldap/slapd.d&lt;span style=&quot;color: #4f97d7;&quot;&gt;{&lt;/span&gt;,.bak&lt;span style=&quot;color: #4f97d7;&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;修改配置文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-sh&quot;&gt;sudo vim /etc/openldap/slapd.conf
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;修改前&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../images/2017-03-09_11-16-32.jpg&quot; alt=&quot;2017-03-09_11-16-32.jpg&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;ul class=&quot;org-ul&quot;&gt;
+&lt;li&gt;修改后&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../images/2017-03-09_11-17-32.jpg&quot; alt=&quot;2017-03-09_11-17-32.jpg&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;
+&lt;b&gt;suffix:&lt;/b&gt; 是根域
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;b&gt;rootdn:&lt;/b&gt; 是管理员所在位置
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;b&gt;rootpw:&lt;/b&gt; 是管理员密码，可以是明文（本示例为：secret），也可以是加密的（如 rootpw {SSHA}NXV9Fl28qCHMmA6P sjhVX0uejTKE6OYr）
+&lt;/p&gt;
+
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;分配目录权限&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-sh&quot;&gt;sudo chown ldap.ldap /etc/openldap/*
+sudo chown ldap.ldap /var/lib/ldap/*
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;启动sladp,启动后的389端口就是默认端口。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-sh&quot;&gt;sudo service slapd start
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../images/2017-03-09_11-26-32.jpg&quot; alt=&quot;2017-03-09_11-26-32.jpg&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;新建文件example.ldif&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&quot;example&quot;&gt;
+dn:dc=example,dc=com
+objectclass:dcObject
+objectclass:organization
+o:Example, Inc.
+dc:example
+dn:cn=Manager,dc=example,dc=com
+objectclass:organizationalRole
+cn:Manager
+&lt;/pre&gt;
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;导入example.ldif&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-sh&quot;&gt;ldapadd -x -W -D &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;cn=Manager,dc=example,dc=com&quot;&lt;/span&gt; -f example.ldif
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;输入刚设置的 &lt;b&gt;rootpw&lt;/b&gt; 的密码&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../images/2017-03-09_11-36-32.jpg&quot; alt=&quot;2017-03-09_11-36-32.jpg&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;查询已经导入的数据&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-sh&quot;&gt;ldapsearch -x -b &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;dc=example,dc=com&quot;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../images/2017-03-09_11-56-32.jpg&quot; alt=&quot;2017-03-09_11-56-32.jpg&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;outline-container-org4392cda&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;org4392cda&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;2&lt;/span&gt; Sentry整合OpenLDAP&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-2&quot;&gt;
+&lt;p&gt;
+照着cloudera官方文档来&lt;a href=&quot;http://www.cloudera.com/documentation/enterprise/5-2-x/topics/cdh_sg_hiveserver2_security.html&quot;&gt;&lt;a href=&quot;http://www.cloudera.com/documentation/enterprise/5-2-x/topics/cdh_sg_hiveserver2_security.html&quot;&gt;http://www.cloudera.com/documentation/enterprise/5-2-x/topics/cdh_sg_hiveserver2_security.html&lt;/a&gt;&lt;/a&gt;
+&lt;/p&gt;
+
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../images/2017-03-09_11-66-32.jpg&quot; alt=&quot;2017-03-09_11-66-32.jpg&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;配置HiveServer2的参数&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../images/2017-03-09_13-66-32.jpg&quot; alt=&quot;2017-03-09_13-66-32.jpg&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;重新启动hive，使用beeline登录，使用一个错误的账号和密码（因为还木有正确的账号）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../images/2017-03-09_14-66-32.jpg&quot; alt=&quot;2017-03-09_14-66-32.jpg&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;可以看见登录被拒绝了，查看日志&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-sh&quot;&gt;tail -f /var/log/hive/hadoop-cmf-hive-HIVESERVER2-quickstart.cloudera.log.out
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;问题来了，什么才是正确的用户名和密码呢？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+官方cloudera的文档是这样写的
+&lt;img src=&quot;../images/2017-03-09_15-66-32.jpg&quot; alt=&quot;2017-03-09_15-66-32.jpg&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;b&gt;LDAP&lt;sub&gt;Userid&lt;/sub&gt;&lt;/b&gt; 和 &lt;b&gt;LDAP&lt;sub&gt;Password&lt;/sub&gt;&lt;/b&gt; 这个是个什么鬼？对应OpenLdap里面的什么？
+其实这个可以在Hive的源码中看到一个hook，是关于和ldap集成的。
+&lt;/p&gt;
+
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;直接来结果吧！按照前面的方法再导入一条数据&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&quot;example&quot;&gt;
+dn: uid=testuid,cn=Manager,dc=example,dc=com
+objectClass: organizationalRole
+objectClass: posixAccount
+uid: testuid
+cn: testcn
+gidNumber: 11
+uidNumber: 123
+homeDirectory: wer
+&lt;/pre&gt;
+
+&lt;p&gt;
+其中的 &lt;b&gt;uid&lt;/b&gt; 就是用户名
+&lt;/p&gt;
+
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;为刚创建的数据添加密码&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-sh&quot;&gt;ldappasswd -x -D &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;cn=Manager,dc=example,dc=com&quot;&lt;/span&gt; -w secret &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;uid=testuid,cn=Manager,dc=example,dc=com&quot;&lt;/span&gt; -S
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ol class=&quot;org-ol&quot;&gt;
+&lt;li&gt;已经可以登录了&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../images/2017-03-09_15-66-33.jpg&quot; alt=&quot;2017-03-09_15-66-33.jpg&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;outline-container-orgc113fde&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;orgc113fde&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;3&lt;/span&gt; 参考链接&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-3&quot;&gt;
+&lt;p&gt;
+&lt;a href=&quot;https://my.oschina.net/5lei/blog/193484&quot;&gt;centos6.4安装配置LDAP服务&lt;/a&gt;
+&lt;a href=&quot;https://www.cloudera.com/documentation/enterprise/5-2-x/topics/cdh_sg_hiveserver2_security.html&quot;&gt;Cloudera Documention&lt;/a&gt;
+&lt;/p&gt;
+
+
+&lt;p class=&quot;verse&quot;&gt;
+Great clouds overhead
+Tiny black birds rise and fall
+Snow covers Emacs
+
+
+&amp;#xa0;&amp;#xa0;&amp;#xa0;&amp;#xa0;&amp;#x2013; AlexSchroeder
+&lt;/p&gt;
+
+&lt;p&gt;
+quotations in Org mode documents like this:
+&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;
+Everything should be made as simple as possible,
+but not any simpler &amp;#x2013; Albert Einstein
+&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr /&gt;
+&lt;div class=&quot;org-center&quot;&gt;
+&lt;p&gt;
+Everything should be made as simple as possible, &lt;br /&gt;
+but not any simpler
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- This HTML table template is generated by emacs 25.1.1 --&gt;
+&lt;table border=&quot;1&quot;&gt;
+  &lt;tr&gt;
+    &lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Command&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+    &lt;/td&gt;
+    &lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Description&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+    &lt;/td&gt;
+    &lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;Key&amp;nbsp;Binding&amp;nbsp;&amp;nbsp;&amp;nbsp;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;
+      &amp;nbsp;&amp;nbsp;forward-char&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+    &lt;/td&gt;
+    &lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;
+      Move&amp;nbsp;point&amp;nbsp;right&amp;nbsp;N&amp;nbsp;characters&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;br /&gt;
+      (left&amp;nbsp;if&amp;nbsp;N&amp;nbsp;is&amp;nbsp;negative).&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+    &lt;/td&gt;
+    &lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;C-f&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;
+      &amp;nbsp;&amp;nbsp;backward-char&amp;nbsp;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+    &lt;/td&gt;
+    &lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;
+      Move&amp;nbsp;point&amp;nbsp;left&amp;nbsp;N&amp;nbsp;characters&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;br /&gt;
+      (right&amp;nbsp;if&amp;nbsp;N&amp;nbsp;is&amp;nbsp;negative).&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+    &lt;/td&gt;
+    &lt;td align=&quot;left&quot; valign=&quot;top&quot;&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;C-b&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>常用网站和工具</title>
+   <link href="https://github.com/coldvmoon/coldvmoon.github.io/website.html"/>
+   <updated>2015-07-15T00:00:00+00:00</updated>
+   <id>https://github.com/coldvmoon/coldvmoon.github.io/website</id>
+   <content type="html">&lt;p&gt;
+It was early January when six of us travelled up to &amp;#x2026;.
+&lt;/p&gt;
+&lt;div id=&quot;outline-container-org98ab877&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;org98ab877&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;1&lt;/span&gt; 常访问网站&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org520cd4e&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;org520cd4e&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.1&lt;/span&gt; 资讯&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;news&quot;&gt;news&lt;/span&gt;&lt;/span&gt;&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org1ba58ab&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org1ba58ab&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;1.1.1&lt;/span&gt; 经济&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;economic&quot;&gt;economic&lt;/span&gt;&lt;/span&gt;&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-1-1-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-orgbe171c4&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;orgbe171c4&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.1.1.1&lt;/span&gt; &lt;a href=&quot;http://www.ftchinese.com/&quot;&gt;FT中文网&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-orgf940f68&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;orgf940f68&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;1.1.2&lt;/span&gt; knowledge&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-1-1-2&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org696d399&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;org696d399&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.1.2.1&lt;/span&gt; &lt;a href=&quot;https://news.ycombinator.com/&quot;&gt;Hacker News&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-orga7be423&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;orga7be423&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.1.2.2&lt;/span&gt; &lt;a href=&quot;https://www.reddit.com&quot;&gt;Reddit&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-orgd4b1e13&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;orgd4b1e13&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;1.1.3&lt;/span&gt; thechnic&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-1-1-3&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org6a52d2e&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;org6a52d2e&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.1.3.1&lt;/span&gt; &lt;a href=&quot;https://www.webcodegeeks.com/&quot;&gt;Web Code Geeks&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-orgca28261&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;orgca28261&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.1.3.2&lt;/span&gt; &lt;a href=&quot;https://www.javacodegeeks.com/&quot;&gt;Java Code geeks&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-orgfe1b78b&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;orgfe1b78b&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;1.1.4&lt;/span&gt; app&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;app&quot;&gt;app&lt;/span&gt;&lt;/span&gt;&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-1-1-4&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-orgb554502&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;orgb554502&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.1.4.1&lt;/span&gt; &lt;a href=&quot;https://sspai.com/&quot;&gt;少数派&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-orgcee5ecf&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;orgcee5ecf&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.2&lt;/span&gt; 技术类&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;technic&quot;&gt;technic&lt;/span&gt;&lt;/span&gt;&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-2&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org4c4bf24&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org4c4bf24&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;1.2.1&lt;/span&gt; emacs&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;emacs&quot;&gt;emacs&lt;/span&gt;&lt;/span&gt;&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-1-2-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org681fcd6&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;org681fcd6&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.2.1.1&lt;/span&gt; &lt;a href=&quot;http://doc.norang.ca/org-mode.html&quot;&gt;Organize Your Life In Plain Text!&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-org8d51b70&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;org8d51b70&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.2.1.2&lt;/span&gt; &lt;a href=&quot;https://sourceforge.net/projects/emacsbinw64/?source=directory&quot;&gt;64-Bit GNU Emacs for MS Windows with optimization&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-org1d2b700&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org1d2b700&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;1.2.2&lt;/span&gt; crack&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;crack&quot;&gt;crack&lt;/span&gt;&lt;/span&gt;&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-1-2-2&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-orgffb61d3&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;orgffb61d3&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.2.2.1&lt;/span&gt; &lt;a href=&quot;http://www.52pojie.cn/&quot;&gt;吾爱破解&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-org211f610&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;org211f610&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.3&lt;/span&gt; 见识类&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-3&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org413db26&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org413db26&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;1.3.1&lt;/span&gt; 记录片&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-1-3-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org7873850&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;org7873850&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.3.1.1&lt;/span&gt; &lt;a href=&quot;http://www.onehourlife.com/&quot;&gt;每天一小时记录片&lt;/a&gt;&lt;/h5&gt;
+&lt;div class=&quot;outline-text-5&quot; id=&quot;text-1-3-1-1&quot;&gt;
+&lt;pre class=&quot;example&quot;&gt;
+获取vip的下载地址http://www.onehourlife.com/wp-content/plugins/erphpdown/download.php?postid=12466
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-org8f2118d&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org8f2118d&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;1.3.2&lt;/span&gt; 书画&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-1-3-2&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org1016c1d&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;org1016c1d&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.3.2.1&lt;/span&gt; &lt;a href=&quot;https://www.google.com/culturalinstitute/beta/u/0/&quot;&gt;Google Arts&amp;amp;Culture(欧美画作)&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-org4706bd8&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;org4706bd8&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.3.2.2&lt;/span&gt; &lt;a href=&quot;https://shuge.org/&quot;&gt;书格(中国古字画)&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-org032d64b&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;org032d64b&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;1.4&lt;/span&gt; 英语类&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;english&quot;&gt;english&lt;/span&gt;&lt;/span&gt;&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-1-4&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org244d964&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org244d964&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;1.4.1&lt;/span&gt; etymology&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;etymology&quot;&gt;etymology&lt;/span&gt;&lt;/span&gt;&lt;/h4&gt;
+&lt;div class=&quot;outline-text-4&quot; id=&quot;text-1-4-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-orgfddd276&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;orgfddd276&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.4.1.1&lt;/span&gt; &lt;a href=&quot;http://www.etymonline.com/&quot;&gt;Online Etymology Dictionary&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-org9fcbfb7&quot; class=&quot;outline-5&quot;&gt;
+&lt;h5 id=&quot;org9fcbfb7&quot;&gt;&lt;span class=&quot;section-number-5&quot;&gt;1.4.1.2&lt;/span&gt; &lt;a href=&quot;http://www.youdict.com&quot;&gt;优词词典&lt;/a&gt;&lt;/h5&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-org75f1b20&quot; class=&quot;outline-2&quot;&gt;
+&lt;h2 id=&quot;org75f1b20&quot;&gt;&lt;span class=&quot;section-number-2&quot;&gt;2&lt;/span&gt; 有用工具&lt;/h2&gt;
+&lt;div class=&quot;outline-text-2&quot; id=&quot;text-2&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org0f14a16&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;org0f14a16&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;2.1&lt;/span&gt; chrome&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;chrome&quot;&gt;chrome&lt;/span&gt;&lt;/span&gt;&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-2-1&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-org5504529&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;org5504529&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;2.1.1&lt;/span&gt; Tampermonkey&lt;/h4&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-orge4fda48&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;orge4fda48&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;2.2&lt;/span&gt; download&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;download&quot;&gt;download&lt;/span&gt;&lt;/span&gt;&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-2-2&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-orgb727e12&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;orgb727e12&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;2.2.1&lt;/span&gt; IDM&lt;/h4&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-org1732e26&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;org1732e26&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;2.3&lt;/span&gt; math&amp;#xa0;&amp;#xa0;&amp;#xa0;&lt;span class=&quot;tag&quot;&gt;&lt;span class=&quot;math&quot;&gt;math&lt;/span&gt;&lt;/span&gt;&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-2-3&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-orgf530234&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;orgf530234&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;2.3.1&lt;/span&gt; &lt;a href=&quot;http://www.wolframalpha.com/&quot;&gt;Wolfram Alpha&lt;/a&gt;&lt;/h4&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;outline-container-org3ea891c&quot; class=&quot;outline-3&quot;&gt;
+&lt;h3 id=&quot;org3ea891c&quot;&gt;&lt;span class=&quot;section-number-3&quot;&gt;2.4&lt;/span&gt; crack&lt;/h3&gt;
+&lt;div class=&quot;outline-text-3&quot; id=&quot;text-2-4&quot;&gt;
+&lt;/div&gt;&lt;div id=&quot;outline-container-orgd73e6d2&quot; class=&quot;outline-4&quot;&gt;
+&lt;h4 id=&quot;orgd73e6d2&quot;&gt;&lt;span class=&quot;section-number-4&quot;&gt;2.4.1&lt;/span&gt; Cheat Engine&lt;/h4&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content>
+ </entry>
+ 
 
 </feed>
