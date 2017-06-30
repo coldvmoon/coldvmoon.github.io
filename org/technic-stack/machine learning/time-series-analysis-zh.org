@@ -1,0 +1,100 @@
+#+TITLE: 基于时间序列的异常检测
+* 系统目标
+发现监控数据中存在的异常波动
+* 算法及其原理(经典的移动平均分解时序)
+** 原理
+时间序列通常可以分解为三部分
++ 趋势 :: 存在于时间序列数据中上升或下降趋势。
++ 周期 :: 存在于时间序列数据中周期性的变化。
++ 残差值 :: 真实数据与模型的偏差值。
+   
+   
+假设观测数据的长度为 $\mathbf{n}$ ，则观测数据值为 $\mathbf{X=(x_1,x_2,\ldots,x_n)}$ ,趋势值为 $\mathbf{D=(d_1,d_2,\ldots,d_n)}$ ，周期值为 $\mathbf{S=(s_1,s_2,\ldots,s_n)}$ ，残差值为 $\mathbf{R=(r_1,r_2,\ldots,r_n)}$ 。
+
+基于加法关系，则有：
+$$\mathbf{Y}=\mathbf{T}+\mathbf{S}+\mathbf{R}$$
+
+基于乘法关系，则有：
+$$\mathbf{Y}=\mathbf{T}*\mathbf{S}*\mathbf{R}$$
+** 求解过程
+1. 基于观测数据可以人工获得时间序列周期 $\mathrm{p}$ ，比如周、季度、年的周期。
+2. 对于任意 $\mathrm{t\in[1,n]}$ 时刻的 $\mathrm{p}$ 阶 MA(Moving Averages) ，可以得到趋势 $$\mathbf{d_t={\sum_{i=0}^p x_{t-i} \over p}}$$ 
+3. 已知用于训练的观测数据长度为 $\mathrm{n}$ ，则有效的观测周期个数 $\mathrm{w=\lfloor n \div p \rfloor}$
+4. 周期序列 $$\mathbf{S(s_1,s_2,\ldots,s_p)=S({\sum_{i=1}^w (x_{1+i}-d_{1+i}) \over w},{\sum_{i=1}^w (x_{2+i}-d_{2+i}) \over w},\ldots,{\sum_{i=1}^w (x_{p+i}-d_{p+i}) \over w})}$$
+5. 残差值 $$\mathbf{R=X-D-S}$$
+6. 根据残差值分布判断是否某时刻存在异常波动。
+** R 实现代码
+#+BEGIN_SRC R
+  function (x, type = c("additive", "multiplicative"), filter = NULL) 
+  {
+    type <- match.arg(type)
+    l <- length(x)
+    f <- frequency(x)
+    if (f <= 1 || length(na.omit(x)) < 2 * f) 
+      stop("time series has no or less than 2 periods")
+    if (is.null(filter)) 
+      filter <- if (!f%%2) 
+        c(0.5, rep_len(1, f - 1), 0.5)/f
+      else rep_len(1, f)/f
+    trend <- filter(x, filter)
+    season <- if (type == "additive") 
+      x - trend
+    else x/trend
+    periods <- l%/%f
+    index <- seq.int(1L, l, by = f) - 1L
+    figure <- numeric(f)
+    for (i in 1L:f) figure[i] <- mean(season[index + i], na.rm = TRUE)
+    figure <- if (type == "additive") 
+      figure - mean(figure)
+    else figure/mean(figure)
+    seasonal <- ts(rep(figure, periods + 1)[seq_len(l)], start = start(x), 
+      frequency = f)
+    structure(list(x = x, seasonal = seasonal, trend = trend, 
+      random = if (type == "additive") x - seasonal - trend else x/seasonal/trend, 
+      figure = figure, type = type), class = "decomposed.ts")
+  }
+#+END_SRC
+** 运算结果
+[[file:time-series-decompose.png]]
+* 架构设计
+#+BEGIN_SRC plantuml :file anomaly-detection-architecture.png  :cmdline -charset UTF-8
+  skinparam backgroundColor #EEEBDC
+  skinparam handwritten true
+  !pragma horizontalLineBetweenDifferentPackageAllowed
+  skinparam sequence {
+  ArrowColor DeepSkyBlue
+  ActorBorderColor DeepSkyBlue
+  LifeLineBorderColor blue
+  LifeLineBackgroundColor #A9DCDF
+  ParticipantBorderColor DeepSkyBlue
+  ParticipantBackgroundColor DodgerBlue
+  ParticipantFontName Impact
+  ParticipantFontSize 17
+  ParticipantFontColor #A9DCDF
+  ActorBackgroundColor aqua
+  ActorFontColor DeepSkyBlue
+  ActorFontSize 17
+  ActorFontName Aapex
+  }
+  title 异常检测架构
+  artifact DMC as dmc
+  cloud kafka 
+  package "Anomaly Detection" {
+  queue 实时计算 as processing
+  node 报警模块 as alert
+  database AnomalyDB as db
+  database 模型库 as model
+  } 
+  dmc -> kafka:实时数据
+  kafka -> processing:实时数据
+  dmc .> model:训练数据
+  processing --> alert
+  model ..> processing
+  processing ..> db
+  alert .> db  
+  actor 管理员 as admin
+  alert ..> admin
+#+END_SRC
+
+#+RESULTS:
+[[file:anomaly-detection-architecture.png]]
